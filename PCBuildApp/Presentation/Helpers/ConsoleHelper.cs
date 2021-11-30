@@ -46,7 +46,7 @@ namespace Presentation.Helpers
             stringToChange=stringToChange.Insert(0, letter);
             return stringToChange;
         }
-        static bool ForbiddenStringChecker(string stringBeingChecked, string forbiddenString)
+        public static bool ForbiddenStringChecker(string stringBeingChecked, string forbiddenString)
         {
             foreach (var character in forbiddenString)
             {

@@ -8,45 +8,62 @@ namespace Presentation.Helpers
 {
     public class PrintHelpers
     {
-       public static void PrintStepsDone(int number)
+       public static void PrintComponentsMenu(int number)
         {
-            if(number >= 8)
+            bool hasAllInputs = false;
+            if (number == 15) 
             {
-                ConsoleHelper.Green("Odabir komponenti:");
+                hasAllInputs = true;
+            }
+
+            if (number >= 8)
+            {
+                ConsoleHelper.Green("1 - Odabir Procesora\n");
                 number -= 8;
             }
             else
             {
-                Console.WriteLine("Odabir komponenti:");
+                Console.Write("1 - Odabir Procesora\n");
             }
 
             if(number >= 4)
             {
-                ConsoleHelper.Green("drugo:");
+                ConsoleHelper.Green("2 - Odabir RAM memorije\n");
                 number -= 4;
             }
             else
             {
-                Console.WriteLine("drugo:");
+                Console.Write("2 - Odabir RAM memorije\n");
             }
 
             if (number >= 2)
             {
-                ConsoleHelper.Green("trece:");
+                ConsoleHelper.Green("3 - Odabir hard diska\n");
                 number -= 2;
             }
             else
             {
-                Console.WriteLine("trece:");
+                Console.Write("3 - Odabir hard diska\n");
             }
+
             if (number >= 1)
             {
-                ConsoleHelper.Green("cetri:");
+                ConsoleHelper.Green("4 - Odabir kučišta\n");
             }
             else
             {
-                Console.WriteLine("cetri:");
+                Console.Write("4 - Odabir kučišta\n");
             }
+
+            if (hasAllInputs)
+            {
+                Console.Write("5 - Nastavak prema plačanju\n");
+            }
+            else
+            {
+                ConsoleHelper.Red("5 - Nastavak prema plačanju\n");
+            }
+            Console.WriteLine();
         }
     }
 }

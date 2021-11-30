@@ -6,23 +6,31 @@ namespace Presentation
     class Program
     {
         static void Main()
-        { 
+        {
 
+            GetComponent();
+            
+        }
+
+        static void GetComponent()
+        {
             int numberOfStepsDone = 0;
-            while (numberOfStepsDone < 15)
+            while (numberOfStepsDone <= 15)
             {
-                PrintHelpers.PrintStepsDone(numberOfStepsDone);
-                Console.WriteLine("sto zelite:");
-                var choice = Console.ReadLine();
+                Console.WriteLine(numberOfStepsDone);
+                PrintHelpers.PrintComponentsMenu(numberOfStepsDone);
+                Console.WriteLine(numberOfStepsDone);
+                var choice = (Enums.ComponentsChoice)InputHelpers.UserNumberInput("vaš izbor", 1, 5);
                 switch (choice)
                 {
-                    //number += getComponent();
+                    case Enums.ComponentsChoice.Processor:
+                        {
+                            // numberOfStepsDone = AddComponent();
+                            break;
+                        }
                 }
+                Console.Clear();
             }
-            // ispis komponenti(broj)
-            //broj = funckija
-            //e
-            
         }
     }
 }
