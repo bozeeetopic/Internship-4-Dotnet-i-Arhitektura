@@ -18,7 +18,7 @@ namespace Presentation.Helpers
 
             if (number >= 8)
             {
-                ConsoleHelper.Green("1 - Odabir Procesora\n");
+                ConsoleHelper.Green("1 - Mjenjanje Procesora\n");
                 number -= 8;
             }
             else
@@ -28,7 +28,7 @@ namespace Presentation.Helpers
 
             if(number >= 4)
             {
-                ConsoleHelper.Green("2 - Odabir RAM memorije\n");
+                ConsoleHelper.Green("2 - Mjenjanje RAM memorije\n");
                 number -= 4;
             }
             else
@@ -38,7 +38,7 @@ namespace Presentation.Helpers
 
             if (number >= 2)
             {
-                ConsoleHelper.Green("3 - Odabir hard diska\n");
+                ConsoleHelper.Green("3 - Mjenjanje hard diska\n");
                 number -= 2;
             }
             else
@@ -48,7 +48,7 @@ namespace Presentation.Helpers
 
             if (number >= 1)
             {
-                ConsoleHelper.Green("4 - Odabir kučišta\n");
+                ConsoleHelper.Green("4 - Mjenjanje kučišta\n");
             }
             else
             {

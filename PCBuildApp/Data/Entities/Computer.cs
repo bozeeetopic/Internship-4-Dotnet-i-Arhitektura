@@ -8,10 +8,12 @@ namespace Data.Entities
 {
     public class Computer
     {
-        protected internal RAM RAM;
-        protected internal int RAMAmount;
-        protected internal HardDisk HardDisk;
-        protected internal Processor Processor;
-        protected internal Case Case;
+        public RAM RAM { get; set; }
+        public int RAMAmount { get; set; }
+        public HardDisk HardDisk { get; set; }
+        public Processor Processor { get; set; }
+        public Case ComputerCase { get; set; }
+
+        public override string ToString() => $"Procesor:\t{Processor}\nRAM:\t{RAM}x{RAMAmount}\nHard disk:\t{HardDisk}\nKučište:\t{ComputerCase}";
     }
 }
