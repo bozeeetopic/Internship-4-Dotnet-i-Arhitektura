@@ -57,5 +57,16 @@ namespace Presentation.Helpers
             while (number > maxValue || number < minValue);
             return (int)number;
         }
+
+        public static bool UserConfirmation(string message)
+        {
+            Console.WriteLine(message);
+            var eraseConfirm = Console.ReadLine();
+            if (eraseConfirm is "da")
+            {
+                return true;
+            }
+            return false;
+        }
     }
 }
