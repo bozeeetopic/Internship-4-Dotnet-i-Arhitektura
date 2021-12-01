@@ -16,12 +16,18 @@ namespace Presentation
 
         static void UserLogin()
         {
-            var name = InputHelpers.UserStringInput("ime", "", 1);
-            var surname = InputHelpers.UserStringInput("prezime", "", 1);
-            var adress = InputHelpers.UserStringInput("adresu", "", 1);
+            var name = InputHelpers.UserStringInput("ime", ConsoleHelper.symbols + ConsoleHelper.numbers, 3);
+            var surname = InputHelpers.UserStringInput("prezime", ConsoleHelper.symbols + ConsoleHelper.numbers, 3);
+            var adress = InputHelpers.UserStringInput("adresu", ConsoleHelper.symbols + ConsoleHelper.numbers, 10);
             var adressNumber = InputHelpers.UserNumberInput("adresni broj", 1,99);
             var distance = new Random().Next(50,999);
+            name = ConsoleHelper.FormatWords(name.ToLower());
+            surname = ConsoleHelper.FormatWords(surname.ToLower());
+            adress = ConsoleHelper.FormatWords(adress.ToLower());
+            Console.WriteLine(name +" "+surname + " " + adress + " " + adressNumber + " " + distance);
+            Console.ReadLine();
             SetFunctions.AddUser(name,surname,adress+adressNumber,distance);
+            Console.Clear();
         }
         static void ChooseComponent()
         {
@@ -93,8 +99,11 @@ namespace Presentation
                                 Console.WriteLine("Nemoguće završiti kupnju, nisu sve komponente odabrane!");
                                 break;
                             }
-                            Console.WriteLine("Vaš PC:\n"+GetFunctions.GetPC().ToString());
-                            return;
+                            Console.WriteLine("Vaš PC:\n" + GetFunctions.GetPC().ToString());
+                            if (InputHelpers.UserConfirmation("Ako ste zadovoljni i želite nastaviti prema odabiru načina preuzimanja unesite DA: "))
+                                return;
+                            { }
+                            break;
                         }
                 }
                 Console.WriteLine("ENTER za nastavak");

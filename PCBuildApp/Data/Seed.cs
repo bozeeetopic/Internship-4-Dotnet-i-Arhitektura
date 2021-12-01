@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 namespace Data
 {
     public static class Seed
-    {
+    {   
+        public static Dictionary<User, (List<(Computer, int)>,int,int)> BillsOfUser= new();
         public static User CurrentUser = new();
         public static List<User> Users = new();
         public static Computer Computer = new();

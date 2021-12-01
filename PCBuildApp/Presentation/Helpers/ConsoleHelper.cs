@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Presentation.Helpers
 {
     public class ConsoleHelper
     {
-        const string numbers = "1234567890";
-        const string symbols = " ,.-:;<>!#$%&/()=?*¸¨'";
-        const string letters = "qwertzuiopšđžćčlkjhgfdsayxcvbnm";
+        public const string numbers = "1234567890";
+        public const string symbols = ",.-:;<>!#$%&/()=?*¸¨'";
+        public const string letters = "qwertzuiopšđžćčlkjhgfdsayxcvbnm";
         public static void ClearNumberOfLinesFromConsole(int numberOfLinesToDelete)
         {
-            Console.SetCursorPosition(0, Console.CursorTop - numberOfLinesToDelete);
-            int currentLineCursor = Console.CursorTop;
-            Console.SetCursorPosition(0, Console.CursorTop);
-            Console.Write(new string(' ', Console.WindowWidth));
-            Console.SetCursorPosition(0, currentLineCursor);
+            for(var i = 0; i< numberOfLinesToDelete; i++)
+            {
+                Console.SetCursorPosition(0, Console.CursorTop-i);
+                Console.Write(new string(' ', Console.WindowWidth));
+            }
         }
 
         public static void Red(string input)
@@ -33,17 +34,21 @@ namespace Presentation.Helpers
             Console.ForegroundColor = ConsoleColor.Gray;
         }
 
-        public static string TurnFirstCharacterUppercase(string stringToChange)
+        public static string FormatWords(string stringToChange)
         {
-            var firstLetterNeedNotChange = numbers.Contains(stringToChange[0]) || symbols.Contains(stringToChange[0]) || letters.ToUpper().Contains(stringToChange[0]);
-            if (firstLetterNeedNotChange)
+            stringToChange = StringWithoutExtraSpaces(stringToChange);
+            List<int> spaceLocations = new() { 0};
+            for(var charIndex = 0; charIndex < stringToChange.Length-1; charIndex++)
             {
-                return stringToChange;
+                if(stringToChange[charIndex] == ' ')
+                {
+                    spaceLocations.Add(charIndex+1);
+                }
             }
-            string letter = ""+stringToChange[0];
-            letter = letter.ToUpper();
-            stringToChange= stringToChange.Remove(0, 1);
-            stringToChange=stringToChange.Insert(0, letter);
+            foreach(var index in spaceLocations)
+            {
+                stringToChange =  ChangeCharacterIntoUppercase(stringToChange, index);
+            }
             return stringToChange;
         }
         public static bool ForbiddenStringChecker(string stringBeingChecked, string forbiddenString)
@@ -56,6 +61,48 @@ namespace Presentation.Helpers
                 }
             }
             return false;
+        }
+        public static string StringWithoutExtraSpaces(string stringWithSpaces)
+        {
+            while (stringWithSpaces.Length > 1 && stringWithSpaces[0] == ' ')
+            {
+                stringWithSpaces = stringWithSpaces.Remove(0, 1);
+            }
+            while (stringWithSpaces.Length > 1 && stringWithSpaces[^1] == ' ')
+            {
+                stringWithSpaces = stringWithSpaces.Remove(stringWithSpaces.Length - 1);
+            }
+            RegexOptions options = RegexOptions.None;
+            Regex regex = new("[ \t]{2,}", options);
+            stringWithSpaces = regex.Replace(stringWithSpaces, " ");
+            return stringWithSpaces;
+        }
+        public static string ChangeCharacterIntoUppercase(string stringWithNoUppercase, int index)
+        {
+            try
+            {
+                var firstLetterNeedNotChange = numbers.Contains(stringWithNoUppercase[index]) || symbols.Contains(stringWithNoUppercase[index]) || letters.ToUpper().Contains(stringWithNoUppercase[index]);
+                if (firstLetterNeedNotChange)
+                {
+                    return stringWithNoUppercase;
+                }
+                var letter = "" + stringWithNoUppercase[index];
+                letter = letter.ToUpper();
+            
+                if (stringWithNoUppercase.Length > index + 1)
+                {
+                    stringWithNoUppercase = stringWithNoUppercase.Remove(index, 1);
+                }
+                else
+                {
+                    stringWithNoUppercase = stringWithNoUppercase.Remove(index);
+                }
+                stringWithNoUppercase = stringWithNoUppercase.Insert(index, letter);
+            }
+            catch
+            {
+            }
+            return stringWithNoUppercase;
         }
     }
 }

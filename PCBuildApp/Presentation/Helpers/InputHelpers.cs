@@ -12,22 +12,35 @@ namespace Presentation.Helpers
         {
             var repeatedInput = false;
             var input = "";
+            int linesToDelete = 0;
             do
             {
-                if (repeatedInput && (input.Length < minLength))
+                if (linesToDelete == 3)
+                {
+                    Console.SetCursorPosition(0, Console.GetCursorPosition().Top + 1);
+                }
+                if (linesToDelete != 0)
+                {
+                    ConsoleHelper.ClearNumberOfLinesFromConsole(linesToDelete);
+                    Console.SetCursorPosition(0, Console.GetCursorPosition().Top - 1);
+                }
+                linesToDelete = 1;
+                if (repeatedInput && (input.Trim().Length < minLength))
                 {
                     Console.WriteLine("Duljina " + nameOrSurname + "na mora biti " + minLength + "!");
+                    linesToDelete ++;
                 }
                 if (repeatedInput && ConsoleHelper.ForbiddenStringChecker(input.ToLower(), forbiddenString))
                 {
-                    Console.WriteLine(nameOrSurname + " sadrži znak, moraju biti isključivo brojevi!");
+                    Console.WriteLine("Unos sadrži znak, moraju biti isključivo brojevi!");
+                    linesToDelete ++;
                 }
+               
                 Console.Write("Unesite " + nameOrSurname + ": ");
                 input = Console.ReadLine();
-                Console.WriteLine();
                 repeatedInput = true;
             }
-            while ((input.Length < minLength) || ConsoleHelper.ForbiddenStringChecker(input.ToLower(), forbiddenString));
+            while ((input.Trim().Length < minLength) || ConsoleHelper.ForbiddenStringChecker(input.ToLower(), forbiddenString));
             return input;
         }
         public static int UserNumberInput(string message, int minValue, int maxValue)
@@ -59,9 +72,9 @@ namespace Presentation.Helpers
         }
         public static bool UserConfirmation(string message)
         {
-            Console.WriteLine(message);
+            Console.Write(message);
             var eraseConfirm = Console.ReadLine();
-            if (eraseConfirm is "da")
+            if (eraseConfirm.ToLower() is "da")
             {
                 return true;
             }
