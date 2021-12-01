@@ -9,11 +9,11 @@ namespace Data
 {
     public static class Seed
     {
+        public static User CurrentUser = new();
+        public static List<User> Users = new();
         public static Computer Computer = new();
-        public static Processor Processor { get; set; }
-        public static RAM RAM { get; set; }
-        public static Case Case { get; set; }
-        public static HardDisk HardDisk { get; set; }
+        public static List<(Computer, int)> Order = new();
+        
 
         private static readonly List<Manufacturer> manufacturers = new()
         {

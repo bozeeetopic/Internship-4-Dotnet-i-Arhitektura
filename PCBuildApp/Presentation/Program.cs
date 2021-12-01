@@ -9,15 +9,24 @@ namespace Presentation
     {
         static void Main()
         {
-
-            GetComponent();
-            GetShipmentMethod();
+            UserLogin();
+            ChooseComponent();
+            ChooseShipmentMethod();
         }
 
-        static void GetComponent()
+        static void UserLogin()
+        {
+            var name = InputHelpers.UserStringInput("ime", "", 1);
+            var surname = InputHelpers.UserStringInput("prezime", "", 1);
+            var adress = InputHelpers.UserStringInput("adresu", "", 1);
+            var adressNumber = InputHelpers.UserNumberInput("adresni broj", 1,99);
+            var distance = new Random().Next(50,999);
+            SetFunctions.AddUser(name,surname,adress+adressNumber,distance);
+        }
+        static void ChooseComponent()
         {
             int numberOfStepsDone = 0;
-            do
+            while (numberOfStepsDone <= 15)
             {
                 PrintHelpers.PrintComponentsMenu(numberOfStepsDone);
                 var choice = (Enums.ComponentsChoice)InputHelpers.UserNumberInput("vaš izbor komponente", 1, 5);
@@ -91,11 +100,12 @@ namespace Presentation
                 Console.WriteLine("ENTER za nastavak");
                 Console.ReadLine();
                 Console.Clear();
-            } while (numberOfStepsDone <= 15);
+            }
         }
-        static void GetShipmentMethod()
+        static void ChooseShipmentMethod()
         {
-
+         //   PrintHelpers.PrintShimentMenu();
+         //   var choice = (Enums.ShipmentChoice)InputHelpers.UserNumberInput("način preuzeća", 1, 3);
         }
     }
 }

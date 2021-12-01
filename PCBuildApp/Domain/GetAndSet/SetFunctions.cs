@@ -9,6 +9,20 @@ namespace Domain.GetAndSet
 {
     public class SetFunctions
     {
+        public static void AddUser(string name, string surname, string adress, int distance)
+        {
+            var user = new Data.Entities.User();
+            user.Populate(name,surname,adress,distance);
+            Data.Seed.CurrentUser.Populate(name, surname, adress, distance);
+            if (Data.Seed.Users == null)
+            {
+                Data.Seed.Users.Add(user);
+            }
+            if (!Data.Seed.Users.Contains(user))
+            {
+                Data.Seed.Users.Add(user);
+            }
+        }
         public static int AddProcessor(int userChoice, List<Data.Entities.Processor> processors)
         {
             if(Seed.Computer.Processor==null)
