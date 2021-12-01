@@ -11,17 +11,7 @@ namespace Domain.GetAndSet
     {
         public static void AddUser(string name, string surname, string adress, int distance)
         {
-            var user = new Data.Entities.User();
-            user.Populate(name,surname,adress,distance);
             Data.Seed.CurrentUser.Populate(name, surname, adress, distance);
-            if (Data.Seed.Users == null)
-            {
-                Data.Seed.Users.Add(user);
-            }
-            if (!Data.Seed.Users.Contains(user))
-            {
-                Data.Seed.Users.Add(user);
-            }
         }
         public static int AddProcessor(int userChoice, List<Data.Entities.Processor> processors)
         {
@@ -64,6 +54,15 @@ namespace Domain.GetAndSet
             }
             Seed.Computer.ComputerCase = cases[userChoice];
             return 0;
+        }
+        public static void PutOrderIntoList(int travelPrice)
+        {
+            var order = new Data.Entities.Order
+            {
+                Computer = Data.Seed.Computer,
+                TransportPrice = travelPrice
+            };
+            Data.Seed.Bill.Add(order);
         }
     }
 }

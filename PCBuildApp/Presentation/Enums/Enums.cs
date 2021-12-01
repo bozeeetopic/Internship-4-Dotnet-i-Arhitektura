@@ -14,4 +14,27 @@ namespace Presentation.Enums
         Case = 4,
         Done = 5
     }
+    public enum MainMenuChoice
+    {
+        LogIn = 1,
+        Exit = 2
+    }
+    public enum MainAppChoice
+    {
+        AddOrder = 1,
+        ListOrders = 2,
+        LogOut = 3
+    }
+    public enum OrderChoice
+    {
+        Order = 1,
+        Discount = 2,
+        Bill = 3,
+        Exit = 4
+    }
+    public enum ShipmentChoice
+    {
+        Self = 1,
+        Delivery = 2
+    }
 }

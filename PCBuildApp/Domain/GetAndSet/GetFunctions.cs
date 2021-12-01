@@ -61,5 +61,18 @@ namespace Domain.GetAndSet
         {
             return Data.Seed.Computer;
         }
+        public static List<Data.Entities.Bills> GetUserOrders()
+        {
+            return Data.Seed.BillsOfUser[Data.Seed.CurrentUser];
+        }
+        public static int GetDeliveryPrice()
+        {
+            return (double)Seed.Computer.ComputerWeight() switch
+            {
+                < 3 => (int)(5 * Data.Seed.CurrentUser.Distance / 10),
+                < 10 => (int)(3 * Data.Seed.CurrentUser.Distance / 5),
+                _ => 50 + (int)(10 * Data.Seed.CurrentUser.Distance / 20),
+            };
+        }
     }
 }

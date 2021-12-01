@@ -10,6 +10,6 @@ namespace Data.Entities
     {
         protected internal string Name;
         protected internal double Weight;
-        protected internal double Price;
+        protected internal int Price;
     }
 }

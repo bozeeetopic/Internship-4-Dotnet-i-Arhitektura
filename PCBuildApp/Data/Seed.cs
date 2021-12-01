@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 namespace Data
 {
     public static class Seed
-    {   
-        public static Dictionary<User, (List<(Computer, int)>,int,int)> BillsOfUser= new();
+    {
+        public static int MoneySpent = 0;
+        public static Dictionary<User, List<Bills>> BillsOfUser= new();
         public static User CurrentUser = new();
-        public static List<User> Users = new();
         public static Computer Computer = new();
-        public static List<(Computer, int)> Order = new();
+        public static List<Order> Bill = new();
         
 
         private static readonly List<Manufacturer> manufacturers = new()
@@ -40,6 +40,11 @@ namespace Data
             new Processor { Name = "Still good CPU", ProcessorType = Enums.ProcessorType.Octa, Price = 100, Weight = 0.1, Manufacturer = manufacturers[0] },
             new Processor { Name = "DeGud CPU yes", ProcessorType = Enums.ProcessorType.Octa, Price = 500, Weight = 0.1, Manufacturer = manufacturers[1] },
             new Processor { Name = "AMD benchmarker", ProcessorType = Enums.ProcessorType.Quad, Price = 200, Weight = 0.1, Manufacturer = manufacturers[1] }
+        };
+
+        public static Dictionary<string,int> CheatCodes = new()
+        {
+            {"ivosanader",100 }
         };
     }
 }

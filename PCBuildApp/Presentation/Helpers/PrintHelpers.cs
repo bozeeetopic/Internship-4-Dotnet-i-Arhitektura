@@ -65,5 +65,46 @@ namespace Presentation.Helpers
             }
             Console.WriteLine();
         }
+        public static void PrintMainAppMenu()
+        {
+            Console.Write("1 - Dodavanje narudžbe\n");
+            Console.Write("2 - Pregled narudžbi\n");
+            Console.Write("3 - Log out\n");
+        }
+        public static void PrintOrderMenu(bool hasOrder)
+        {
+            if (hasOrder)
+            {
+                ConsoleHelper.Green("1 - Dodavanje narudžbe\n");
+            }
+            else
+            {
+                Console.Write("1 - Dodavanje narudžbe\n");
+            }
+
+            ConsoleHelper.Green("2 - Dodavanje popusta\n");
+
+            if (hasOrder)
+            {
+                Console.Write("3 - Naplati račun\n");
+            }
+            else
+            {
+                ConsoleHelper.Red("3 - Naplati račun\n");
+            }
+            Console.WriteLine();
+        }
+        public static void PrintMainMenu()
+        {
+            Console.WriteLine("Dobrodošli u PCBuildApp!");
+            Console.WriteLine("Moguće akcije su:");
+            Console.WriteLine("1 - Korisnikov log-in");
+            Console.WriteLine("2 - Exit App");
+        }
+        public static void PrintShimentMenu()
+        {
+            Console.Write("1 - Osobno preuzimanje (besplatno)\n");
+            Console.Write("2 - Dostava (dodatna naplata ovisno o težini narudžbe)\n");
+        }
     }
 }

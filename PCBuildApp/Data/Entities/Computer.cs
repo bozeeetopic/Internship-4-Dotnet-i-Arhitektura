@@ -14,6 +14,14 @@ namespace Data.Entities
         public Processor Processor { get; set; }
         public Case ComputerCase { get; set; }
 
+        public double ComputerWeight()
+        {
+            return (RAM.Weight * RAMAmount + HardDisk.Weight + Processor.Weight + ComputerCase.Weight);
+        }
+        public int AssemblyPrice()
+        {
+            return (RAM.Price * RAMAmount + HardDisk.Price + Processor.Price + ComputerCase.Price);
+        }
         public override string ToString() => $"Procesor:\t{Processor}\nRAM:\t{RAM}x{RAMAmount}\nHard disk:\t{HardDisk}\nKučište:\t{ComputerCase}";
     }
 }
