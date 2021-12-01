@@ -106,5 +106,36 @@ namespace Presentation.Helpers
             Console.Write("1 - Osobno preuzimanje (besplatno)\n");
             Console.Write("2 - Dostava (dodatna naplata ovisno o težini narudžbe)\n");
         }
+        public static void PrintDiscountMenu(int discountsCounter)
+        {
+            if (discountsCounter >= 4)
+            {
+                ConsoleHelper.Green("1 - Popust na vjerno članstvo\n");
+                discountsCounter -= 4;
+            }
+            else
+            {
+                Console.Write("1 - Popust na vjerno članstvo\n");
+            }
+
+            if (discountsCounter >= 2)
+            {
+                ConsoleHelper.Green("2 - Popust na količinu\n");
+                discountsCounter -= 2;
+            }
+            else
+            {
+                Console.Write("2 - Popust na količinu\n");
+            }
+            if (discountsCounter >= 1)
+            {
+                ConsoleHelper.Green("3 - Popust zbog promo kodova\n");
+            }
+            else
+            {
+                Console.Write("3 - Popust zbog promo kodova\n");
+            }
+            Console.Write("4 - Povratak u prethodni meni\n");
+        }
     }
 }

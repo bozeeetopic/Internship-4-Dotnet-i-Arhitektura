@@ -86,6 +86,7 @@ namespace Presentation
         static void AddOrder()
         {
             bool hasOrder = false;
+            var discountsMade = 0;
             while (true)
             {
                 PrintHelpers.PrintOrderMenu(hasOrder);
@@ -106,12 +107,12 @@ namespace Presentation
                         }
                     case Enums.OrderChoice.Discount:
                         {
-                            // AddDiscount();
+                            discountsMade += AddDiscount(discountsMade);
                             break;
                         }
                     case Enums.OrderChoice.Bill:
                         {
-                            //SetFunctions.AddBill();
+                            SetFunctions.AddBill();
                             break;
                         }
                     case Enums.OrderChoice.Exit:
@@ -225,6 +226,66 @@ namespace Presentation
                     }
             }
             SetFunctions.PutOrderIntoList(travelPrice);
+        }
+        static int AddDiscount(int discountsMade)
+        {
+            while (true)
+            {
+                PrintHelpers.PrintDiscountMenu(discountsMade);
+                var choice = (Enums.DiscountChoice)InputHelpers.UserNumberInput("odabir popusta", 1, 4);
+                var copyOfDscounts = discountsMade;
+                switch (choice)
+                {
+                    case Enums.DiscountChoice.VIP:
+                        {
+                            if (copyOfDscounts >= 4)
+                            {
+                                Console.WriteLine("Već ste ostvarili ovaj popust!");
+                                break;
+                            }
+
+                            return 4;
+
+                        }
+                    case Enums.DiscountChoice.Amount:
+                        {
+                            if (copyOfDscounts >= 4)
+                            {
+                                copyOfDscounts -= 4;
+                            }
+                            if (copyOfDscounts >= 2)
+                            {
+                                Console.WriteLine("Već ste ostvarili ovaj popust!");
+                                break;
+                            }
+
+                            return 2;
+                        }
+                    case Enums.DiscountChoice.Code:
+                        {
+                            if (copyOfDscounts >= 4)
+                            {
+                                copyOfDscounts -= 4;
+                            }
+                            if (copyOfDscounts >= 2)
+                            {
+                                copyOfDscounts -= 2;
+                            }
+                            if (copyOfDscounts >= 1)
+                            {
+                                Console.WriteLine("Već ste ostvarili ovaj popust!");
+                                break;
+                            }
+
+                            return 1;
+                        }
+                    case Enums.DiscountChoice.Back:
+                        {
+                            return 0;
+                        }
+                }
+                return 0;
+            }
         }
     }
 }

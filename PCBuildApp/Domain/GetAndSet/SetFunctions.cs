@@ -62,7 +62,30 @@ namespace Domain.GetAndSet
                 Computer = Data.Seed.Computer,
                 TransportPrice = travelPrice
             };
-            Data.Seed.Bill.Add(order);
+            Data.Seed.Computer = new();
+            Data.Seed.Orders.Add(order);
+        }
+        public static void AddBill()
+        {
+            var bill = new Data.Entities.Bill()
+            {
+                Orders = Data.Seed.Orders,
+                PricePercentage = Data.Seed.Discount.percentage,
+                PriceReduction = Data.Seed.Discount.amount
+            };
+            if (Data.Seed.BillsOfUser.ContainsKey(Data.Seed.CurrentUser))
+            {
+                Data.Seed.BillsOfUser[Data.Seed.CurrentUser].BillsList.Add(bill);
+                Data.Seed.BillsOfUser[Data.Seed.CurrentUser].DiscountAmount += bill.AmountSpent();
+            }
+            else
+            {
+                Data.Seed.BillsOfUser.Add(Data.Seed.CurrentUser, new Data.Entities.Bills());
+                Data.Seed.BillsOfUser[Data.Seed.CurrentUser].BillsList.Add(bill);
+                Data.Seed.BillsOfUser[Data.Seed.CurrentUser].DiscountAmount += bill.AmountSpent();
+            }
+            Data.Seed.Discount = (0, 0);
+            Data.Seed.Orders = new();
         }
     }
 }

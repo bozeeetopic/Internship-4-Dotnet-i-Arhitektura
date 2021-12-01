@@ -37,4 +37,11 @@ namespace Presentation.Enums
         Self = 1,
         Delivery = 2
     }
+    public enum DiscountChoice
+    {
+        VIP = 1,
+        Amount = 2,
+        Code = 3,
+        Back = 4
+    }
 }

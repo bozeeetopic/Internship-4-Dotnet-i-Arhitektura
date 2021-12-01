@@ -20,7 +20,7 @@ namespace Data.Entities
         }
         public int AssemblyPrice()
         {
-            return (RAM.Price * RAMAmount + HardDisk.Price + Processor.Price + ComputerCase.Price);
+            return (RAM.Price * RAMAmount + HardDisk.Price + Processor.Price + ComputerCase.Price + 4 + RAMAmount);
         }
         public override string ToString() => $"Procesor:\t{Processor}\nRAM:\t{RAM}x{RAMAmount}\nHard disk:\t{HardDisk}\nKučište:\t{ComputerCase}";
     }

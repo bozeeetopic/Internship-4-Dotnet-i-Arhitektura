@@ -8,9 +8,7 @@ namespace Data.Entities
 {
     public class Bills
     {
-        public List<Order> Orders { get; set; }
-        public int PriceReduction { get; set; }
-        public int PricePercentage { get; set; }
-
+        public List<Bill> BillsList { get; set; }
+        public double DiscountAmount { get; set; }
     }
 }

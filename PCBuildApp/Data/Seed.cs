@@ -9,11 +9,11 @@ namespace Data
 {
     public static class Seed
     {
-        public static int MoneySpent = 0;
-        public static Dictionary<User, List<Bills>> BillsOfUser= new();
+        public static (int amount, int percentage) Discount = (0, 0);
+        public static Dictionary<User, Bills> BillsOfUser= new();
         public static User CurrentUser = new();
         public static Computer Computer = new();
-        public static List<Order> Bill = new();
+        public static List<Order> Orders = new();
         
 
         private static readonly List<Manufacturer> manufacturers = new()

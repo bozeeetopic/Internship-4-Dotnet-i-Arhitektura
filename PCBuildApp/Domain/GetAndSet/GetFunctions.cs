@@ -61,7 +61,7 @@ namespace Domain.GetAndSet
         {
             return Data.Seed.Computer;
         }
-        public static List<Data.Entities.Bills> GetUserOrders()
+        public static List<Data.Entities.Bill> GetUserOrders()
         {
             return Data.Seed.BillsOfUser[Data.Seed.CurrentUser];
         }
