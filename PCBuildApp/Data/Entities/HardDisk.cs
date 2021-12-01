@@ -10,6 +10,6 @@ namespace Data.Entities
     {
         internal protected int TBAmount;
         internal protected Enums.HardDiskType HardDiskType;
-        public override string ToString() => $"{Name}\t{TBAmount}\t{HardDiskType}\t:\t{Weight}kg {Price}kn";
+        public override string ToString() => $"{Name}\t{HardDiskType}\t{TBAmount}TB\t-\t{Weight}kg\t{Price}kn";
     }
 }

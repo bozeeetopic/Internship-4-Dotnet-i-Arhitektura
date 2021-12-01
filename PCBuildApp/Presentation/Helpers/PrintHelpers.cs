@@ -8,45 +8,45 @@ namespace Presentation.Helpers
 {
     public class PrintHelpers
     {
-       public static void PrintComponentsMenu(int number)
+       public static void PrintComponentsMenu(int binaryMemory)
         {
             bool hasAllInputs = false;
-            if (number == 15) 
+            if (binaryMemory == 15) 
             {
                 hasAllInputs = true;
             }
 
-            if (number >= 8)
+            if (binaryMemory >= 8)
             {
                 ConsoleHelper.Green("1 - Mjenjanje Procesora\n");
-                number -= 8;
+                binaryMemory -= 8;
             }
             else
             {
                 Console.Write("1 - Odabir Procesora\n");
             }
 
-            if(number >= 4)
+            if(binaryMemory >= 4)
             {
                 ConsoleHelper.Green("2 - Mjenjanje RAM memorije\n");
-                number -= 4;
+                binaryMemory -= 4;
             }
             else
             {
                 Console.Write("2 - Odabir RAM memorije\n");
             }
 
-            if (number >= 2)
+            if (binaryMemory >= 2)
             {
                 ConsoleHelper.Green("3 - Mjenjanje hard diska\n");
-                number -= 2;
+                binaryMemory -= 2;
             }
             else
             {
                 Console.Write("3 - Odabir hard diska\n");
             }
 
-            if (number >= 1)
+            if (binaryMemory >= 1)
             {
                 ConsoleHelper.Green("4 - Mjenjanje kučišta\n");
             }

@@ -11,7 +11,7 @@ namespace Presentation
         {
 
             GetComponent();
-            Console.WriteLine("jjrjjrrr");
+            GetShipmentMethod();
         }
 
         static void GetComponent()
@@ -33,7 +33,7 @@ namespace Presentation
                                 Console.WriteLine($"{i} - {processor}");
                                 i++;
                             }
-                            var userChoice = InputHelpers.UserNumberInput("vaš izbor RAM memorije", 1, processors.Count);
+                            var userChoice = InputHelpers.UserNumberInput("vaš izbor procesora", 1, processors.Count);
                             numberOfStepsDone += SetFunctions.AddProcessor(userChoice - 1, processors);
                             break;
                         }
@@ -92,6 +92,10 @@ namespace Presentation
                 Console.ReadLine();
                 Console.Clear();
             } while (numberOfStepsDone <= 15);
+        }
+        static void GetShipmentMethod()
+        {
+
         }
     }
 }

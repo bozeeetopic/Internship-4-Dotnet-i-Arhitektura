@@ -24,12 +24,12 @@ namespace Data
         public static readonly List<Component> Components = new()
         {
             new RAM { Name = "Kineska kartica", GBAmount = 4, Price = 60, Weight = 0.2 },
-            new RAM { Name = "Original iz Njemačke", GBAmount = 8, Price = 200, Weight = 0.2 },
+            new RAM { Name = "Original Njemačka", GBAmount = 8, Price = 200, Weight = 0.2 },
 
-            new HardDisk { Name = "Sanaderov najdraži SSD", HardDiskType = Enums.HardDiskType.SSD, TBAmount = 2, Price = 300, Weight = 0.1 },
-            new HardDisk { Name = "Mesićev SSD", HardDiskType = Enums.HardDiskType.SSD, TBAmount = 1, Price = 100, Weight = 0.1 },
-            new HardDisk { Name = "Skripto-držać", HardDiskType = Enums.HardDiskType.HDD, TBAmount = 2, Price = 60, Weight = 2 },
-            new HardDisk { Name = "Nj", HardDiskType = Enums.HardDiskType.HDD, TBAmount = 1, Price = 20, Weight = 1 },
+            new HardDisk { Name = "Sanaderov najdraži disk", HardDiskType = Enums.HardDiskType.SSD, TBAmount = 2, Price = 300, Weight = 0.1 },
+            new HardDisk { Name = "Mesićev disk stariji", HardDiskType = Enums.HardDiskType.SSD, TBAmount = 1, Price = 100, Weight = 0.1 },
+            new HardDisk { Name = "Trajni skripto-držać", HardDiskType = Enums.HardDiskType.HDD, TBAmount = 2, Price = 60, Weight = 2 },
+            new HardDisk { Name = "Elektronski abbakuss", HardDiskType = Enums.HardDiskType.HDD, TBAmount = 1, Price = 20, Weight = 1 },
 
             new Case { Name = "Teško kučište", Material = Enums.Material.metal, Price = 100, Weight = 1.5 },
             new Case { Name = "Coca-Cola Kučište", Material = Enums.Material.plastika, Price = 20, Weight = 1 },
