@@ -92,50 +92,30 @@ namespace Presentation.Helpers
             {
                 ConsoleHelper.Red("3 - Naplati račun\n");
             }
+            Console.Write("4 - Natrag\n");
             Console.WriteLine();
         }
         public static void PrintMainMenu()
         {
             Console.WriteLine("Dobrodošli u PCBuildApp!");
+            Console.WriteLine();
             Console.WriteLine("Moguće akcije su:");
             Console.WriteLine("1 - Korisnikov log-in");
             Console.WriteLine("2 - Exit App");
+            Console.WriteLine();
         }
         public static void PrintShimentMenu()
         {
             Console.Write("1 - Osobno preuzimanje (besplatno)\n");
             Console.Write("2 - Dostava (dodatna naplata ovisno o težini narudžbe)\n");
         }
-        public static void PrintDiscountMenu(int discountsCounter)
+        public static void PrintDiscountMenu()
         {
-            if (discountsCounter >= 4)
-            {
-                ConsoleHelper.Green("1 - Popust na vjerno članstvo\n");
-                discountsCounter -= 4;
-            }
-            else
-            {
-                Console.Write("1 - Popust na vjerno članstvo\n");
-            }
-
-            if (discountsCounter >= 2)
-            {
-                ConsoleHelper.Green("2 - Popust na količinu\n");
-                discountsCounter -= 2;
-            }
-            else
-            {
-                Console.Write("2 - Popust na količinu\n");
-            }
-            if (discountsCounter >= 1)
-            {
-                ConsoleHelper.Green("3 - Popust zbog promo kodova\n");
-            }
-            else
-            {
-                Console.Write("3 - Popust zbog promo kodova\n");
-            }
+            Console.Write("1 - Popust na vjerno članstvo\n");
+            Console.Write("2 - Popust na količinu\n");
+            Console.Write("3 - Popust zbog promo kodova\n");
             Console.Write("4 - Povratak u prethodni meni\n");
+            Console.WriteLine();
         }
     }
 }

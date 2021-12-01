@@ -16,9 +16,10 @@ namespace Presentation.Helpers
         {
             for(var i = 0; i< numberOfLinesToDelete; i++)
             {
-                Console.SetCursorPosition(0, Console.CursorTop-i);
                 Console.Write(new string(' ', Console.WindowWidth));
+                Console.SetCursorPosition(0, Console.CursorTop-i);
             }
+            Console.Write(new string(' ', Console.WindowWidth));
         }
 
         public static void Red(string input)

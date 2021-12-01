@@ -81,12 +81,14 @@ namespace Presentation
                             return;
                         }
                 }
+                Console.WriteLine("Enter za nasatavak..");
+                Console.ReadLine();
+                Console.Clear();
             }
         }
         static void AddOrder()
         {
             bool hasOrder = false;
-            var discountsMade = 0;
             while (true)
             {
                 PrintHelpers.PrintOrderMenu(hasOrder);
@@ -107,12 +109,18 @@ namespace Presentation
                         }
                     case Enums.OrderChoice.Discount:
                         {
-                            discountsMade += AddDiscount(discountsMade);
+                            AddDiscount();
                             break;
                         }
                     case Enums.OrderChoice.Bill:
                         {
+                            if (!hasOrder)
+                            {
+                                Console.WriteLine("Nemoguće upisati račun bez ijednog unesenog PC-a!");
+                                break;
+                            }
                             SetFunctions.AddBill();
+                            hasOrder = false;
                             break;
                         }
                     case Enums.OrderChoice.Exit:
@@ -120,9 +128,6 @@ namespace Presentation
                             return;
                         }
                 }
-                Console.WriteLine("ENTER za nastavak");
-                Console.ReadLine();
-                Console.Clear();
             }
         }
 
@@ -227,64 +232,44 @@ namespace Presentation
             }
             SetFunctions.PutOrderIntoList(travelPrice);
         }
-        static int AddDiscount(int discountsMade)
+        static void AddDiscount()
         {
             while (true)
             {
-                PrintHelpers.PrintDiscountMenu(discountsMade);
+                PrintHelpers.PrintDiscountMenu();
                 var choice = (Enums.DiscountChoice)InputHelpers.UserNumberInput("odabir popusta", 1, 4);
-                var copyOfDscounts = discountsMade;
                 switch (choice)
                 {
                     case Enums.DiscountChoice.VIP:
                         {
-                            if (copyOfDscounts >= 4)
+                            if (true)
                             {
                                 Console.WriteLine("Već ste ostvarili ovaj popust!");
                                 break;
                             }
-
-                            return 4;
-
                         }
                     case Enums.DiscountChoice.Amount:
                         {
-                            if (copyOfDscounts >= 4)
-                            {
-                                copyOfDscounts -= 4;
-                            }
-                            if (copyOfDscounts >= 2)
+                            if (true)
                             {
                                 Console.WriteLine("Već ste ostvarili ovaj popust!");
                                 break;
                             }
-
-                            return 2;
                         }
                     case Enums.DiscountChoice.Code:
                         {
-                            if (copyOfDscounts >= 4)
-                            {
-                                copyOfDscounts -= 4;
-                            }
-                            if (copyOfDscounts >= 2)
-                            {
-                                copyOfDscounts -= 2;
-                            }
-                            if (copyOfDscounts >= 1)
+                            if (true)
                             {
                                 Console.WriteLine("Već ste ostvarili ovaj popust!");
                                 break;
                             }
-
-                            return 1;
                         }
                     case Enums.DiscountChoice.Back:
                         {
-                            return 0;
+                            return;
                         }
                 }
-                return 0;
+                return;
             }
         }
     }

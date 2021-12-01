@@ -81,6 +81,7 @@ namespace Domain.GetAndSet
             else
             {
                 Data.Seed.BillsOfUser.Add(Data.Seed.CurrentUser, new Data.Entities.Bills());
+                Data.Seed.BillsOfUser[Data.Seed.CurrentUser].BillsList = new();
                 Data.Seed.BillsOfUser[Data.Seed.CurrentUser].BillsList.Add(bill);
                 Data.Seed.BillsOfUser[Data.Seed.CurrentUser].DiscountAmount += bill.AmountSpent();
             }

@@ -63,7 +63,11 @@ namespace Domain.GetAndSet
         }
         public static List<Data.Entities.Bill> GetUserOrders()
         {
-            return Data.Seed.BillsOfUser[Data.Seed.CurrentUser];
+            if (Data.Seed.BillsOfUser.Count == 0)
+            {
+                return null;
+            }
+            return Data.Seed.BillsOfUser[Data.Seed.CurrentUser].BillsList;
         }
         public static int GetDeliveryPrice()
         {

@@ -27,7 +27,7 @@ namespace Presentation.Helpers
                 linesToDelete = 1;
                 if (repeatedInput && (input.Trim().Length < minLength))
                 {
-                    Console.WriteLine("Duljina " + nameOrSurname + "na mora biti " + minLength + "!");
+                    Console.WriteLine("Duljina unosa mora biti " + minLength + "!");
                     linesToDelete ++;
                 }
                 if (repeatedInput && ConsoleHelper.ForbiddenStringChecker(input.ToLower(), forbiddenString))
