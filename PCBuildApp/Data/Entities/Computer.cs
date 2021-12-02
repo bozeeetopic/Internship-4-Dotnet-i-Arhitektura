@@ -22,6 +22,6 @@ namespace Data.Entities
         {
             return (RAM.Price * RAMAmount + HardDisk.Price + Processor.Price + ComputerCase.Price + 4 + RAMAmount);
         }
-        public override string ToString() => $"Procesor:\t{Processor}\nRAM:\t{RAM}x{RAMAmount}\nHard disk:\t{HardDisk}\nKučište:\t{ComputerCase}";
+        public override string ToString() => $"Procesor:\t{Processor}\nRAM:\t\t{RAM} x{RAMAmount}\nHard disk:\t{HardDisk}\nKučište:\t{ComputerCase}";
     }
 }

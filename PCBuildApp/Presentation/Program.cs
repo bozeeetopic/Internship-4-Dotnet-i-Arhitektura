@@ -33,17 +33,21 @@ namespace Presentation
 
         static void UserLogin()
         {
-            var name = InputHelpers.UserStringInput("ime", ConsoleHelper.symbols + ConsoleHelper.numbers, 3);
-            var surname = InputHelpers.UserStringInput("prezime", ConsoleHelper.symbols + ConsoleHelper.numbers, 3);
-            var adress = InputHelpers.UserStringInput("adresu", ConsoleHelper.symbols + ConsoleHelper.numbers, 10);
-            var adressNumber = InputHelpers.UserNumberInput("adresni broj", 1,99);
-            var distance = new Random().Next(50,999);
+            do
+            {
+                var name = InputHelpers.UserStringInput("ime", ConsoleHelper.symbols + ConsoleHelper.numbers, 3);
+                var surname = InputHelpers.UserStringInput("prezime", ConsoleHelper.symbols + ConsoleHelper.numbers, 3);
+                var adress = InputHelpers.UserStringInput("adresu", ConsoleHelper.symbols + ConsoleHelper.numbers, 10);
+                var adressNumber = InputHelpers.UserNumberInput("adresni broj", 1, 99);
+                var distance = new Random().Next(50, 999);
 
-            name = ConsoleHelper.FormatWords(name.ToLower());
-            surname = ConsoleHelper.FormatWords(surname.ToLower());
-            adress = ConsoleHelper.FormatWords(adress.ToLower());
+                name = ConsoleHelper.FormatWords(name.ToLower());
+                surname = ConsoleHelper.FormatWords(surname.ToLower());
+                adress = ConsoleHelper.FormatWords(adress.ToLower());
 
-            SetFunctions.AddUser(name,surname,adress+adressNumber,distance);
+                SetFunctions.AddUser(name, surname, adress + " " + adressNumber, distance);
+            }
+            while (InputHelpers.UserConfirmation("Potvrdite unos korisnika. (da)"));
             Console.Clear();
         }
         static void MainApp()
@@ -62,17 +66,28 @@ namespace Presentation
                         }
                     case Enums.MainAppChoice.ListOrders:
                         {
-                            var orders = GetFunctions.GetUserOrders();
-                            if (orders == null)
+                            var billsAndUser = GetFunctions.GetUserBills();
+                            if (billsAndUser.Item2 == null)
                             {
                                 Console.WriteLine("Niste još uvijek odradili svoj prvi shopping.");
                             }
                             else
                             {
-                                foreach (var order in orders)
+                                Console.Write(new string('=', Console.WindowWidth));
+                                Console.WriteLine();
+                                Console.WriteLine(billsAndUser.Item1.ToString());
+                                foreach (var bill in billsAndUser.Item2)
                                 {
-                                    Console.WriteLine(order);
+                                    foreach (var order in bill.Orders)
+                                    {
+                                        Console.WriteLine(order.ToString());
+                                    }
+                                    Console.WriteLine("Popust = " + bill.PricePercentage + "%");
+                                    Console.WriteLine("Popust = " + bill.PriceReduction + "kn");
                                 }
+                                Console.WriteLine();
+                                Console.Write(new string('=', Console.WindowWidth));
+                                Console.ReadLine();
                             }
                             break;
                         }
@@ -81,8 +96,6 @@ namespace Presentation
                             return;
                         }
                 }
-                Console.WriteLine("Enter za nasatavak..");
-                Console.ReadLine();
                 Console.Clear();
             }
         }
@@ -109,7 +122,7 @@ namespace Presentation
                         }
                     case Enums.OrderChoice.Discount:
                         {
-                            AddDiscount();
+                            AddDiscount();          ///////////////////////////
                             break;
                         }
                     case Enums.OrderChoice.Bill:
@@ -125,9 +138,11 @@ namespace Presentation
                         }
                     case Enums.OrderChoice.Exit:
                         {
+                            Console.Clear();
                             return;
                         }
                 }
+                Console.Clear();
             }
         }
 
@@ -208,8 +223,6 @@ namespace Presentation
                             break;
                         }
                 }
-                Console.WriteLine("ENTER za nastavak");
-                Console.ReadLine();
                 Console.Clear();
             }
         }
@@ -231,6 +244,7 @@ namespace Presentation
                     }
             }
             SetFunctions.PutOrderIntoList(travelPrice);
+            Console.Clear();
         }
         static void AddDiscount()
         {
@@ -252,7 +266,7 @@ namespace Presentation
                         {
                             if (true)
                             {
-                                Console.WriteLine("Već ste ostvarili ovaj popust!");
+                                Console.WriteLine("Već ste ostvarili ovaj popust!");            ///////////////////////////////////
                                 break;
                             }
                         }
@@ -266,9 +280,11 @@ namespace Presentation
                         }
                     case Enums.DiscountChoice.Back:
                         {
+                            Console.Clear();
                             return;
                         }
                 }
+                Console.Clear();
                 return;
             }
         }

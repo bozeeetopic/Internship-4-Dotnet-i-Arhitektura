@@ -21,7 +21,6 @@ namespace Presentation.Helpers
             }
             Console.Write(new string(' ', Console.WindowWidth));
         }
-
         public static void Red(string input)
         {
             Console.ForegroundColor = ConsoleColor.Red;

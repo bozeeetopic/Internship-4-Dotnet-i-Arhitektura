@@ -14,7 +14,8 @@ namespace Data
         public static User CurrentUser = new();
         public static Computer Computer = new();
         public static List<Order> Orders = new();
-        
+        public static Bill Bill = new();
+
 
         private static readonly List<Manufacturer> manufacturers = new()
         {

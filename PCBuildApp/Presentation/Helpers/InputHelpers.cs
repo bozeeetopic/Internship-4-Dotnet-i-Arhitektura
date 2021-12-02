@@ -46,15 +46,29 @@ namespace Presentation.Helpers
         public static int UserNumberInput(string message, int minValue, int maxValue)
         {
             var repeatedInput = false;
-            int? number;
-            int linesToDelete = 1;
+            int? number=0;
+            int linesToDelete = 2;
             do
             {
                 if (repeatedInput)
                 {
                     ConsoleHelper.ClearNumberOfLinesFromConsole(linesToDelete);
-                    Console.WriteLine("Morate unjeti broj između " + minValue + " i " + (maxValue) + "!");
-                    linesToDelete = 2;
+                    Console.SetCursorPosition(0, Console.GetCursorPosition().Top + 1);
+                    if((int)number == -1)
+                    {
+                        Console.Write("Morate unjeti ");
+                        ConsoleHelper.Red("BROJ");
+                        Console.Write(" između " + minValue + " i " + (maxValue) + "!\n");
+                    }
+                    else
+                    {
+                        Console.Write("Morate unjeti broj između ");
+                        ConsoleHelper.Red("" + minValue);
+                        Console.Write(" i ");
+                        ConsoleHelper.Red("" + maxValue);
+                        Console.Write("!\n");
+                    }
+                    linesToDelete = 3;
                 }
                 Console.Write("Unesite " + message + ":   ");
                 try

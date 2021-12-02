@@ -61,13 +61,13 @@ namespace Domain.GetAndSet
         {
             return Data.Seed.Computer;
         }
-        public static List<Data.Entities.Bill> GetUserOrders()
+        public static (Data.Entities.User , List<Data.Entities.Bill>) GetUserBills()
         {
             if (Data.Seed.BillsOfUser.Count == 0)
             {
-                return null;
+                return (null,null);
             }
-            return Data.Seed.BillsOfUser[Data.Seed.CurrentUser].BillsList;
+            return (Data.Seed.CurrentUser, Data.Seed.BillsOfUser[Data.Seed.CurrentUser].BillsList);
         }
         public static int GetDeliveryPrice()
         {
@@ -77,6 +77,10 @@ namespace Domain.GetAndSet
                 < 10 => (int)(3 * Data.Seed.CurrentUser.Distance / 5),
                 _ => 50 + (int)(10 * Data.Seed.CurrentUser.Distance / 20),
             };
+        }
+        public static (bool,bool,bool) GetDiscounts()
+        {
+            return (true,true,true);                        ///////////////////////////////////////////
         }
     }
 }

@@ -9,6 +9,6 @@ namespace Data.Entities
     public class RAM : Component
     {
         protected internal int GBAmount;
-        public override string ToString() => $"{Name}\t{GBAmount} GB\t-\t{Weight}kg\t{Price}kn";
+        public override string ToString() => $"{Name}\t\t{GBAmount} GB\t-\t{Weight}kg\t{Price}kn";
     }
 }

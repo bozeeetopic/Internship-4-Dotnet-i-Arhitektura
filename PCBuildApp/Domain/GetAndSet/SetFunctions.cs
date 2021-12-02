@@ -70,7 +70,7 @@ namespace Domain.GetAndSet
             var bill = new Data.Entities.Bill()
             {
                 Orders = Data.Seed.Orders,
-                PricePercentage = Data.Seed.Discount.percentage,
+                PricePercentage = Data.Seed.Discount.percentage,       ////////////////////////////////////
                 PriceReduction = Data.Seed.Discount.amount
             };
             if (Data.Seed.BillsOfUser.ContainsKey(Data.Seed.CurrentUser))

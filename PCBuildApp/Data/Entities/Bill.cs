@@ -11,6 +11,7 @@ namespace Data.Entities
         public List<Order> Orders { get; set; }
         public int PriceReduction { get; set; }
         public int PricePercentage { get; set; }
+        public (bool, bool, bool) Discounts { get; set; }
 
         public double AmountSpent()
         {

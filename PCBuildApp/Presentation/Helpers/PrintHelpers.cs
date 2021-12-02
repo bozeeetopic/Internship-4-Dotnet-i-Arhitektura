@@ -10,6 +10,7 @@ namespace Presentation.Helpers
     {
        public static void PrintComponentsMenu(int binaryMemory)
         {
+            Console.WriteLine("Unesite broj komponente:\n");
             bool hasAllInputs = false;
             if (binaryMemory == 15) 
             {
@@ -67,12 +68,15 @@ namespace Presentation.Helpers
         }
         public static void PrintMainAppMenu()
         {
+            Console.WriteLine("Unesite broj pored akcije koju želite ispisati:\n");
             Console.Write("1 - Dodavanje narudžbe\n");
             Console.Write("2 - Pregled narudžbi\n");
             Console.Write("3 - Log out\n");
+            Console.WriteLine();
         }
         public static void PrintOrderMenu(bool hasOrder)
         {
+            Console.WriteLine("Unesite broj željene akcije:\n");
             if (hasOrder)
             {
                 ConsoleHelper.Green("1 - Dodavanje narudžbe\n");
@@ -106,11 +110,14 @@ namespace Presentation.Helpers
         }
         public static void PrintShimentMenu()
         {
+            Console.WriteLine("Unesite broj pored načina preuzimanja računala:\n");
             Console.Write("1 - Osobno preuzimanje (besplatno)\n");
             Console.Write("2 - Dostava (dodatna naplata ovisno o težini narudžbe)\n");
+            Console.WriteLine();
         }
         public static void PrintDiscountMenu()
         {
+            Console.WriteLine("Unesite vrstu popusta koje želite ostvariti:\n");
             Console.Write("1 - Popust na vjerno članstvo\n");
             Console.Write("2 - Popust na količinu\n");
             Console.Write("3 - Popust zbog promo kodova\n");

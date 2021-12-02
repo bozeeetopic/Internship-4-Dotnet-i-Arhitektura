@@ -9,6 +9,6 @@ namespace Data.Entities
     public class Case : Component
     {
         internal protected Enums.Material Material;
-        public override string ToString() => $"{Name}\t\tKorišteni materijal: {Material}\t-\t{Weight}kg\t{Price}kn";
+        public override string ToString() => $"{Name}\t\tMaterijal: {Material}\t-\t{Weight}kg\t{Price}kn";
     }
 }
