@@ -309,20 +309,10 @@ namespace Presentation
             Console.WriteLine(billsAndUser.Item1.ToString());
             foreach (var bill in billsAndUser.Item2)
             {
-                foreach (var order in bill.Orders)
-                {
-                    Console.WriteLine(order.ToString());
-                }
-                if (bill.Discounts.Item2)
-                {
-                    foreach (var order in bill.Orders)
-                    {
-                        Console.WriteLine(order.ToString());
-                    }
-                }
-                Console.WriteLine("Popust = " + bill.PricePercentage + "%");
-                Console.WriteLine("Popust = " + bill.PriceReduction + "kn");
+                Console.Write(new string('-', Console.WindowWidth));
+                bill.ToString(bill.Discounts.Item2);
             }
+            Console.Write(new string('-', Console.WindowWidth));
             Console.WriteLine();
             Console.Write(new string('=', Console.WindowWidth));
             Console.ReadLine();

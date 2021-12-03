@@ -96,7 +96,8 @@ namespace Domain.GetAndSet
             {
                 if(RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount >= 1000)
                 {
-                    RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount -= 1000;
+                    RunningAppStorage.Bill.PriceReduction += 100;
+                    RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount = 0;
                     return true;
                 }
             }

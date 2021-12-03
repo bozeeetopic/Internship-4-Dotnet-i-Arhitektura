@@ -77,5 +77,30 @@ namespace Data.Entities
             counter *= PricePercentage / 100;
             return counter;
         }
+        public string ToString(bool discount)
+        {
+            var stringToReturn = "";
+            if (discount)
+            {
+                foreach(var component in ExtraComponents())
+                {
+                    stringToReturn += component.ToString() + "\n";
+                }
+                stringToReturn += $"Ukupna cijena besplatnih komponenata: -{AmountFromExtraComponents(ExtraComponents())}kn";
+                stringToReturn += $"\n\nPopust u kunama: -{AmountFromExtraComponents(ExtraComponents())+PriceReduction}kn";
+                stringToReturn += $"Popust u postotku: -{PricePercentage}%";
+                var totalPrice = ((AmountSpent() - AmountFromExtraComponents(ExtraComponents())) * PricePercentage / 100) - PriceReduction;
+                stringToReturn += $"\n\nUkupno za platiti: {totalPrice}";
+                return stringToReturn;
+            }
+            else
+            {
+                stringToReturn += $"\n\nPopust u kunama: -{PriceReduction}kn";
+                stringToReturn += $"Popust u postotku: -{PricePercentage}%";
+                var totalPrice = (AmountSpent() * PricePercentage / 100) - PriceReduction;
+                stringToReturn += $"\n\nUkupno za platiti: {totalPrice}";
+                return stringToReturn;
+            }
+        }
     }
 }
