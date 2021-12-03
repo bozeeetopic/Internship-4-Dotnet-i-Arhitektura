@@ -59,28 +59,28 @@ namespace Domain.GetAndSet
         }
         public static Data.Entities.Computer GetPC()
         {
-            return Data.Seed.Computer;
+            return RunningAppStorage.Computer;
         }
         public static (Data.Entities.User , List<Data.Entities.Bill>) GetUserBills()
         {
-            if (Data.Seed.BillsOfUser.Count == 0)
+            if (RunningAppStorage.BillsOfUser is null || RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList is null)
             {
                 return (null,null);
             }
-            return (Data.Seed.CurrentUser, Data.Seed.BillsOfUser[Data.Seed.CurrentUser].BillsList);
+            return (RunningAppStorage.CurrentUser, RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList);
         }
         public static int GetDeliveryPrice()
         {
-            return (double)Seed.Computer.ComputerWeight() switch
+            return (double)RunningAppStorage.Computer.ComputerWeight() switch
             {
-                < 3 => (int)(5 * Data.Seed.CurrentUser.Distance / 10),
-                < 10 => (int)(3 * Data.Seed.CurrentUser.Distance / 5),
-                _ => 50 + (int)(10 * Data.Seed.CurrentUser.Distance / 20),
+                < 3 => (int)(5 * RunningAppStorage.CurrentUser.Distance / 10),
+                < 10 => (int)(3 * RunningAppStorage.CurrentUser.Distance / 5),
+                _ => 50 + (int)(10 * RunningAppStorage.CurrentUser.Distance / 20),
             };
         }
         public static bool OrdersExist()
         {
-            if(Data.Seed.Orders == null)
+            if(RunningAppStorage.Orders is null)
             {
                 return false;
             }
@@ -88,7 +88,7 @@ namespace Domain.GetAndSet
         }
         public static (bool,bool,bool) GetDiscounts()
         {
-            return Data.Seed.Bill.Discounts;
+            return RunningAppStorage.Bill.Discounts;
         }
     }
 }

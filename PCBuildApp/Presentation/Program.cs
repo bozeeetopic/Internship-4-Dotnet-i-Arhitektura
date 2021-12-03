@@ -34,6 +34,7 @@ namespace Presentation
         {
             do
             {
+                Console.WriteLine("Unosite vaše podatke:\n");
                 var name = InputHelpers.UserStringInput("ime", ConsoleHelper.symbols + ConsoleHelper.numbers, 3);
                 var surname = InputHelpers.UserStringInput("prezime", ConsoleHelper.symbols + ConsoleHelper.numbers, 3);
                 var adress = InputHelpers.UserStringInput("adresu", ConsoleHelper.symbols + ConsoleHelper.numbers, 10);
@@ -46,7 +47,7 @@ namespace Presentation
 
                 SetFunctions.AddUser(name, surname, adress + " " + adressNumber, distance);
             }
-            while (InputHelpers.UserConfirmation("Potvrdite unos korisnika. (da)"));
+            while (!InputHelpers.UserConfirmation("Potvrdite unos korisnika: "));
             Console.Clear();
         }
         static void MainApp()
@@ -115,7 +116,7 @@ namespace Presentation
                                 ChooseComponent();
                                 ChooseShipmentMethod();
                             }
-                            while (InputHelpers.UserConfirmation("Želite li unjeti još računala (da)?"));
+                            while (InputHelpers.UserConfirmation("Želite li unjeti još računala? Potvrdite:"));
                             break;
                         }
                     case Enums.OrderChoice.Discount:
@@ -213,7 +214,7 @@ namespace Presentation
                                 break;
                             }
                             Console.WriteLine("Vaš PC:\n" + GetFunctions.GetPC().ToString());
-                            if (InputHelpers.UserConfirmation("Ako ste zadovoljni i želite nastaviti prema odabiru načina preuzimanja unesite DA: "))
+                            if (InputHelpers.UserConfirmation("Ako ste zadovoljni i želite nastaviti prema odabiru načina preuzimanja potvrdite: "))
                                 return;
                             { }
                             break;
@@ -251,7 +252,7 @@ namespace Presentation
                 var choice = (Enums.DiscountChoice)InputHelpers.UserNumberInput("odabir popusta", 1, 4);
                 switch (choice)
                 {
-                    case Enums.DiscountChoice.VIP:
+                   /* case Enums.DiscountChoice.VIP:
                         {
                             if (discounts.Item1)
                             {
@@ -288,7 +289,7 @@ namespace Presentation
                                 SetFunctions.SetDiscounts((true, discounts.Item2, discounts.Item3));
                             }
                             break;
-                        }
+                        }*/
                     case Enums.DiscountChoice.Back:
                         {
                             Console.Clear();

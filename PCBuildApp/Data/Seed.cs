@@ -9,20 +9,12 @@ namespace Data
 {
     public static class Seed
     {
-        public static (int amount, int percentage) Discount = (0, 0);
-        public static Dictionary<User, Bills> BillsOfUser= new();
-        public static User CurrentUser = new();
-        public static Computer Computer = new();
-        public static List<Order> Orders = new();
-        public static Bill Bill = new();
-
-
+        private static readonly Random Random = new();
         private static readonly List<Manufacturer> manufacturers = new()
         {
             new Manufacturer { ManufacturerName = "AMD", Description = "This is bad but cheap" },
             new Manufacturer { ManufacturerName = "Intel", Description = "Very good" }
         };
-
         public static readonly List<Component> Components = new()
         {
             new RAM { Name = "Kineska kartica", GBAmount = 4, Price = 60, Weight = 0.2 },
@@ -42,10 +34,14 @@ namespace Data
             new Processor { Name = "DeGud CPU yes", ProcessorType = Enums.ProcessorType.Octa, Price = 500, Weight = 0.1, Manufacturer = manufacturers[1] },
             new Processor { Name = "AMD benchmarker", ProcessorType = Enums.ProcessorType.Quad, Price = 200, Weight = 0.1, Manufacturer = manufacturers[1] }
         };
-
         public static Dictionary<string,int> CheatCodes = new()
         {
-            {"ivosanader",100 }
+            { "ivosanader", 100 },
+            { "abcdefghij", Random.Next(1, 100) },
+            { "dumpjecool", Random.Next(1, 100) },
+            { "momgetdcam", Random.Next(1, 100) },
+            { "1111111111", Random.Next(1, 100) },
+            { "bozic 2022", Random.Next(1, 100) }
         };
     }
 }

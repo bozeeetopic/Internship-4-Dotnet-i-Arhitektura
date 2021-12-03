@@ -8,7 +8,7 @@ namespace Presentation.Helpers
 {
     public class InputHelpers
     {
-        public static string UserStringInput(string nameOrSurname, string forbiddenString, int minLength)
+        public static string UserStringInput(string stringName, string forbiddenString, int minLength)
         {
             var repeatedInput = false;
             var input = "";
@@ -36,7 +36,8 @@ namespace Presentation.Helpers
                     linesToDelete ++;
                 }
                
-                Console.Write("Unesite " + nameOrSurname + ": ");
+                Console.Write("Unesite " + stringName + ": ");
+                ConsoleHelper.AddPlaceholder(stringName);
                 input = Console.ReadLine();
                 repeatedInput = true;
             }
@@ -71,6 +72,7 @@ namespace Presentation.Helpers
                     linesToDelete = 3;
                 }
                 Console.Write("Unesite " + message + ":   ");
+                ConsoleHelper.AddPlaceholder(ConsoleHelper.XForDecimals(maxValue));
                 try
                 {
                     number = int.Parse(Console.ReadLine());
@@ -87,6 +89,7 @@ namespace Presentation.Helpers
         public static bool UserConfirmation(string message)
         {
             Console.Write(message);
+            ConsoleHelper.AddPlaceholder("da");
             var eraseConfirm = Console.ReadLine();
             if (eraseConfirm.ToLower() is "da")
             {

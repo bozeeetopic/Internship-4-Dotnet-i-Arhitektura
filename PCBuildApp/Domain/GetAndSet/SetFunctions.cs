@@ -11,82 +11,91 @@ namespace Domain.GetAndSet
     {
         public static void AddUser(string name, string surname, string adress, int distance)
         {
-            Data.Seed.CurrentUser.Populate(name, surname, adress, distance);
+            RunningAppStorage.CurrentUser = new();
+            RunningAppStorage.CurrentUser.Populate(name, surname, adress, distance);
         }
         public static int AddProcessor(int userChoice, List<Data.Entities.Processor> processors)
         {
-            if(Seed.Computer.Processor==null)
+            if(RunningAppStorage.Computer.Processor==null)
             {
-                Seed.Computer.Processor = processors[userChoice];
+                RunningAppStorage.Computer.Processor = processors[userChoice];
                 return 8;
             }
-            Seed.Computer.Processor = processors[userChoice];
+            RunningAppStorage.Computer.Processor = processors[userChoice];
             return 0;
         }
         public static int AddRAM(int userChoice, List<Data.Entities.RAM> rams, int ramAmount)
         {
-            if (Seed.Computer.RAM == null)
+            if (RunningAppStorage.Computer.RAM == null)
             {
-                Seed.Computer.RAMAmount = ramAmount;
-                Seed.Computer.RAM = rams[userChoice];
+                RunningAppStorage.Computer.RAMAmount = ramAmount;
+                RunningAppStorage.Computer.RAM = rams[userChoice];
                 return 4;
             }
-            Seed.Computer.RAMAmount = ramAmount;
-            Seed.Computer.RAM = rams[userChoice];
+            RunningAppStorage.Computer.RAMAmount = ramAmount;
+            RunningAppStorage.Computer.RAM = rams[userChoice];
             return 0;
         }
         public static int AddHardDisk(int userChoice, List<Data.Entities.HardDisk> hardDiscs)
         {
-            if (Seed.Computer.HardDisk == null)
+            if (RunningAppStorage.Computer.HardDisk == null)
             {
-                Seed.Computer.HardDisk = hardDiscs[userChoice];
+                RunningAppStorage.Computer.HardDisk = hardDiscs[userChoice];
                 return 2;
             }
-            Seed.Computer.HardDisk = hardDiscs[userChoice];
+            RunningAppStorage.Computer.HardDisk = hardDiscs[userChoice];
             return 0;
         }
         public static int AddCase(int userChoice, List<Data.Entities.Case> cases)
         {
-            if (Seed.Computer.ComputerCase == null)
+            if (RunningAppStorage.Computer.ComputerCase == null)
             {
-                Seed.Computer.ComputerCase = cases[userChoice];
+                RunningAppStorage.Computer.ComputerCase = cases[userChoice];
                 return 1;
             }
-            Seed.Computer.ComputerCase = cases[userChoice];
+            RunningAppStorage.Computer.ComputerCase = cases[userChoice];
             return 0;
         }
         public static void PutOrderIntoList(int travelPrice)
         {
             var order = new Data.Entities.Order
             {
-                Computer = Data.Seed.Computer,
+                Computer = RunningAppStorage.Computer,
                 TransportPrice = travelPrice
             };
-            Data.Seed.Computer = new();
-            Data.Seed.Orders.Add(order);
+            RunningAppStorage.Computer=null;
+            if (RunningAppStorage.Orders == null)
+            {
+                RunningAppStorage.Orders = new();
+            }
+            RunningAppStorage.Orders.Add(order);
         }
         public static void AddBill()
         {
             var bill = new Data.Entities.Bill()
             {
-                Orders = Data.Seed.Orders,
-                PricePercentage = Data.Seed.Discount.percentage,       ////////////////////////////////////
-                PriceReduction = Data.Seed.Discount.amount
+                Orders = RunningAppStorage.Orders,
+                PricePercentage = RunningAppStorage.Discount.percentage, 
+                PriceReduction = RunningAppStorage.Discount.amount
             };
-            if (Data.Seed.BillsOfUser.ContainsKey(Data.Seed.CurrentUser))
+            if(RunningAppStorage.BillsOfUser == null)
             {
-                Data.Seed.BillsOfUser[Data.Seed.CurrentUser].BillsList.Add(bill);
-                Data.Seed.BillsOfUser[Data.Seed.CurrentUser].DiscountAmount += bill.AmountSpent();
+                RunningAppStorage.BillsOfUser = new();
+            }
+            if (RunningAppStorage.BillsOfUser.ContainsKey(RunningAppStorage.CurrentUser))
+            {
+                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList.Add(bill);
+                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount += bill.AmountSpent();
             }
             else
             {
-                Data.Seed.BillsOfUser.Add(Data.Seed.CurrentUser, new Data.Entities.Bills());
-                Data.Seed.BillsOfUser[Data.Seed.CurrentUser].BillsList = new();
-                Data.Seed.BillsOfUser[Data.Seed.CurrentUser].BillsList.Add(bill);
-                Data.Seed.BillsOfUser[Data.Seed.CurrentUser].DiscountAmount += bill.AmountSpent();
+                RunningAppStorage.BillsOfUser.Add(RunningAppStorage.CurrentUser, new Data.Entities.Bills());
+                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList = new();
+                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList.Add(bill);
+                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount += bill.AmountSpent();
             }
-            Data.Seed.Discount = (0, 0);
-            Data.Seed.Orders = new();
+            RunningAppStorage.Discount = (0, 0);
+            RunningAppStorage.Orders = null;
         }
     }
 }

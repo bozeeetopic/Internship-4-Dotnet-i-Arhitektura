@@ -6,17 +6,6 @@ using System.Threading.Tasks;
 
 namespace Data.Enums
 {
-    public enum HardDiskType
-    {
-        SSD = 0,
-        HDD = 1
-    }
-    public enum ProcessorType
-    {
-        Deca = 0,
-        Octa = 1,
-        Quad = 2
-    }
     public enum Material
     {
         metal = 0,
