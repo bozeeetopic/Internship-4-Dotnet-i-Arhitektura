@@ -57,6 +57,15 @@ namespace Data.Entities
             }
             return ExtraComponents;
         }
+        public static double AmountFromExtraComponents(List<Component> ExtraComponents)
+        {
+            var counter = 0;
+            foreach(var component in ExtraComponents)
+            {
+                counter += component.Price;
+            }
+            return counter;
+        }
         public double AmountSpent()
         {
             var counter = 0;

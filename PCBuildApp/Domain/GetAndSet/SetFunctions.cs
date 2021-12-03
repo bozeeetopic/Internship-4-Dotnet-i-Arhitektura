@@ -9,9 +9,12 @@ namespace Domain.GetAndSet
 {
     public class SetFunctions
     {
+        public static void SetDiscountCodes()
+        {
+            RunningAppStorage.UnusedDiscountCodes = Data.Seed.CheatCodes;
+        }
         public static void AddUser(string name, string surname, string adress, int distance)
         {
-            RunningAppStorage.CurrentUser = new();
             RunningAppStorage.CurrentUser.Populate(name, surname, adress, distance);
         }
         public static int AddProcessor(int userChoice, List<Data.Entities.Processor> processors)
@@ -63,39 +66,36 @@ namespace Domain.GetAndSet
                 Computer = RunningAppStorage.Computer,
                 TransportPrice = travelPrice
             };
-            RunningAppStorage.Computer=null;
-            if (RunningAppStorage.Orders == null)
+            RunningAppStorage.Computer = new();
+            if (RunningAppStorage.Bill == null)
             {
-                RunningAppStorage.Orders = new();
+                RunningAppStorage.Bill = new();
+                if (RunningAppStorage.Bill.Orders == null)
+                {
+                    RunningAppStorage.Bill.Orders = new();
+                }
             }
-            RunningAppStorage.Orders.Add(order);
+            RunningAppStorage.Bill.Orders.Add(order);
         }
         public static void AddBill()
         {
-            var bill = new Data.Entities.Bill()
-            {
-                Orders = RunningAppStorage.Orders,
-                PricePercentage = RunningAppStorage.Discount.percentage, 
-                PriceReduction = RunningAppStorage.Discount.amount
-            };
-            if(RunningAppStorage.BillsOfUser == null)
-            {
-                RunningAppStorage.BillsOfUser = new();
-            }
             if (RunningAppStorage.BillsOfUser.ContainsKey(RunningAppStorage.CurrentUser))
             {
-                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList.Add(bill);
-                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount += bill.AmountSpent();
+                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList.Add(RunningAppStorage.Bill);
+                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount += RunningAppStorage.Bill.AmountSpent();
             }
             else
             {
                 RunningAppStorage.BillsOfUser.Add(RunningAppStorage.CurrentUser, new Data.Entities.Bills());
                 RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList = new();
-                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList.Add(bill);
-                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount += bill.AmountSpent();
+                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList.Add(RunningAppStorage.Bill);
+                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount += RunningAppStorage.Bill.AmountSpent();
             }
-            RunningAppStorage.Discount = (0, 0);
-            RunningAppStorage.Orders = null;
+            RunningAppStorage.Bill = new();
+        }
+        public static void SetDiscounts((bool VIP,bool amount,bool code) discounts)
+        {
+            RunningAppStorage.Bill.Discounts = discounts;
         }
     }
 }

@@ -80,7 +80,7 @@ namespace Domain.GetAndSet
         }
         public static bool OrdersExist()
         {
-            if(RunningAppStorage.Orders is null)
+            if(RunningAppStorage.Bill.Orders is null)
             {
                 return false;
             }
@@ -89,6 +89,28 @@ namespace Domain.GetAndSet
         public static (bool,bool,bool) GetDiscounts()
         {
             return RunningAppStorage.Bill.Discounts;
+        }
+        public static bool AmountSpentIsEnough()
+        {
+            if (RunningAppStorage.BillsOfUser.ContainsKey(RunningAppStorage.CurrentUser))
+            {
+                if(RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount >= 1000)
+                {
+                    RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount -= 1000;
+                    return true;
+                }
+            }
+            return false;
+        }
+        public static bool ContainsCode(string code)
+        {
+            if (RunningAppStorage.UnusedDiscountCodes.ContainsKey(code))
+            {
+                RunningAppStorage.Bill.PricePercentage = RunningAppStorage.UnusedDiscountCodes[code];
+                RunningAppStorage.UnusedDiscountCodes.Remove(code);
+                return true;
+            }
+            return false;
         }
     }
 }

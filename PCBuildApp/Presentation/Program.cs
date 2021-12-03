@@ -2,6 +2,7 @@
 using Presentation.Helpers;
 using Domain;
 using Domain.GetAndSet;
+using System.Collections.Generic;
 
 namespace Presentation
 {
@@ -9,6 +10,7 @@ namespace Presentation
     {
         static void Main()
         {
+            SetFunctions.SetDiscountCodes();
             while (true)
             {
                 PrintHelpers.PrintMainMenu();
@@ -73,21 +75,7 @@ namespace Presentation
                             }
                             else
                             {
-                                Console.Write(new string('=', Console.WindowWidth));
-                                Console.WriteLine();
-                                Console.WriteLine(billsAndUser.Item1.ToString());
-                                foreach (var bill in billsAndUser.Item2)
-                                {
-                                    foreach (var order in bill.Orders)
-                                    {
-                                        Console.WriteLine(order.ToString());
-                                    }
-                                    Console.WriteLine("Popust = " + bill.PricePercentage + "%");
-                                    Console.WriteLine("Popust = " + bill.PriceReduction + "kn");
-                                }
-                                Console.WriteLine();
-                                Console.Write(new string('=', Console.WindowWidth));
-                                Console.ReadLine();
+                                PrintBill(billsAndUser);
                             }
                             break;
                         }
@@ -252,7 +240,7 @@ namespace Presentation
                 var choice = (Enums.DiscountChoice)InputHelpers.UserNumberInput("odabir popusta", 1, 4);
                 switch (choice)
                 {
-                   /* case Enums.DiscountChoice.VIP:
+                   case Enums.DiscountChoice.VIP:
                         {
                             if (discounts.Item1)
                             {
@@ -261,7 +249,7 @@ namespace Presentation
                             }
                             if (GetFunctions.AmountSpentIsEnough())
                             {
-                                Console.WriteLine("Niste još ostavarili pravo na ovaj popust!");
+                                Console.WriteLine("Niste još ostvarili pravo na ovaj popust!");
                                 break;
                             }
                             SetFunctions.SetDiscounts((true, discounts.Item2, discounts.Item3));
@@ -289,7 +277,7 @@ namespace Presentation
                                 SetFunctions.SetDiscounts((true, discounts.Item2, discounts.Item3));
                             }
                             break;
-                        }*/
+                        }
                     case Enums.DiscountChoice.Back:
                         {
                             Console.Clear();
@@ -298,6 +286,46 @@ namespace Presentation
                 }
                 return;
             }
+        }
+        static bool UserSuccesfullCodeInput()
+        {
+            do
+            {
+                Console.WriteLine("Unos poklon bona za kupnju:\n");
+                var userInput = InputHelpers.UserStringInput("kod", "", 10);
+                if (GetFunctions.ContainsCode(userInput))
+                {
+                    return true;
+                }
+                Console.WriteLine("\nUneseni kod ne postoji!");
+            }
+            while (InputHelpers.UserConfirmation("Potvrdite ponovni unos: "));
+            return false;
+        }
+        static void PrintBill((Data.Entities.User,List<Data.Entities.Bill>) billsAndUser)
+        {
+            Console.Write(new string('=', Console.WindowWidth));
+            Console.WriteLine();
+            Console.WriteLine(billsAndUser.Item1.ToString());
+            foreach (var bill in billsAndUser.Item2)
+            {
+                foreach (var order in bill.Orders)
+                {
+                    Console.WriteLine(order.ToString());
+                }
+                if (bill.Discounts.Item2)
+                {
+                    foreach (var order in bill.Orders)
+                    {
+                        Console.WriteLine(order.ToString());
+                    }
+                }
+                Console.WriteLine("Popust = " + bill.PricePercentage + "%");
+                Console.WriteLine("Popust = " + bill.PriceReduction + "kn");
+            }
+            Console.WriteLine();
+            Console.Write(new string('=', Console.WindowWidth));
+            Console.ReadLine();
         }
     }
 }
