@@ -78,9 +78,17 @@ namespace Domain.GetAndSet
                 _ => 50 + (int)(10 * Data.Seed.CurrentUser.Distance / 20),
             };
         }
+        public static bool OrdersExist()
+        {
+            if(Data.Seed.Orders == null)
+            {
+                return false;
+            }
+            return true;
+        }
         public static (bool,bool,bool) GetDiscounts()
         {
-            return (true,true,true);                        ///////////////////////////////////////////
+            return Data.Seed.Bill.Discounts;
         }
     }
 }

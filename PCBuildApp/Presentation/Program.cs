@@ -30,7 +30,6 @@ namespace Presentation
                 }
             }
         }
-
         static void UserLogin()
         {
             do
@@ -99,12 +98,12 @@ namespace Presentation
                 Console.Clear();
             }
         }
+
         static void AddOrder()
         {
-            bool hasOrder = false;
             while (true)
             {
-                PrintHelpers.PrintOrderMenu(hasOrder);
+                PrintHelpers.PrintOrderMenu(GetFunctions.OrdersExist());
                 var choice = (Enums.OrderChoice)InputHelpers.UserNumberInput("sljedeću akciju", 1, 4);
                 Console.Clear();
                 switch (choice)
@@ -115,25 +114,23 @@ namespace Presentation
                             {
                                 ChooseComponent();
                                 ChooseShipmentMethod();
-                                hasOrder = true;
                             }
                             while (InputHelpers.UserConfirmation("Želite li unjeti još računala (da)?"));
                             break;
                         }
                     case Enums.OrderChoice.Discount:
                         {
-                            AddDiscount();          ///////////////////////////
+                            AddDiscount();
                             break;
                         }
                     case Enums.OrderChoice.Bill:
                         {
-                            if (!hasOrder)
+                            if (!GetFunctions.OrdersExist())
                             {
                                 Console.WriteLine("Nemoguće upisati račun bez ijednog unesenog PC-a!");
                                 break;
                             }
                             SetFunctions.AddBill();
-                            hasOrder = false;
                             break;
                         }
                     case Enums.OrderChoice.Exit:
@@ -145,7 +142,6 @@ namespace Presentation
                 Console.Clear();
             }
         }
-
         static void ChooseComponent()
         {
             int numberOfStepsDone = 0;
@@ -250,33 +246,48 @@ namespace Presentation
         {
             while (true)
             {
+                var discounts = GetFunctions.GetDiscounts();
                 PrintHelpers.PrintDiscountMenu();
                 var choice = (Enums.DiscountChoice)InputHelpers.UserNumberInput("odabir popusta", 1, 4);
                 switch (choice)
                 {
                     case Enums.DiscountChoice.VIP:
                         {
-                            if (true)
+                            if (discounts.Item1)
                             {
                                 Console.WriteLine("Već ste ostvarili ovaj popust!");
                                 break;
                             }
+                            if (GetFunctions.AmountSpentIsEnough())
+                            {
+                                Console.WriteLine("Niste još ostavarili pravo na ovaj popust!");
+                                break;
+                            }
+                            SetFunctions.SetDiscounts((true, discounts.Item2, discounts.Item3));
+                            break;
                         }
                     case Enums.DiscountChoice.Amount:
                         {
-                            if (true)
+                            if (discounts.Item2)
                             {
-                                Console.WriteLine("Već ste ostvarili ovaj popust!");            ///////////////////////////////////
+                                Console.WriteLine("Već ste ostvarili ovaj popust!"); 
                                 break;
                             }
+                            SetFunctions.SetDiscounts((true, discounts.Item2, discounts.Item3));
+                            break;
                         }
                     case Enums.DiscountChoice.Code:
                         {
-                            if (true)
+                            if (discounts.Item3)
                             {
                                 Console.WriteLine("Već ste ostvarili ovaj popust!");
                                 break;
                             }
+                            if (UserSuccesfullCodeInput())
+                            {
+                                SetFunctions.SetDiscounts((true, discounts.Item2, discounts.Item3));
+                            }
+                            break;
                         }
                     case Enums.DiscountChoice.Back:
                         {
@@ -284,7 +295,6 @@ namespace Presentation
                             return;
                         }
                 }
-                Console.Clear();
                 return;
             }
         }
