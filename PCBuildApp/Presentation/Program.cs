@@ -10,7 +10,7 @@ namespace Presentation
     {
         static void Main()
         {
-            SetFunctions.SetDiscountCodes();
+            SetFunctions.PullDiscountCodesFromData();
             while (true)
             {
                 PrintHelpers.PrintMainMenu();
@@ -26,7 +26,7 @@ namespace Presentation
                         }
                     case Enums.MainMenuChoice.Exit:
                         {
-                            Console.WriteLine("Hvala na korištenju!s");
+                            Console.WriteLine("Hvala na korištenju!");
                             return;
                         }
                 }
@@ -77,6 +77,7 @@ namespace Presentation
                             if (billsAndUser.Item2 == null)
                             {
                                 Console.WriteLine("Niste još uvijek odradili svoj prvi shopping.");
+                                Console.ReadLine();
                             }
                             else
                             {
@@ -122,6 +123,7 @@ namespace Presentation
                             if (!GetFunctions.OrdersExist())
                             {
                                 Console.WriteLine("Nemoguće upisati račun bez ijednog unesenog PC-a!");
+                                Console.ReadLine();
                                 break;
                             }
                             SetFunctions.AddBill();
@@ -141,6 +143,7 @@ namespace Presentation
             int numberOfStepsDone = 0;
             while (numberOfStepsDone <= 15)
             {
+                Console.Clear();
                 PrintHelpers.PrintComponentsMenu(numberOfStepsDone);
                 var choice = (Enums.ComponentsChoice)InputHelpers.UserNumberInput("vaš izbor komponente", 1, 5);
                 Console.Clear();
@@ -204,6 +207,7 @@ namespace Presentation
                             if (numberOfStepsDone != 15)
                             {
                                 Console.WriteLine("Nemoguće završiti kupnju, nisu sve komponente odabrane!");
+                                Console.ReadLine();
                                 break;
                             }
                             Console.WriteLine("Vaš PC:\n" + GetFunctions.GetPC().ToString());
@@ -218,6 +222,7 @@ namespace Presentation
         }
         static void ChooseShipmentMethod()
         {
+            Console.Clear();
             int travelPrice = 0;
             PrintHelpers.PrintShimentMenu();
             var choice = (Enums.ShipmentChoice)InputHelpers.UserNumberInput("način preuzeća", 1, 2);
@@ -240,6 +245,7 @@ namespace Presentation
         {
             while (true)
             {
+                Console.Clear();
                 var discounts = GetFunctions.GetDiscounts();
                 PrintHelpers.PrintDiscountMenu();
                 var choice = (Enums.DiscountChoice)InputHelpers.UserNumberInput("odabir popusta", 1, 4);
@@ -250,11 +256,13 @@ namespace Presentation
                             if (discounts.Item1)
                             {
                                 Console.WriteLine("Već ste ostvarili ovaj popust!");
+                                Console.ReadLine();
                                 break;
                             }
                             if (GetFunctions.AmountSpentIsEnough())
                             {
                                 Console.WriteLine("Niste još ostvarili pravo na ovaj popust!");
+                                Console.ReadLine();
                                 break;
                             }
                             SetFunctions.SetDiscounts((true, discounts.Item2, discounts.Item3));
@@ -264,7 +272,14 @@ namespace Presentation
                         {
                             if (discounts.Item2)
                             {
-                                Console.WriteLine("Već ste ostvarili ovaj popust!"); 
+                                Console.WriteLine("Već ste ostvarili ovaj popust!");
+                                Console.ReadLine();
+                                break;
+                            }
+                            if (!GetFunctions.ThereAreThreeSameComponentsInBill())
+                            {
+                                Console.WriteLine("Niste još ostvarili pravo na ovaj popust!");
+                                Console.ReadLine();
                                 break;
                             }
                             SetFunctions.SetDiscounts((true, discounts.Item2, discounts.Item3));
@@ -275,6 +290,7 @@ namespace Presentation
                             if (discounts.Item3)
                             {
                                 Console.WriteLine("Već ste ostvarili ovaj popust!");
+                                Console.ReadLine();
                                 break;
                             }
                             if (UserSuccesfullCodeInput())
@@ -289,13 +305,13 @@ namespace Presentation
                             return;
                         }
                 }
-                return;
             }
         }
         static bool UserSuccesfullCodeInput()
         {
             do
             {
+                Console.Clear();
                 Console.WriteLine("Unos poklon bona za kupnju:\n");
                 var userInput = InputHelpers.UserStringInput("kod", "", 10);
                 if (GetFunctions.ContainsCode(userInput))
@@ -314,8 +330,12 @@ namespace Presentation
             Console.WriteLine(billsAndUser.Item1.ToString());
             foreach (var bill in billsAndUser.Item2)
             {
+                foreach(var order in bill.Orders)
+                {
+                    Console.WriteLine(order.ToString());
+                }
                 Console.Write(new string('-', Console.WindowWidth));
-                bill.ToString(bill.Discounts.Item2);
+                Console.Write(bill.ToString(bill.Discounts.Item2));
             }
             Console.Write(new string('-', Console.WindowWidth));
             Console.WriteLine();

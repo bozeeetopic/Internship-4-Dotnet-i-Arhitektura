@@ -9,10 +9,9 @@ namespace Domain.GetAndSet
 {
     public class SetFunctions
     {
-        public static void SetDiscountCodes()
+        public static void PullDiscountCodesFromData()
         {
             RunningAppStorage.UnusedDiscountCodes = Data.Seed.CheatCodes;
-            RunningAppStorage.Bill.Orders = new();
         }
         public static void AddUser(string name, string surname, string adress, int distance)
         {
@@ -83,16 +82,17 @@ namespace Domain.GetAndSet
             if (RunningAppStorage.BillsOfUser.ContainsKey(RunningAppStorage.CurrentUser))
             {
                 RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList.Add(RunningAppStorage.Bill);
-                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount += RunningAppStorage.Bill.AmountSpent();
+                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount += RunningAppStorage.Bill.AmountSpentCountingDiscounts();
             }
             else
             {
                 RunningAppStorage.BillsOfUser.Add(RunningAppStorage.CurrentUser, new Data.Entities.Bills());
                 RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList = new();
                 RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList.Add(RunningAppStorage.Bill);
-                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount += RunningAppStorage.Bill.AmountSpent();
+                RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount += RunningAppStorage.Bill.AmountSpentCountingDiscounts();
             }
             RunningAppStorage.Bill = new();
+            RunningAppStorage.Bill.Orders = new();
         }
         public static void SetDiscounts((bool VIP,bool amount,bool code) discounts)
         {

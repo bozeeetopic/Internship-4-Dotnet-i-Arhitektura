@@ -68,13 +68,22 @@ namespace Data.Entities
         }
         public double AmountSpent()
         {
-            var counter = 0;
+            var counter = 0.0;
             foreach(var order in Orders)
             {
-                counter += order.TransportPrice + order.Computer.AssemblyPrice();
+                counter += order.TotalOrderPrice();
+            }
+            return counter;
+        }
+        public double AmountSpentCountingDiscounts()
+        {
+            var counter = AmountSpent();
+            counter *= (100 - PricePercentage);
+            if (Discounts.Item2)
+            {
+                counter -= AmountFromExtraComponents(ExtraComponents());
             }
             counter -= PriceReduction;
-            counter *= PricePercentage / 100;
             return counter;
         }
         public string ToString(bool discount)
@@ -87,18 +96,18 @@ namespace Data.Entities
                     stringToReturn += component.ToString() + "\n";
                 }
                 stringToReturn += $"Ukupna cijena besplatnih komponenata: -{AmountFromExtraComponents(ExtraComponents())}kn";
-                stringToReturn += $"\n\nPopust u kunama: -{AmountFromExtraComponents(ExtraComponents())+PriceReduction}kn";
-                stringToReturn += $"Popust u postotku: -{PricePercentage}%";
-                var totalPrice = ((AmountSpent() - AmountFromExtraComponents(ExtraComponents())) * PricePercentage / 100) - PriceReduction;
-                stringToReturn += $"\n\nUkupno za platiti: {totalPrice}";
+                stringToReturn += $"\n\nPopust u kunama: {AmountFromExtraComponents(ExtraComponents())+PriceReduction}kn";
+                stringToReturn += $"\nPopust u postotku: {PricePercentage}%";
+                var totalPrice = ((AmountSpent() - AmountFromExtraComponents(ExtraComponents())) * (100 - PricePercentage)) - PriceReduction;
+                stringToReturn += $"\n\nUkupno za platiti: {totalPrice}kn\n\n";
                 return stringToReturn;
             }
             else
             {
-                stringToReturn += $"\n\nPopust u kunama: -{PriceReduction}kn";
-                stringToReturn += $"Popust u postotku: -{PricePercentage}%";
-                var totalPrice = (AmountSpent() * PricePercentage / 100) - PriceReduction;
-                stringToReturn += $"\n\nUkupno za platiti: {totalPrice}";
+                stringToReturn += $"\n\nPopust u kunama: {PriceReduction}kn";
+                stringToReturn += $"\nPopust u postotku: {PricePercentage}%";
+                var totalPrice = (AmountSpent() * (100 - PricePercentage)) - PriceReduction;
+                stringToReturn += $"\n\nUkupno za platiti: {totalPrice}kn\n\n";
                 return stringToReturn;
             }
         }

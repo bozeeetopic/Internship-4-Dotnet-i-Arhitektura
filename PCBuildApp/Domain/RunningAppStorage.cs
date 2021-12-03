@@ -11,7 +11,7 @@ namespace Domain
         internal static Dictionary<Data.Entities.User, Data.Entities.Bills> BillsOfUser = new();
         internal static Data.Entities.User CurrentUser = new();
         internal static Data.Entities.Computer Computer = new();
-        internal static Data.Entities.Bill Bill = new();
+        public static Data.Entities.Bill Bill = new() { Orders = new() };
         internal static Dictionary<string, int> UnusedDiscountCodes = new();
     }
 }

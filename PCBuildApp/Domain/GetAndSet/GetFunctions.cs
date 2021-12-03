@@ -63,7 +63,7 @@ namespace Domain.GetAndSet
         }
         public static (Data.Entities.User , List<Data.Entities.Bill>) GetUserBills()
         {
-            if (RunningAppStorage.BillsOfUser.Count == 0)
+            if (RunningAppStorage.BillsOfUser == new Dictionary<Data.Entities.User,Data.Entities.Bills>())
             {
                 return (null, null);
             }
@@ -76,7 +76,7 @@ namespace Domain.GetAndSet
                 }
                 else
                 {
-                    if (RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList is null)
+                    if (RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList == new List<Data.Entities.Bill>())
                     {
                         return (null, null);
                     }
@@ -99,7 +99,11 @@ namespace Domain.GetAndSet
         }
         public static bool OrdersExist()
         {
-            if(RunningAppStorage.Bill.Orders is null)
+            if(RunningAppStorage.Bill == new Data.Entities.Bill())
+            {
+                return false;
+            }
+            if (RunningAppStorage.Bill.Orders.Count == 0)
             {
                 return false;
             }
@@ -131,6 +135,14 @@ namespace Domain.GetAndSet
                 return true;
             }
             return false;
+        }
+        public static bool ThereAreThreeSameComponentsInBill()
+        {
+            if(RunningAppStorage.Bill.ExtraComponents().Count == 0)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

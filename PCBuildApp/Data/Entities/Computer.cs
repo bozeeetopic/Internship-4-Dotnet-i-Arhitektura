@@ -22,9 +22,13 @@ namespace Data.Entities
         {
             return (RAM.Weight * RAMAmount + HardDisk.Weight + Processor.Weight + ComputerCase.Weight);
         }
+        public int ComponentsPrice()
+        {
+            return (RAM.Price * RAMAmount + HardDisk.Price + Processor.Price + ComputerCase.Price);
+        }
         public int AssemblyPrice()
         {
-            return (RAM.Price * RAMAmount + HardDisk.Price + Processor.Price + ComputerCase.Price + 4 + RAMAmount);
+            return (3 + RAMAmount)*25;
         }
         public override string ToString() => $"Procesor:\t{Processor}\nRAM:\t\t{RAM} x{RAMAmount}\nHard disk:\t{HardDisk}\nKučište:\t{ComputerCase}";
     }

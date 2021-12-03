@@ -14,8 +14,14 @@ namespace Data.Entities
         {
             var stringToReturn = "PC:\n";
             stringToReturn += Computer.ToString();
-            stringToReturn += "\nTransport price: " + TransportPrice + "kn";
+            stringToReturn += $"\nCijena sastavljanja: {Computer.AssemblyPrice()}  kn";
+            stringToReturn += $"\nCijena transporta: {TransportPrice}  kn";
+            stringToReturn += $"\nUkupna cijena: {TransportPrice + Computer.AssemblyPrice() + Computer.ComponentsPrice()}  kn";
             return stringToReturn;
+        }
+        public double TotalOrderPrice()
+        {
+            return TransportPrice + Computer.AssemblyPrice() + Computer.ComponentsPrice();
         }
     }
 }
