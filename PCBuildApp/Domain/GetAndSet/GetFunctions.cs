@@ -63,11 +63,30 @@ namespace Domain.GetAndSet
         }
         public static (Data.Entities.User , List<Data.Entities.Bill>) GetUserBills()
         {
-            if (RunningAppStorage.BillsOfUser is null || RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList is null)
+            if (RunningAppStorage.BillsOfUser.Count == 0)
             {
-                return (null,null);
+                return (null, null);
             }
-            return (RunningAppStorage.CurrentUser, RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList);
+
+            try
+            {
+                if (!RunningAppStorage.BillsOfUser.ContainsKey(RunningAppStorage.CurrentUser))
+                {
+                    return (null, null);
+                }
+                else
+                {
+                    if (RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList is null)
+                    {
+                        return (null, null);
+                    }
+                    return (RunningAppStorage.CurrentUser, RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList);
+                }
+            }
+            catch
+            {
+                return (null, null);
+            }
         }
         public static int GetDeliveryPrice()
         {

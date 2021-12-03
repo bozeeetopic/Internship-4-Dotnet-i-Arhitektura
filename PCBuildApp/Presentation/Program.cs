@@ -36,18 +36,23 @@ namespace Presentation
         {
             do
             {
+                Console.Clear();
                 Console.WriteLine("Unosite vaše podatke:\n");
                 var name = InputHelpers.UserStringInput("ime", ConsoleHelper.symbols + ConsoleHelper.numbers, 3);
                 var surname = InputHelpers.UserStringInput("prezime", ConsoleHelper.symbols + ConsoleHelper.numbers, 3);
-                var adress = InputHelpers.UserStringInput("adresu", ConsoleHelper.symbols + ConsoleHelper.numbers, 10);
-                var adressNumber = InputHelpers.UserNumberInput("adresni broj", 1, 99);
-                var distance = new Random().Next(50, 999);
+                var adress = InputHelpers.UserStringInput("adresu", ConsoleHelper.symbols + ConsoleHelper.numbers, 1);
+                var adressNumber = InputHelpers.UserNumberInput("adresni broj", 1, 999);
 
                 name = ConsoleHelper.FormatWords(name.ToLower());
                 surname = ConsoleHelper.FormatWords(surname.ToLower());
                 adress = ConsoleHelper.FormatWords(adress.ToLower());
 
-                SetFunctions.AddUser(name, surname, adress + " " + adressNumber, distance);
+                Console.Clear();
+                Console.WriteLine("Kornisnički podaci: ");
+                Console.WriteLine($"Ime: {name}\nPrezime: {surname}\nAdresa: {adress} {adressNumber}");
+                Console.WriteLine();
+
+                SetFunctions.AddUser(name, surname, adress + " " + adressNumber, new Random(adressNumber + adress.Length).Next(50, 999));
             }
             while (!InputHelpers.UserConfirmation("Potvrdite unos korisnika: "));
             Console.Clear();

@@ -12,10 +12,11 @@ namespace Domain.GetAndSet
         public static void SetDiscountCodes()
         {
             RunningAppStorage.UnusedDiscountCodes = Data.Seed.CheatCodes;
+            RunningAppStorage.Bill.Orders = new();
         }
         public static void AddUser(string name, string surname, string adress, int distance)
         {
-            RunningAppStorage.CurrentUser.Populate(name, surname, adress, distance);
+            RunningAppStorage.CurrentUser.Populate(name, surname, adress, distance); 
         }
         public static int AddProcessor(int userChoice, List<Data.Entities.Processor> processors)
         {
