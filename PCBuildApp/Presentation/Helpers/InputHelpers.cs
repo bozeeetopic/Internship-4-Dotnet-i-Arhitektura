@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain.GetAndSet;
 
 namespace Presentation.Helpers
 {
@@ -21,65 +18,66 @@ namespace Presentation.Helpers
                 }
                 if (linesToDelete != 0)
                 {
-                    ConsoleHelper.ClearNumberOfLinesFromConsole(linesToDelete);
+                    ConsoleHelpers.ClearNumberOfLinesFromConsole(linesToDelete);
                     Console.SetCursorPosition(0, Console.GetCursorPosition().Top - 1);
                 }
                 linesToDelete = 1;
                 if (repeatedInput && (input.Trim().Length < minLength))
                 {
-                    Console.WriteLine("Duljina unosa mora biti " + minLength + "!");
+                    Console.Write("Duljina unosa mora biti bar ");
+                    ConsoleHelpers.WriteInColor($"{minLength}", ConsoleColor.Red);
+                    Console.WriteLine("!");
                     linesToDelete++;
                 }
-                if (repeatedInput && ConsoleHelper.ForbiddenStringChecker(input.ToLower(), forbiddenString))
+                if (repeatedInput && ConsoleHelpers.ForbiddenStringChecker(input.Trim().ToLower(), forbiddenString))
                 {
-                    Console.WriteLine("Unos sadrži znak, moraju biti isključivo brojevi!");
+                    Console.Write("Unos sadrži znak, moraju biti ");
+                    ConsoleHelpers.WriteInColor("isključivo", ConsoleColor.Red);
+                    Console.WriteLine(" brojevi!");
                     linesToDelete++;
                 }
 
                 Console.Write("Unesite " + stringName + ": ");
-                ConsoleHelper.AddPlaceholder(stringName);
+                ConsoleHelpers.AddPlaceholder(stringName);
                 input = Console.ReadLine();
                 repeatedInput = true;
             }
-            while ((input.Trim().Length < minLength) || ConsoleHelper.ForbiddenStringChecker(input.ToLower(), forbiddenString));
+            while ((input.Trim().Length < minLength) || ConsoleHelpers.ForbiddenStringChecker(input.Trim().ToLower(), forbiddenString));
             return input;
         }
         public static int UserNumberInput(string message, int minValue, int maxValue)
         {
             var repeatedInput = false;
-            int? number = 0;
+            int number = 0;
             int linesToDelete = 2;
             do
             {
                 if (repeatedInput)
                 {
-                    ConsoleHelper.ClearNumberOfLinesFromConsole(linesToDelete);
+                    ConsoleHelpers.ClearNumberOfLinesFromConsole(linesToDelete);
                     Console.SetCursorPosition(0, Console.GetCursorPosition().Top + 1);
                     if ((int)number == -1)
                     {
                         Console.Write("Morate unjeti ");
-                        ConsoleHelper.Red("BROJ");
-                        Console.Write(" između " + minValue + " i " + (maxValue) + "!\n");
+                        ConsoleHelpers.WriteInColor("BROJ" , ConsoleColor.Red);
+                        Console.Write($" između {minValue} i {maxValue}!\n");
                     }
                     else
                     {
                         Console.Write("Morate unjeti broj između ");
-                        ConsoleHelper.Red("" + minValue);
+                        ConsoleHelpers.WriteInColor($"{minValue}" , ConsoleColor.Red);
                         Console.Write(" i ");
-                        ConsoleHelper.Red("" + maxValue);
+                        ConsoleHelpers.WriteInColor($"{maxValue}", ConsoleColor.Red);
                         Console.Write("!\n");
                     }
                     linesToDelete = 3;
                 }
                 Console.Write("Unesite " + message + ":   ");
-                ConsoleHelper.AddPlaceholder(ConsoleHelper.XForDecimals(maxValue));
-                try
+                ConsoleHelpers.AddPlaceholder(ConsoleHelpers.WriteXForDecimals(maxValue));
+               
+                if(!int.TryParse(Console.ReadLine(),out number))
                 {
-                    number = int.Parse(Console.ReadLine());
-                }
-                catch
-                {
-                    number = -1;
+                    number = -1; 
                 }
                 repeatedInput = true;
             }
@@ -89,12 +87,28 @@ namespace Presentation.Helpers
         public static bool UserConfirmation(string message)
         {
             Console.Write(message);
-            ConsoleHelper.AddPlaceholder("da");
+            ConsoleHelpers.AddPlaceholder("da");
             var eraseConfirm = Console.ReadLine();
-            if (eraseConfirm.ToLower() is "da")
+            if (eraseConfirm.Trim().ToLower() is "da")
             {
                 return true;
             }
+            return false;
+        }
+        public static bool UserSuccesfullCodeInput()
+        {
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("Unos poklon bona za kupnju:\n");
+                var userInput = UserStringInput("kod", "", 10);
+                if (GetFunctions.ContainsCode(userInput))
+                {
+                    return true;
+                }
+                Console.WriteLine("\nUneseni kod ne postoji!");
+            }
+            while (UserConfirmation("Potvrdite ponovni unos: "));
             return false;
         }
     }

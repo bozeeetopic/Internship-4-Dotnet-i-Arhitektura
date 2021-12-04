@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Presentation.Helpers
 {
-    public class ConsoleHelper
+    public class ConsoleHelpers
     {
         public const string numbers = "1234567890";
         public const string symbols = ",.-:;<>!#$%&/()=?*¸¨'";
@@ -21,26 +21,20 @@ namespace Presentation.Helpers
             }
             Console.Write(new string(' ', Console.WindowWidth));
         }
-        public static void Red(string input)
+        public static void WriteInColor(string input, ConsoleColor color)
         {
-            Console.ForegroundColor = ConsoleColor.Red;
+            Console.ForegroundColor = color;
             Console.Write(input);
             Console.ForegroundColor = ConsoleColor.Gray;
         }
-        public static void Green(string input)
-        {
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write(input);
-            Console.ForegroundColor = ConsoleColor.Gray;
-        }
-        public static void AddPlaceholder(string placeholder)
+        public static void AddPlaceholder(string placeholderString)
         {
             Console.BackgroundColor = ConsoleColor.DarkGray;
-            Console.Write(placeholder);
+            Console.Write(placeholderString);
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.SetCursorPosition(Console.CursorLeft - placeholder.Length, Console.CursorTop);
+            Console.SetCursorPosition(Console.CursorLeft - placeholderString.Length, Console.CursorTop);
         }
-        public static string XForDecimals(int maxValue)
+        public static string WriteXForDecimals(int maxValue)
         {
             var stringToReturn = "";
             while (maxValue > 0)
@@ -67,9 +61,9 @@ namespace Presentation.Helpers
             }
             return stringToChange;
         }
-        public static bool ForbiddenStringChecker(string stringBeingChecked, string forbiddenString)
+        public static bool ForbiddenStringChecker(string stringBeingChecked, string forbiddenCharacters)
         {
-            foreach (var character in forbiddenString)
+            foreach (var character in forbiddenCharacters)
             {
                 if (stringBeingChecked.Contains(character))
                 {
@@ -78,47 +72,47 @@ namespace Presentation.Helpers
             }
             return false;
         }
-        public static string StringWithoutExtraSpaces(string stringWithSpaces)
+        public static string StringWithoutExtraSpaces(string stringBeingChanged)
         {
-            while (stringWithSpaces.Length > 1 && stringWithSpaces[0] == ' ')
+            while (stringBeingChanged.Length > 1 && stringBeingChanged[0] == ' ')
             {
-                stringWithSpaces = stringWithSpaces.Remove(0, 1);
+                stringBeingChanged = stringBeingChanged.Remove(0, 1);
             }
-            while (stringWithSpaces.Length > 1 && stringWithSpaces[^1] == ' ')
+            while (stringBeingChanged.Length > 1 && stringBeingChanged[^1] == ' ')
             {
-                stringWithSpaces = stringWithSpaces.Remove(stringWithSpaces.Length - 1);
+                stringBeingChanged = stringBeingChanged.Remove(stringBeingChanged.Length - 1);
             }
             RegexOptions options = RegexOptions.None;
             Regex regex = new("[ \t]{2,}", options);
-            stringWithSpaces = regex.Replace(stringWithSpaces, " ");
-            return stringWithSpaces;
+            stringBeingChanged = regex.Replace(stringBeingChanged, " ");
+            return stringBeingChanged;
         }
-        public static string ChangeCharacterIntoUppercase(string stringWithNoUppercase, int index)
+        public static string ChangeCharacterIntoUppercase(string stringBeingUppercased, int index)
         {
             try
             {
-                var firstLetterNeedNotChange = numbers.Contains(stringWithNoUppercase[index]) || symbols.Contains(stringWithNoUppercase[index]) || letters.ToUpper().Contains(stringWithNoUppercase[index]);
+                var firstLetterNeedNotChange = numbers.Contains(stringBeingUppercased[index]) || symbols.Contains(stringBeingUppercased[index]) || letters.ToUpper().Contains(stringBeingUppercased[index]);
                 if (firstLetterNeedNotChange)
                 {
-                    return stringWithNoUppercase;
+                    return stringBeingUppercased;
                 }
-                var letter = "" + stringWithNoUppercase[index];
+                var letter = "" + stringBeingUppercased[index];
                 letter = letter.ToUpper();
 
-                if (stringWithNoUppercase.Length > index + 1)
+                if (stringBeingUppercased.Length > index + 1)
                 {
-                    stringWithNoUppercase = stringWithNoUppercase.Remove(index, 1);
+                    stringBeingUppercased = stringBeingUppercased.Remove(index, 1);
                 }
                 else
                 {
-                    stringWithNoUppercase = stringWithNoUppercase.Remove(index);
+                    stringBeingUppercased = stringBeingUppercased.Remove(index);
                 }
-                stringWithNoUppercase = stringWithNoUppercase.Insert(index, letter);
+                stringBeingUppercased = stringBeingUppercased.Insert(index, letter);
             }
             catch
             {
             }
-            return stringWithNoUppercase;
+            return stringBeingUppercased;
         }
     }
 }

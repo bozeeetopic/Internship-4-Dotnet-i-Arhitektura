@@ -9,7 +9,7 @@ namespace Presentation.Enums
     public enum ComponentsChoice
     {
         Processor = 1,
-        RAM = 2,
+        Ram = 2,
         HardDisc = 3,
         Case = 4,
         Done = 5

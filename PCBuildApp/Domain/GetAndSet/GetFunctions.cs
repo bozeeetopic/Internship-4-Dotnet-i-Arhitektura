@@ -68,24 +68,13 @@ namespace Domain.GetAndSet
                 return (null, null);
             }
 
-            try
-            {
-                if (!RunningAppStorage.BillsOfUser.ContainsKey(RunningAppStorage.CurrentUser))
-                {
-                    return (null, null);
-                }
-                else
-                {
-                    if (RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList == new List<Data.Entities.Bill>())
-                    {
-                        return (null, null);
-                    }
-                    return (RunningAppStorage.CurrentUser, RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList);
-                }
-            }
-            catch
+            if (!RunningAppStorage.BillsOfUser.ContainsKey(RunningAppStorage.CurrentUser))
             {
                 return (null, null);
+            }
+            else
+            {
+                return (RunningAppStorage.CurrentUser, RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].BillsList);
             }
         }
         public static int GetDeliveryPrice()
@@ -99,10 +88,6 @@ namespace Domain.GetAndSet
         }
         public static bool OrdersExist()
         {
-            if (RunningAppStorage.Bill == new Data.Entities.Bill())
-            {
-                return false;
-            }
             if (RunningAppStorage.Bill.Orders.Count == 0)
             {
                 return false;

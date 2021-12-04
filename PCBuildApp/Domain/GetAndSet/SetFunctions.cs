@@ -67,14 +67,6 @@ namespace Domain.GetAndSet
                 TransportPrice = travelPrice
             };
             RunningAppStorage.Computer = new();
-            if (RunningAppStorage.Bill == null)
-            {
-                RunningAppStorage.Bill = new();
-                if (RunningAppStorage.Bill.Orders == null)
-                {
-                    RunningAppStorage.Bill.Orders = new();
-                }
-            }
             RunningAppStorage.Bill.Orders.Add(order);
         }
         public static void AddBill()
@@ -97,6 +89,12 @@ namespace Domain.GetAndSet
         public static void SetDiscounts((bool VIP, bool amount, bool code) discounts)
         {
             RunningAppStorage.Bill.Discounts = discounts;
+        }
+        public static void LogOut()
+        {
+            RunningAppStorage.CurrentUser = new();
+            RunningAppStorage.Computer = new();
+            RunningAppStorage.Bill = new() { Orders = new() };
         }
     }
 }

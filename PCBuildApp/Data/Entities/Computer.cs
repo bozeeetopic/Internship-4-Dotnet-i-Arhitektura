@@ -14,9 +14,14 @@ namespace Data.Entities
         public Processor Processor { get; set; }
         public Case ComputerCase { get; set; }
 
-        public (List<Component>, int) Components()
+        public List<Component> Components()
         {
-            return (new List<Component>() { RAM, HardDisk, Processor, ComputerCase }, RAMAmount);
+            var list = new List<Component>() { HardDisk, Processor, ComputerCase };
+            for(var i = 0; i < RAMAmount; i++)
+            {
+                list.Add(RAM);
+            }
+            return list;
         }
         public double ComputerWeight()
         {

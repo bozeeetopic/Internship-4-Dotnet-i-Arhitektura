@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Domain;
+using Domain.GetAndSet;
 
 namespace Presentation.Helpers
 {
     public class PrintHelpers
     {
-        public static void PrintComponentsMenu(int binaryMemory)
+        public static void ComponentsMenu(int binaryMemory)
         {
             Console.WriteLine("Unesite broj komponente:\n");
             bool hasAllInputs = false;
@@ -19,7 +17,7 @@ namespace Presentation.Helpers
 
             if (binaryMemory >= 8)
             {
-                ConsoleHelper.Green("1 - Mjenjanje Procesora\n");
+                ConsoleHelpers.WriteInColor("1 - Mjenjanje Procesora\n", ConsoleColor.Green);
                 binaryMemory -= 8;
             }
             else
@@ -29,7 +27,7 @@ namespace Presentation.Helpers
 
             if (binaryMemory >= 4)
             {
-                ConsoleHelper.Green("2 - Mjenjanje RAM memorije\n");
+                ConsoleHelpers.WriteInColor("2 - Mjenjanje RAM memorije\n", ConsoleColor.Green);
                 binaryMemory -= 4;
             }
             else
@@ -39,7 +37,7 @@ namespace Presentation.Helpers
 
             if (binaryMemory >= 2)
             {
-                ConsoleHelper.Green("3 - Mjenjanje hard diska\n");
+                ConsoleHelpers.WriteInColor("3 - Mjenjanje hard diska\n", ConsoleColor.Green);
                 binaryMemory -= 2;
             }
             else
@@ -49,7 +47,7 @@ namespace Presentation.Helpers
 
             if (binaryMemory >= 1)
             {
-                ConsoleHelper.Green("4 - Mjenjanje kučišta\n");
+                ConsoleHelpers.WriteInColor("4 - Mjenjanje kučišta\n", ConsoleColor.Green);
             }
             else
             {
@@ -62,11 +60,11 @@ namespace Presentation.Helpers
             }
             else
             {
-                ConsoleHelper.Red("5 - Nastavak prema plačanju\n");
+                ConsoleHelpers.WriteInColor("5 - Nastavak prema plačanju\n", ConsoleColor.Red);
             }
             Console.WriteLine();
         }
-        public static void PrintMainAppMenu()
+        public static void MainAppMenu()
         {
             Console.WriteLine("Unesite broj pored akcije koju želite ispisati:\n");
             Console.Write("1 - Dodavanje narudžbe\n");
@@ -74,19 +72,19 @@ namespace Presentation.Helpers
             Console.Write("3 - Log out\n");
             Console.WriteLine();
         }
-        public static void PrintOrderMenu(bool hasOrder)
+        public static void OrderMenu(bool hasOrder)
         {
             Console.WriteLine("Unesite broj željene akcije:\n");
             if (hasOrder)
             {
-                ConsoleHelper.Green("1 - Dodavanje narudžbe\n");
+                ConsoleHelpers.WriteInColor("1 - Dodavanje narudžbe\n", ConsoleColor.Green);
             }
             else
             {
                 Console.Write("1 - Dodavanje narudžbe\n");
             }
 
-            ConsoleHelper.Green("2 - Dodavanje popusta\n");
+            ConsoleHelpers.WriteInColor("2 - Dodavanje popusta\n", ConsoleColor.Green);
 
             if (hasOrder)
             {
@@ -94,12 +92,12 @@ namespace Presentation.Helpers
             }
             else
             {
-                ConsoleHelper.Red("3 - Naplati račun\n");
+                ConsoleHelpers.WriteInColor("3 - Naplati račun\n", ConsoleColor.Red);
             }
             Console.Write("4 - Natrag\n");
             Console.WriteLine();
         }
-        public static void PrintMainMenu()
+        public static void MainMenu()
         {
             Console.WriteLine("Dobrodošli u PCBuildApp!");
             Console.WriteLine();
@@ -108,14 +106,14 @@ namespace Presentation.Helpers
             Console.WriteLine("2 - Exit App");
             Console.WriteLine();
         }
-        public static void PrintShimentMenu()
+        public static void ShipmentMenu()
         {
             Console.WriteLine("Unesite broj pored načina preuzimanja računala:\n");
             Console.Write("1 - Osobno preuzimanje (besplatno)\n");
             Console.Write("2 - Dostava (dodatna naplata ovisno o težini narudžbe)\n");
             Console.WriteLine();
         }
-        public static void PrintDiscountMenu()
+        public static void DiscountMenu()
         {
             Console.WriteLine("Unesite vrstu popusta koje želite ostvariti:\n");
             Console.Write("1 - Popust na vjerno članstvo\n");
@@ -123,6 +121,26 @@ namespace Presentation.Helpers
             Console.Write("3 - Popust zbog promo kodova\n");
             Console.Write("4 - Povratak u prethodni meni\n");
             Console.WriteLine();
+        }
+        public static void PrintBill()
+        {
+            var billsAndUser = GetFunctions.GetUserBills();
+            Console.Write(new string('=', Console.WindowWidth));
+            Console.WriteLine();
+            Console.WriteLine(billsAndUser.Item1.ToString());
+            foreach (var bill in billsAndUser.Item2)
+            {
+                foreach (var order in bill.Orders)
+                {
+                    Console.WriteLine(order.ToString() + "\n\n");
+                }
+                Console.Write(bill.ToString(bill.Discounts.Item2));
+
+                Console.Write(new string('-', Console.WindowWidth));
+            }
+            Console.WriteLine();
+            Console.Write(new string('=', Console.WindowWidth));
+            Console.ReadLine();
         }
     }
 }

@@ -1,8 +1,7 @@
 ﻿using System;
 using Presentation.Helpers;
-using Domain;
 using Domain.GetAndSet;
-using System.Collections.Generic;
+using Presentation.Enums;
 
 namespace Presentation
 {
@@ -13,18 +12,18 @@ namespace Presentation
             SetFunctions.PullDiscountCodesFromData();
             while (true)
             {
-                PrintHelpers.PrintMainMenu();
-                var choice = (Enums.MainMenuChoice)InputHelpers.UserNumberInput("vaš izbor", 1, 2);
+                PrintHelpers.MainMenu();
+                var choice = (MainMenuChoice)InputHelpers.UserNumberInput("vaš izbor", 1, 2);
                 Console.Clear();
                 switch (choice)
                 {
-                    case Enums.MainMenuChoice.LogIn:
+                    case MainMenuChoice.LogIn:
                         {
                             UserLogin();
                             MainApp();
                             break;
                         }
-                    case Enums.MainMenuChoice.Exit:
+                    case MainMenuChoice.Exit:
                         {
                             Console.WriteLine("Hvala na korištenju!");
                             return;
@@ -38,14 +37,14 @@ namespace Presentation
             {
                 Console.Clear();
                 Console.WriteLine("Unosite vaše podatke:\n");
-                var name = InputHelpers.UserStringInput("ime", ConsoleHelper.symbols + ConsoleHelper.numbers, 3);
-                var surname = InputHelpers.UserStringInput("prezime", ConsoleHelper.symbols + ConsoleHelper.numbers, 3);
-                var adress = InputHelpers.UserStringInput("adresu", ConsoleHelper.symbols + ConsoleHelper.numbers, 1);
+                var name = InputHelpers.UserStringInput("ime", ConsoleHelpers.symbols + ConsoleHelpers.numbers, 1);
+                var surname = InputHelpers.UserStringInput("prezime", ConsoleHelpers.symbols + ConsoleHelpers.numbers, 1);
+                var adress = InputHelpers.UserStringInput("adresu", ConsoleHelpers.symbols + ConsoleHelpers.numbers, 1);
                 var adressNumber = InputHelpers.UserNumberInput("adresni broj", 1, 999);
 
-                name = ConsoleHelper.FormatWords(name.ToLower());
-                surname = ConsoleHelper.FormatWords(surname.ToLower());
-                adress = ConsoleHelper.FormatWords(adress.ToLower());
+                name = ConsoleHelpers.FormatWords(name.ToLower());
+                surname = ConsoleHelpers.FormatWords(surname.ToLower());
+                adress = ConsoleHelpers.FormatWords(adress.ToLower());
 
                 Console.Clear();
                 Console.WriteLine("Kornisnički podaci: ");
@@ -61,32 +60,33 @@ namespace Presentation
         {
             while (true)
             {
-                PrintHelpers.PrintMainAppMenu();
-                var choice = (Enums.MainAppChoice)InputHelpers.UserNumberInput("sljedeću akciju", 1, 3);
+                PrintHelpers.MainAppMenu();
+                var choice = (MainAppChoice)InputHelpers.UserNumberInput("sljedeću akciju", 1, 3);
                 Console.Clear();
                 switch (choice)
                 {
-                    case Enums.MainAppChoice.AddOrder:
+                    case MainAppChoice.AddOrder:
                         {
                             AddOrder();
                             break;
                         }
-                    case Enums.MainAppChoice.ListOrders:
+                    case MainAppChoice.ListOrders:
                         {
                             var billsAndUser = GetFunctions.GetUserBills();
                             if (billsAndUser.Item2 == null)
                             {
                                 Console.WriteLine("Niste još uvijek odradili svoj prvi shopping.");
-                                Console.ReadLine();
+                                Console.ReadKey();
                             }
                             else
                             {
-                                PrintBill();
+                                PrintHelpers.PrintBill();
                             }
                             break;
                         }
-                    case Enums.MainAppChoice.LogOut:
+                    case MainAppChoice.LogOut:
                         {
+                            SetFunctions.LogOut();
                             return;
                         }
                 }
@@ -98,38 +98,38 @@ namespace Presentation
         {
             while (true)
             {
-                PrintHelpers.PrintOrderMenu(GetFunctions.OrdersExist());
-                var choice = (Enums.OrderChoice)InputHelpers.UserNumberInput("sljedeću akciju", 1, 4);
+                PrintHelpers.OrderMenu(GetFunctions.OrdersExist());
+                var choice = (OrderChoice)InputHelpers.UserNumberInput("sljedeću akciju", 1, 4);
                 Console.Clear();
                 switch (choice)
                 {
-                    case Enums.OrderChoice.Order:
+                    case OrderChoice.Order:
                         {
                             do
                             {
                                 ChooseComponent();
                                 ChooseShipmentMethod();
                             }
-                            while (InputHelpers.UserConfirmation("Želite li unjeti još računala? Potvrdite:"));
+                            while (InputHelpers.UserConfirmation("Ako želite unjeti još računala potvrdite: "));
                             break;
                         }
-                    case Enums.OrderChoice.Discount:
+                    case OrderChoice.Discount:
                         {
                             AddDiscount();
                             break;
                         }
-                    case Enums.OrderChoice.Bill:
+                    case OrderChoice.Bill:
                         {
                             if (!GetFunctions.OrdersExist())
                             {
                                 Console.WriteLine("Nemoguće upisati račun bez ijednog unesenog PC-a!");
-                                Console.ReadLine();
+                                Console.ReadKey();
                                 break;
                             }
                             SetFunctions.AddBill();
                             break;
                         }
-                    case Enums.OrderChoice.Exit:
+                    case OrderChoice.Exit:
                         {
                             Console.Clear();
                             return;
@@ -144,15 +144,15 @@ namespace Presentation
             while (numberOfStepsDone <= 15)
             {
                 Console.Clear();
-                PrintHelpers.PrintComponentsMenu(numberOfStepsDone);
-                var choice = (Enums.ComponentsChoice)InputHelpers.UserNumberInput("vaš izbor komponente", 1, 5);
+                PrintHelpers.ComponentsMenu(numberOfStepsDone);
+                var choice = (ComponentsChoice)InputHelpers.UserNumberInput("vaš izbor komponente", 1, 5);
                 Console.Clear();
                 switch (choice)
                 {
-                    case Enums.ComponentsChoice.Processor:
+                    case ComponentsChoice.Processor:
                         {
                             var processors = GetFunctions.GetProcessors();
-                            int i = 1;
+                            var i = 1;
                             foreach (var processor in processors)
                             {
                                 Console.WriteLine($"{i} - {processor}");
@@ -162,10 +162,10 @@ namespace Presentation
                             numberOfStepsDone += SetFunctions.AddProcessor(userChoice - 1, processors);
                             break;
                         }
-                    case Enums.ComponentsChoice.RAM:
+                    case ComponentsChoice.Ram:
                         {
                             var rams = GetFunctions.GetRAMs();
-                            int i = 1;
+                            var i = 1;
                             foreach (var ram in rams)
                             {
                                 Console.WriteLine($"{i} - {ram}");
@@ -176,10 +176,10 @@ namespace Presentation
                             numberOfStepsDone += SetFunctions.AddRAM(userChoice - 1, rams, ramAmount);
                             break;
                         }
-                    case Enums.ComponentsChoice.HardDisc:
+                    case ComponentsChoice.HardDisc:
                         {
                             var hardDiscs = GetFunctions.GetHardDiscs();
-                            int i = 1;
+                            var i = 1;
                             foreach (var hardDisc in hardDiscs)
                             {
                                 Console.WriteLine($"{i} - {hardDisc}");
@@ -189,10 +189,10 @@ namespace Presentation
                             numberOfStepsDone += SetFunctions.AddHardDisk(userChoice - 1, hardDiscs);
                             break;
                         }
-                    case Enums.ComponentsChoice.Case:
+                    case ComponentsChoice.Case:
                         {
                             var cases = GetFunctions.GetCases();
-                            int i = 1;
+                            var i = 1;
                             foreach (var computerCase in cases)
                             {
                                 Console.WriteLine($"{i} - {computerCase}");
@@ -202,17 +202,18 @@ namespace Presentation
                             numberOfStepsDone += SetFunctions.AddCase(userChoice - 1, cases);
                             break;
                         }
-                    case Enums.ComponentsChoice.Done:
+                    case ComponentsChoice.Done:
                         {
                             if (numberOfStepsDone != 15)
                             {
                                 Console.WriteLine("Nemoguće završiti kupnju, nisu sve komponente odabrane!");
-                                Console.ReadLine();
+                                Console.ReadKey();
                                 break;
                             }
-                            Console.WriteLine("Vaš PC:\n" + GetFunctions.GetPC().ToString() + "\n");
+                            Console.WriteLine($"Vaš PC:\n {GetFunctions.GetPC()}\n");
                             if (InputHelpers.UserConfirmation("Ako ste zadovoljni i želite nastaviti prema odabiru načina preuzimanja potvrdite: "))
                             {
+                                Console.Clear();
                                 return;
                             }
                             break;
@@ -224,16 +225,16 @@ namespace Presentation
         static void ChooseShipmentMethod()
         {
             Console.Clear();
-            int travelPrice = 0;
-            PrintHelpers.PrintShimentMenu();
-            var choice = (Enums.ShipmentChoice)InputHelpers.UserNumberInput("način preuzeća", 1, 2);
+            var travelPrice = 0;
+            PrintHelpers.ShipmentMenu();
+            var choice = (ShipmentChoice)InputHelpers.UserNumberInput("način preuzeća", 1, 2);
             switch (choice)
             {
-                case Enums.ShipmentChoice.Self:
+                case ShipmentChoice.Self:
                     {
                         break;
                     }
-                case Enums.ShipmentChoice.Delivery:
+                case ShipmentChoice.Delivery:
                     {
                         travelPrice = GetFunctions.GetDeliveryPrice();
                         break;
@@ -248,101 +249,65 @@ namespace Presentation
             {
                 Console.Clear();
                 var discounts = GetFunctions.GetDiscounts();
-                PrintHelpers.PrintDiscountMenu();
-                var choice = (Enums.DiscountChoice)InputHelpers.UserNumberInput("odabir popusta", 1, 4);
+                PrintHelpers.DiscountMenu();
+                var choice = (DiscountChoice)InputHelpers.UserNumberInput("odabir popusta", 1, 4);
                 switch (choice)
                 {
-                    case Enums.DiscountChoice.VIP:
+                    case DiscountChoice.VIP:
                         {
                             if (discounts.Item1)
                             {
                                 Console.WriteLine("Već ste ostvarili ovaj popust!");
-                                Console.ReadLine();
+                                Console.ReadKey();
                                 break;
                             }
                             if (!GetFunctions.AmountSpentIsEnough())
                             {
                                 Console.WriteLine("Niste još ostvarili pravo na ovaj popust!");
-                                Console.ReadLine();
+                                Console.ReadKey();
                                 break;
                             }
                             SetFunctions.SetDiscounts((true, discounts.Item2, discounts.Item3));
                             break;
                         }
-                    case Enums.DiscountChoice.Amount:
+                    case DiscountChoice.Amount:
                         {
                             if (discounts.Item2)
                             {
                                 Console.WriteLine("Već ste ostvarili ovaj popust!");
-                                Console.ReadLine();
+                                Console.ReadKey();
                                 break;
                             }
                             if (!GetFunctions.ThereAreThreeSameComponentsInBill())
                             {
                                 Console.WriteLine("Niste još ostvarili pravo na ovaj popust!");
-                                Console.ReadLine();
+                                Console.ReadKey();
                                 break;
                             }
                             SetFunctions.SetDiscounts((true, discounts.Item2, discounts.Item3));
                             break;
                         }
-                    case Enums.DiscountChoice.Code:
+                    case DiscountChoice.Code:
                         {
                             if (discounts.Item3)
                             {
                                 Console.WriteLine("Već ste ostvarili ovaj popust!");
-                                Console.ReadLine();
+                                Console.ReadKey();
                                 break;
                             }
-                            if (UserSuccesfullCodeInput())
+                            if (InputHelpers.UserSuccesfullCodeInput())
                             {
                                 SetFunctions.SetDiscounts((true, discounts.Item2, discounts.Item3));
                             }
                             break;
                         }
-                    case Enums.DiscountChoice.Back:
+                    case DiscountChoice.Back:
                         {
                             Console.Clear();
                             return;
                         }
                 }
             }
-        }
-        static bool UserSuccesfullCodeInput()
-        {
-            do
-            {
-                Console.Clear();
-                Console.WriteLine("Unos poklon bona za kupnju:\n");
-                var userInput = InputHelpers.UserStringInput("kod", "", 10);
-                if (GetFunctions.ContainsCode(userInput))
-                {
-                    return true;
-                }
-                Console.WriteLine("\nUneseni kod ne postoji!");
-            }
-            while (InputHelpers.UserConfirmation("Potvrdite ponovni unos: "));
-            return false;
-        }
-        static void PrintBill()
-        {
-            var billsAndUser = GetFunctions.GetUserBills();
-            Console.Write(new string('=', Console.WindowWidth));
-            Console.WriteLine();
-            Console.WriteLine(billsAndUser.Item1.ToString());
-            foreach (var bill in billsAndUser.Item2)
-            {
-                foreach (var order in bill.Orders)
-                {
-                    Console.WriteLine(order.ToString()+"\n\n");
-                }
-                Console.Write(bill.ToString(bill.Discounts.Item2));
-
-                Console.Write(new string('-', Console.WindowWidth));
-            }
-            Console.WriteLine();
-            Console.Write(new string('=', Console.WindowWidth));
-            Console.ReadLine();
         }
     }
 }

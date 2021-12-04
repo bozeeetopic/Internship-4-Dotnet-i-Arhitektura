@@ -18,29 +18,15 @@ namespace Data.Entities
             var ExtraComponents = new List<Component>();
             foreach (var order in Orders)
             {
-                foreach (var component in order.Computer.Components().Item1)
+                foreach (var component in order.Computer.Components())
                 {
                     if (OrdersCounter.ContainsKey(component))
                     {
-                        if (component.GetType().Equals(new RAM()))
-                        {
-                            OrdersCounter[component] += order.Computer.Components().Item2;
-                        }
-                        else
-                        {
-                            OrdersCounter[component]++;
-                        }
+                        OrdersCounter[component]++;
                     }
                     else
                     {
-                        if (component.GetType().Equals(new RAM()))
-                        {
-                            OrdersCounter.Add(component, order.Computer.Components().Item2);
-                        }
-                        else
-                        {
-                            OrdersCounter.Add(component, 1);
-                        }
+                        OrdersCounter.Add(component, 1);
                     }
                 }
             }
@@ -98,7 +84,7 @@ namespace Data.Entities
                 stringToReturn += $"Ukupna cijena besplatnih komponenata: -{AmountFromExtraComponents(ExtraComponents())}kn";
                 stringToReturn += $"\n\nPopust u kunama: \t\t{AmountFromExtraComponents(ExtraComponents()) + PriceReduction}kn";
                 stringToReturn += $"\nPopust u postotku: \t\t{PricePercentage}%";
-                var totalPrice = ((AmountSpent() - AmountFromExtraComponents(ExtraComponents())) / 100 * (100 - PricePercentage)) - PriceReduction;
+                var totalPrice = (int)((AmountSpent() - AmountFromExtraComponents(ExtraComponents())) / 100 * (100 - PricePercentage)) - PriceReduction;
                 stringToReturn += $"\n\nUkupno za platiti: \t\t\t\t\t{totalPrice}kn\n\n";
                 return stringToReturn;
             }
@@ -106,7 +92,7 @@ namespace Data.Entities
             {
                 stringToReturn += $"\n\nPopust u kunama: \t\t{PriceReduction}kn";
                 stringToReturn += $"\nPopust u postotku: \t\t{PricePercentage}%";
-                var totalPrice = (AmountSpent() / 100 * (100 - PricePercentage)) - PriceReduction;
+                var totalPrice = (int)(AmountSpent() / 100 * (100 - PricePercentage)) - PriceReduction;
                 stringToReturn += $"\n\nUkupno za platiti: \t\t\t\t\t{totalPrice}kn\n\n";
                 return stringToReturn;
             }
