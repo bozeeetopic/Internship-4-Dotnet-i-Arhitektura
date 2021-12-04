@@ -14,15 +14,15 @@ namespace Data.Entities
         public (bool, bool, bool) Discounts { get; set; }
         public List<Component> ExtraComponents()
         {
-            var OrdersCounter = new Dictionary<Component,int>();
+            var OrdersCounter = new Dictionary<Component, int>();
             var ExtraComponents = new List<Component>();
-            foreach(var order in Orders)
+            foreach (var order in Orders)
             {
-                foreach(var component in order.Computer.Components().Item1)
+                foreach (var component in order.Computer.Components().Item1)
                 {
                     if (OrdersCounter.ContainsKey(component))
                     {
-                        if (component is RAM)
+                        if (component.GetType().Equals(new RAM()))
                         {
                             OrdersCounter[component] += order.Computer.Components().Item2;
                         }
@@ -33,9 +33,9 @@ namespace Data.Entities
                     }
                     else
                     {
-                        if (component is RAM)
+                        if (component.GetType().Equals(new RAM()))
                         {
-                            OrdersCounter.Add(component,order.Computer.Components().Item2);
+                            OrdersCounter.Add(component, order.Computer.Components().Item2);
                         }
                         else
                         {
@@ -44,12 +44,12 @@ namespace Data.Entities
                     }
                 }
             }
-            foreach(var component in OrdersCounter)
+            foreach (var component in OrdersCounter)
             {
                 if (component.Value >= 3)
                 {
                     var numberOfExtraComponents = (component.Value % 3) / 3;
-                    while (numberOfExtraComponents>0)
+                    while (numberOfExtraComponents > 0)
                     {
                         ExtraComponents.Add(component.Key);
                     }
@@ -60,7 +60,7 @@ namespace Data.Entities
         public static double AmountFromExtraComponents(List<Component> ExtraComponents)
         {
             var counter = 0;
-            foreach(var component in ExtraComponents)
+            foreach (var component in ExtraComponents)
             {
                 counter += component.Price;
             }
@@ -69,7 +69,7 @@ namespace Data.Entities
         public double AmountSpent()
         {
             var counter = 0.0;
-            foreach(var order in Orders)
+            foreach (var order in Orders)
             {
                 counter += order.TotalOrderPrice();
             }
@@ -91,23 +91,23 @@ namespace Data.Entities
             var stringToReturn = "";
             if (discount)
             {
-                foreach(var component in ExtraComponents())
+                foreach (var component in ExtraComponents())
                 {
                     stringToReturn += component.ToString() + "\n";
                 }
                 stringToReturn += $"Ukupna cijena besplatnih komponenata: -{AmountFromExtraComponents(ExtraComponents())}kn";
-                stringToReturn += $"\n\nPopust u kunama: {AmountFromExtraComponents(ExtraComponents())+PriceReduction}kn";
-                stringToReturn += $"\nPopust u postotku: {PricePercentage}%";
-                var totalPrice = ((AmountSpent() - AmountFromExtraComponents(ExtraComponents())) * (100 - PricePercentage)) - PriceReduction;
-                stringToReturn += $"\n\nUkupno za platiti: {totalPrice}kn\n\n";
+                stringToReturn += $"\n\nPopust u kunama: \t\t{AmountFromExtraComponents(ExtraComponents()) + PriceReduction}kn";
+                stringToReturn += $"\nPopust u postotku: \t\t{PricePercentage}%";
+                var totalPrice = ((AmountSpent() - AmountFromExtraComponents(ExtraComponents())) / 100 * (100 - PricePercentage)) - PriceReduction;
+                stringToReturn += $"\n\nUkupno za platiti: \t\t\t\t\t{totalPrice}kn\n\n";
                 return stringToReturn;
             }
             else
             {
-                stringToReturn += $"\n\nPopust u kunama: {PriceReduction}kn";
-                stringToReturn += $"\nPopust u postotku: {PricePercentage}%";
-                var totalPrice = (AmountSpent() * (100 - PricePercentage)) - PriceReduction;
-                stringToReturn += $"\n\nUkupno za platiti: {totalPrice}kn\n\n";
+                stringToReturn += $"\n\nPopust u kunama: \t\t{PriceReduction}kn";
+                stringToReturn += $"\nPopust u postotku: \t\t{PricePercentage}%";
+                var totalPrice = (AmountSpent() / 100 * (100 - PricePercentage)) - PriceReduction;
+                stringToReturn += $"\n\nUkupno za platiti: \t\t\t\t\t{totalPrice}kn\n\n";
                 return stringToReturn;
             }
         }

@@ -15,11 +15,11 @@ namespace Domain.GetAndSet
         }
         public static void AddUser(string name, string surname, string adress, int distance)
         {
-            RunningAppStorage.CurrentUser.Populate(name, surname, adress, distance); 
+            RunningAppStorage.CurrentUser.Populate(name, surname, adress, distance);
         }
         public static int AddProcessor(int userChoice, List<Data.Entities.Processor> processors)
         {
-            if(RunningAppStorage.Computer.Processor==null)
+            if (RunningAppStorage.Computer.Processor == null)
             {
                 RunningAppStorage.Computer.Processor = processors[userChoice];
                 return 8;
@@ -94,7 +94,7 @@ namespace Domain.GetAndSet
             RunningAppStorage.Bill = new();
             RunningAppStorage.Bill.Orders = new();
         }
-        public static void SetDiscounts((bool VIP,bool amount,bool code) discounts)
+        public static void SetDiscounts((bool VIP, bool amount, bool code) discounts)
         {
             RunningAppStorage.Bill.Discounts = discounts;
         }

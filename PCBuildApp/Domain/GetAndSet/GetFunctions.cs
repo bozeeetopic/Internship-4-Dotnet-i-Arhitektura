@@ -61,9 +61,9 @@ namespace Domain.GetAndSet
         {
             return RunningAppStorage.Computer;
         }
-        public static (Data.Entities.User , List<Data.Entities.Bill>) GetUserBills()
+        public static (Data.Entities.User, List<Data.Entities.Bill>) GetUserBills()
         {
-            if (RunningAppStorage.BillsOfUser == new Dictionary<Data.Entities.User,Data.Entities.Bills>())
+            if (RunningAppStorage.BillsOfUser == new Dictionary<Data.Entities.User, Data.Entities.Bills>())
             {
                 return (null, null);
             }
@@ -99,7 +99,7 @@ namespace Domain.GetAndSet
         }
         public static bool OrdersExist()
         {
-            if(RunningAppStorage.Bill == new Data.Entities.Bill())
+            if (RunningAppStorage.Bill == new Data.Entities.Bill())
             {
                 return false;
             }
@@ -109,7 +109,7 @@ namespace Domain.GetAndSet
             }
             return true;
         }
-        public static (bool,bool,bool) GetDiscounts()
+        public static (bool, bool, bool) GetDiscounts()
         {
             return RunningAppStorage.Bill.Discounts;
         }
@@ -117,7 +117,7 @@ namespace Domain.GetAndSet
         {
             if (RunningAppStorage.BillsOfUser.ContainsKey(RunningAppStorage.CurrentUser))
             {
-                if(RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount >= 1000)
+                if (RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount >= 1000)
                 {
                     RunningAppStorage.Bill.PriceReduction += 100;
                     RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount = 0;
@@ -138,7 +138,7 @@ namespace Domain.GetAndSet
         }
         public static bool ThereAreThreeSameComponentsInBill()
         {
-            if(RunningAppStorage.Bill.ExtraComponents().Count == 0)
+            if (RunningAppStorage.Bill.ExtraComponents().Count == 0)
             {
                 return false;
             }

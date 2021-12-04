@@ -17,8 +17,8 @@ namespace Data
         };
         public static readonly List<Component> Components = new()
         {
-            new RAM { Name = "Kineska kartica", GBAmount = 4, Price = 60, Weight = 0.2 },
-            new RAM { Name = "Original Njemačka", GBAmount = 8, Price = 200, Weight = 0.2 },
+            new RAM { Name = "Kineska jeftina kartica", GBAmount = 4, Price = 60, Weight = 0.2 },
+            new RAM { Name = "Original iz Njemačke", GBAmount = 8, Price = 200, Weight = 0.2 },
 
             new HardDisk { Name = "Sanaderov najdraži", HardDiskType = Enums.HardDiskType.SSD, TBAmount = 2, Price = 300, Weight = 0.1 },
             new HardDisk { Name = "Mesićev disk stari", HardDiskType = Enums.HardDiskType.SSD, TBAmount = 1, Price = 100, Weight = 0.1 },
@@ -29,10 +29,10 @@ namespace Data
             new Case { Name = "Coca-Cola Case", Material = Enums.Material.plastika, Price = 20, Weight = 1 },
             new Case { Name = "Rastavljena F1", Material = Enums.Material.karbon, Price = 300, Weight = 0.5 },
 
-            new Processor { Name = "Super Mega Good", ProcessorType = Enums.ProcessorType.Deca, Price = 300, Weight = 0.1, Manufacturer = manufacturers[0] },
-            new Processor { Name = "Very Very Good", ProcessorType = Enums.ProcessorType.Octa, Price = 100, Weight = 0.1, Manufacturer = manufacturers[0] },
-            new Processor { Name = "DeGud CPU yess", ProcessorType = Enums.ProcessorType.Octa, Price = 500, Weight = 0.1, Manufacturer = manufacturers[1] },
-            new Processor { Name = "AMD benchmarker", ProcessorType = Enums.ProcessorType.Quad, Price = 200, Weight = 0.1, Manufacturer = manufacturers[1] }
+            new Processor { Name = "Super Mega Good CPU", ProcessorType = Enums.ProcessorType.Deca, Price = 300, Weight = 0.1, Manufacturer = manufacturers[0] },
+            new Processor { Name = "Very Very Good CPU", ProcessorType = Enums.ProcessorType.Octa, Price = 100, Weight = 0.1, Manufacturer = manufacturers[0] },
+            new Processor { Name = "DeGud CPU yes TMx", ProcessorType = Enums.ProcessorType.Octa, Price = 500, Weight = 0.1, Manufacturer = manufacturers[1] },
+            new Processor { Name = "AMD benchmarkerer", ProcessorType = Enums.ProcessorType.Quad, Price = 200, Weight = 0.1, Manufacturer = manufacturers[1] }
         };
         public static Dictionary<string,int> CheatCodes = new()
         {

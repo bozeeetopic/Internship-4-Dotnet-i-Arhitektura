@@ -28,14 +28,14 @@ namespace Presentation.Helpers
                 if (repeatedInput && (input.Trim().Length < minLength))
                 {
                     Console.WriteLine("Duljina unosa mora biti " + minLength + "!");
-                    linesToDelete ++;
+                    linesToDelete++;
                 }
                 if (repeatedInput && ConsoleHelper.ForbiddenStringChecker(input.ToLower(), forbiddenString))
                 {
                     Console.WriteLine("Unos sadrži znak, moraju biti isključivo brojevi!");
-                    linesToDelete ++;
+                    linesToDelete++;
                 }
-               
+
                 Console.Write("Unesite " + stringName + ": ");
                 ConsoleHelper.AddPlaceholder(stringName);
                 input = Console.ReadLine();
@@ -47,7 +47,7 @@ namespace Presentation.Helpers
         public static int UserNumberInput(string message, int minValue, int maxValue)
         {
             var repeatedInput = false;
-            int? number=0;
+            int? number = 0;
             int linesToDelete = 2;
             do
             {
@@ -55,7 +55,7 @@ namespace Presentation.Helpers
                 {
                     ConsoleHelper.ClearNumberOfLinesFromConsole(linesToDelete);
                     Console.SetCursorPosition(0, Console.GetCursorPosition().Top + 1);
-                    if((int)number == -1)
+                    if ((int)number == -1)
                     {
                         Console.Write("Morate unjeti ");
                         ConsoleHelper.Red("BROJ");

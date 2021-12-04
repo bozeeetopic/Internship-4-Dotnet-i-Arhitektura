@@ -13,7 +13,7 @@ namespace Data.Entities
         public string Surname { get; set; }
         public string Adress { get; set; }
         public int Distance { get; set; }
-        public void Populate(string name,string surname, string adress, int distance)
+        public void Populate(string name, string surname, string adress, int distance)
         {
             Name = name;
             Surname = surname;

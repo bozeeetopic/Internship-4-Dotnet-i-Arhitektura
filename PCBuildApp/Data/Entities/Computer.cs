@@ -14,7 +14,7 @@ namespace Data.Entities
         public Processor Processor { get; set; }
         public Case ComputerCase { get; set; }
 
-        public (List<Component>,int) Components()
+        public (List<Component>, int) Components()
         {
             return (new List<Component>() { RAM, HardDisk, Processor, ComputerCase }, RAMAmount);
         }
@@ -28,8 +28,8 @@ namespace Data.Entities
         }
         public int AssemblyPrice()
         {
-            return (3 + RAMAmount)*25;
+            return (3 + RAMAmount) * 25;
         }
-        public override string ToString() => $"Procesor:\t{Processor}\nRAM:\t\t{RAM} x{RAMAmount}\nHard disk:\t{HardDisk}\nKučište:\t{ComputerCase}";
+        public override string ToString() => $"Procesor:\t{Processor}\nRAM:\t\t{RAM} x{RAMAmount}\nHard disk:\t{HardDisk}\nKučište:\t{ComputerCase}\n";
     }
 }

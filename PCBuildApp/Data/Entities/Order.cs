@@ -14,9 +14,9 @@ namespace Data.Entities
         {
             var stringToReturn = "PC:\n";
             stringToReturn += Computer.ToString();
-            stringToReturn += $"\nCijena sastavljanja: {Computer.AssemblyPrice()}  kn";
-            stringToReturn += $"\nCijena transporta: {TransportPrice}  kn";
-            stringToReturn += $"\nUkupna cijena: {TransportPrice + Computer.AssemblyPrice() + Computer.ComponentsPrice()}  kn";
+            stringToReturn += $"\nCijena sastavljanja: \t\t\t\t\t\t\t{Computer.AssemblyPrice()}  kn";
+            stringToReturn += $"\nCijena transporta: \t\t\t\t\t\t\t{TransportPrice}  kn";
+            stringToReturn += $"\n\nUkupna cijena narudžbe: \t\t\t\t\t\t{TransportPrice + Computer.AssemblyPrice() + Computer.ComponentsPrice()}  kn";
             return stringToReturn;
         }
         public double TotalOrderPrice()

@@ -14,10 +14,10 @@ namespace Presentation.Helpers
         public const string letters = "qwertzuiopšđžćčlkjhgfdsayxcvbnm";
         public static void ClearNumberOfLinesFromConsole(int numberOfLinesToDelete)
         {
-            for(var i = 0; i< numberOfLinesToDelete; i++)
+            for (var i = 0; i < numberOfLinesToDelete; i++)
             {
                 Console.Write(new string(' ', Console.WindowWidth));
-                Console.SetCursorPosition(0, Console.CursorTop-i);
+                Console.SetCursorPosition(0, Console.CursorTop - i);
             }
             Console.Write(new string(' ', Console.WindowWidth));
         }
@@ -38,7 +38,7 @@ namespace Presentation.Helpers
             Console.BackgroundColor = ConsoleColor.DarkGray;
             Console.Write(placeholder);
             Console.BackgroundColor = ConsoleColor.Black;
-            Console.SetCursorPosition(Console.CursorLeft-placeholder.Length, Console.CursorTop);
+            Console.SetCursorPosition(Console.CursorLeft - placeholder.Length, Console.CursorTop);
         }
         public static string XForDecimals(int maxValue)
         {
@@ -53,17 +53,17 @@ namespace Presentation.Helpers
         public static string FormatWords(string stringToChange)
         {
             stringToChange = StringWithoutExtraSpaces(stringToChange);
-            List<int> spaceLocations = new() { 0};
-            for(var charIndex = 0; charIndex < stringToChange.Length-1; charIndex++)
+            List<int> spaceLocations = new() { 0 };
+            for (var charIndex = 0; charIndex < stringToChange.Length - 1; charIndex++)
             {
-                if(stringToChange[charIndex] == ' ')
+                if (stringToChange[charIndex] == ' ')
                 {
-                    spaceLocations.Add(charIndex+1);
+                    spaceLocations.Add(charIndex + 1);
                 }
             }
-            foreach(var index in spaceLocations)
+            foreach (var index in spaceLocations)
             {
-                stringToChange =  ChangeCharacterIntoUppercase(stringToChange, index);
+                stringToChange = ChangeCharacterIntoUppercase(stringToChange, index);
             }
             return stringToChange;
         }
@@ -104,7 +104,7 @@ namespace Presentation.Helpers
                 }
                 var letter = "" + stringWithNoUppercase[index];
                 letter = letter.ToUpper();
-            
+
                 if (stringWithNoUppercase.Length > index + 1)
                 {
                     stringWithNoUppercase = stringWithNoUppercase.Remove(index, 1);

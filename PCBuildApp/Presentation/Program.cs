@@ -81,7 +81,7 @@ namespace Presentation
                             }
                             else
                             {
-                                PrintBill(billsAndUser);
+                                PrintBill();
                             }
                             break;
                         }
@@ -210,10 +210,11 @@ namespace Presentation
                                 Console.ReadLine();
                                 break;
                             }
-                            Console.WriteLine("Vaš PC:\n" + GetFunctions.GetPC().ToString());
+                            Console.WriteLine("Vaš PC:\n" + GetFunctions.GetPC().ToString() + "\n");
                             if (InputHelpers.UserConfirmation("Ako ste zadovoljni i želite nastaviti prema odabiru načina preuzimanja potvrdite: "))
+                            {
                                 return;
-                            { }
+                            }
                             break;
                         }
                 }
@@ -251,7 +252,7 @@ namespace Presentation
                 var choice = (Enums.DiscountChoice)InputHelpers.UserNumberInput("odabir popusta", 1, 4);
                 switch (choice)
                 {
-                   case Enums.DiscountChoice.VIP:
+                    case Enums.DiscountChoice.VIP:
                         {
                             if (discounts.Item1)
                             {
@@ -259,7 +260,7 @@ namespace Presentation
                                 Console.ReadLine();
                                 break;
                             }
-                            if (GetFunctions.AmountSpentIsEnough())
+                            if (!GetFunctions.AmountSpentIsEnough())
                             {
                                 Console.WriteLine("Niste još ostvarili pravo na ovaj popust!");
                                 Console.ReadLine();
@@ -323,21 +324,22 @@ namespace Presentation
             while (InputHelpers.UserConfirmation("Potvrdite ponovni unos: "));
             return false;
         }
-        static void PrintBill((Data.Entities.User,List<Data.Entities.Bill>) billsAndUser)
+        static void PrintBill()
         {
+            var billsAndUser = GetFunctions.GetUserBills();
             Console.Write(new string('=', Console.WindowWidth));
             Console.WriteLine();
             Console.WriteLine(billsAndUser.Item1.ToString());
             foreach (var bill in billsAndUser.Item2)
             {
-                foreach(var order in bill.Orders)
+                foreach (var order in bill.Orders)
                 {
-                    Console.WriteLine(order.ToString());
+                    Console.WriteLine(order.ToString()+"\n\n");
                 }
-                Console.Write(new string('-', Console.WindowWidth));
                 Console.Write(bill.ToString(bill.Discounts.Item2));
+
+                Console.Write(new string('-', Console.WindowWidth));
             }
-            Console.Write(new string('-', Console.WindowWidth));
             Console.WriteLine();
             Console.Write(new string('=', Console.WindowWidth));
             Console.ReadLine();

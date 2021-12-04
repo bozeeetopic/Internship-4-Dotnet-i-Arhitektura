@@ -8,11 +8,11 @@ namespace Presentation.Helpers
 {
     public class PrintHelpers
     {
-       public static void PrintComponentsMenu(int binaryMemory)
+        public static void PrintComponentsMenu(int binaryMemory)
         {
             Console.WriteLine("Unesite broj komponente:\n");
             bool hasAllInputs = false;
-            if (binaryMemory == 15) 
+            if (binaryMemory == 15)
             {
                 hasAllInputs = true;
             }
@@ -27,7 +27,7 @@ namespace Presentation.Helpers
                 Console.Write("1 - Odabir Procesora\n");
             }
 
-            if(binaryMemory >= 4)
+            if (binaryMemory >= 4)
             {
                 ConsoleHelper.Green("2 - Mjenjanje RAM memorije\n");
                 binaryMemory -= 4;
