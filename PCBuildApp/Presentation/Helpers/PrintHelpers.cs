@@ -60,8 +60,10 @@ namespace Presentation.Helpers
             }
             else
             {
-                ConsoleHelpers.WriteInColor("5 - Nastavak prema plačanju\n", ConsoleColor.Red);
+                ConsoleHelpers.WriteInColor("5 - Nastavak prema odabiru načina preuzeća\n", ConsoleColor.Red);
             }
+
+            Console.Write("6 - Odustani\n");
             Console.WriteLine();
         }
         public static void MainAppMenu()
@@ -111,6 +113,7 @@ namespace Presentation.Helpers
             Console.WriteLine("Unesite broj pored načina preuzimanja računala:\n");
             Console.Write("1 - Osobno preuzimanje (besplatno)\n");
             Console.Write("2 - Dostava (dodatna naplata ovisno o težini narudžbe)\n");
+            Console.Write("3 - Odustani or narudžbe\n");
             Console.WriteLine();
         }
         public static void DiscountMenu()
@@ -130,12 +133,7 @@ namespace Presentation.Helpers
             Console.WriteLine(billsAndUser.Item1.ToString());
             foreach (var bill in billsAndUser.Item2)
             {
-                foreach (var order in bill.Orders)
-                {
-                    Console.WriteLine(order.ToString() + "\n\n");
-                }
                 Console.Write(bill.ToString(bill.Discounts.Item2));
-
                 Console.Write(new string('-', Console.WindowWidth));
             }
             Console.WriteLine();

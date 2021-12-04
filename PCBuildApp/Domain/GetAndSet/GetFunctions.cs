@@ -111,12 +111,12 @@ namespace Domain.GetAndSet
             }
             return false;
         }
-        public static bool ContainsCode(string code)
+        public static bool ContainsCode(string codeInputedByUser)
         {
-            if (RunningAppStorage.UnusedDiscountCodes.ContainsKey(code))
+            if (RunningAppStorage.UnusedDiscountCodes.ContainsKey(codeInputedByUser))
             {
-                RunningAppStorage.Bill.PricePercentage = RunningAppStorage.UnusedDiscountCodes[code];
-                RunningAppStorage.UnusedDiscountCodes.Remove(code);
+                RunningAppStorage.Bill.PricePercentage = RunningAppStorage.UnusedDiscountCodes[codeInputedByUser];
+                RunningAppStorage.UnusedDiscountCodes.Remove(codeInputedByUser);
                 return true;
             }
             return false;

@@ -105,12 +105,11 @@ namespace Presentation
                 {
                     case OrderChoice.Order:
                         {
-                            do
+                            if (ChooseComponent())
                             {
-                                ChooseComponent();
                                 ChooseShipmentMethod();
+                                break;
                             }
-                            while (InputHelpers.UserConfirmation("Ako želite unjeti još računala potvrdite: "));
                             break;
                         }
                     case OrderChoice.Discount:
@@ -138,14 +137,14 @@ namespace Presentation
                 Console.Clear();
             }
         }
-        static void ChooseComponent()
+        static bool ChooseComponent()
         {
             int numberOfStepsDone = 0;
             while (numberOfStepsDone <= 15)
             {
                 Console.Clear();
                 PrintHelpers.ComponentsMenu(numberOfStepsDone);
-                var choice = (ComponentsChoice)InputHelpers.UserNumberInput("vaš izbor komponente", 1, 5);
+                var choice = (ComponentsChoice)InputHelpers.UserNumberInput("vaš izbor komponente", 1, 6);
                 Console.Clear();
                 switch (choice)
                 {
@@ -210,19 +209,25 @@ namespace Presentation
                                 Console.ReadKey();
                                 break;
                             }
-                            Console.WriteLine($"Vaš PC:\n {GetFunctions.GetPC()}\n");
+                            Console.WriteLine($"Vaš PC:\n{GetFunctions.GetPC()}\n");
                             if (InputHelpers.UserConfirmation("Ako ste zadovoljni i želite nastaviti prema odabiru načina preuzimanja potvrdite: "))
                             {
                                 Console.Clear();
-                                return;
+                                return true;
                             }
                             break;
+                        }
+                    case ComponentsChoice.Exit:
+                        {
+                            SetFunctions.SetPC();
+                            return false;
                         }
                 }
                 Console.Clear();
             }
+            return false;
         }
-        static void ChooseShipmentMethod()
+        static bool ChooseShipmentMethod()
         {
             Console.Clear();
             var travelPrice = 0;
@@ -239,9 +244,15 @@ namespace Presentation
                         travelPrice = GetFunctions.GetDeliveryPrice();
                         break;
                     }
+                case ShipmentChoice.Exit:
+                    {
+                        SetFunctions.SetPC();
+                        return false;
+                    }
             }
             SetFunctions.PutOrderIntoList(travelPrice);
             Console.Clear();
+            return true;
         }
         static void AddDiscount()
         {
@@ -284,7 +295,7 @@ namespace Presentation
                                 Console.ReadKey();
                                 break;
                             }
-                            SetFunctions.SetDiscounts((true, discounts.Item2, discounts.Item3));
+                            SetFunctions.SetDiscounts((discounts.Item1, true, discounts.Item3));
                             break;
                         }
                     case DiscountChoice.Code:
@@ -297,7 +308,7 @@ namespace Presentation
                             }
                             if (InputHelpers.UserSuccesfullCodeInput())
                             {
-                                SetFunctions.SetDiscounts((true, discounts.Item2, discounts.Item3));
+                                SetFunctions.SetDiscounts((discounts.Item1, discounts.Item2, true));
                             }
                             break;
                         }

@@ -34,10 +34,11 @@ namespace Data.Entities
             {
                 if (component.Value >= 3)
                 {
-                    var numberOfExtraComponents = (component.Value % 3) / 3;
+                    var numberOfExtraComponents = (component.Value - component.Value % 3) / 3;
                     while (numberOfExtraComponents > 0)
                     {
                         ExtraComponents.Add(component.Key);
+                        numberOfExtraComponents--;
                     }
                 }
             }
@@ -50,6 +51,8 @@ namespace Data.Entities
             {
                 counter += component.Price;
             }
+            Console.WriteLine(counter);
+            Console.ReadLine();
             return counter;
         }
         public double AmountSpent()
@@ -75,6 +78,10 @@ namespace Data.Entities
         public string ToString(bool discount)
         {
             var stringToReturn = "";
+            foreach (var order in Orders)
+            {
+                stringToReturn += order.ToString() + "\n\n";
+            }
             if (discount)
             {
                 foreach (var component in ExtraComponents())

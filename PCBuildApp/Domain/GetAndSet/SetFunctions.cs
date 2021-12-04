@@ -96,5 +96,9 @@ namespace Domain.GetAndSet
             RunningAppStorage.Computer = new();
             RunningAppStorage.Bill = new() { Orders = new() };
         }
+        public static void SetPC()
+        {
+            RunningAppStorage.Computer = new();
+        }
     }
 }

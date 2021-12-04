@@ -12,6 +12,7 @@ namespace Presentation.Enums
         Ram = 2,
         HardDisc = 3,
         Case = 4,
-        Done = 5
+        Done = 5,
+        Exit = 6
     }
 }
