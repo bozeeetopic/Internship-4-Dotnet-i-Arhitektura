@@ -84,11 +84,12 @@ namespace Data.Entities
             }
             if (discount)
             {
+                stringToReturn += "Extra komponente:\n";
                 foreach (var component in ExtraComponents())
                 {
                     stringToReturn += component.ToString() + "\n";
                 }
-                stringToReturn += $"Ukupna cijena besplatnih komponenata: -{AmountFromExtraComponents(ExtraComponents())}kn";
+                stringToReturn += $"Ukupna cijena besplatnih komponenata: \t\t\t\t{AmountFromExtraComponents(ExtraComponents())}kn";
                 stringToReturn += $"\n\nPopust u kunama: \t\t{AmountFromExtraComponents(ExtraComponents()) + PriceReduction}kn";
                 stringToReturn += $"\nPopust u postotku: \t\t{PricePercentage}%";
                 var totalPrice = (int)((AmountSpent() - AmountFromExtraComponents(ExtraComponents())) / 100 * (100 - PricePercentage)) - PriceReduction;
