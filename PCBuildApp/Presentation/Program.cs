@@ -9,31 +9,32 @@ namespace Presentation
     {
         static void Main()
         {
-            PrintHelpers.PrintLogo(ConsoleColor.White,ConsoleColor.Yellow,ConsoleColor.Blue);
-            SetFunctions.PullDiscountCodesFromData();
-            while (true)
+        PrintHelpers.PrintLogo(ConsoleColor.White,ConsoleColor.Yellow,ConsoleColor.Blue);
+        SetFunctions.PullDiscountCodesFromData();
+        while (true)
+        {
+            Console.Clear();
+            PrintHelpers.MainMenu();
+            var choice = (MainMenuChoice)InputHelpers.UserNumberInput("vaš izbor", 1, 2);
+            Console.Clear();
+            switch (choice)
             {
-                PrintHelpers.MainMenu();
-                var choice = (MainMenuChoice)InputHelpers.UserNumberInput("vaš izbor", 1, 2);
-                Console.Clear();
-                switch (choice)
-                {
-                    case MainMenuChoice.LogIn:
+                case MainMenuChoice.LogIn:
+                    {
+                        if (UserLogin())
                         {
-                            if (UserLogin())
-                            {
-                                MainApp();
-                            }
-                            break;
+                            MainApp();
                         }
-                    case MainMenuChoice.Exit:
-                        {
-                            Console.WriteLine("Hvala na korištenju!");
-                            return;
-                        }
-                }
+                        break;
+                    }
+                case MainMenuChoice.Exit:
+                    {
+                        Console.WriteLine("Hvala na korištenju!");
+                        return;
+                    }
             }
         }
+    }
         static bool UserLogin()
         {
             var name = "";

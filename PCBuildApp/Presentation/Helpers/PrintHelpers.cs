@@ -1,11 +1,11 @@
 ﻿using System;
-using Domain;
 using Domain.GetAndSet;
 
 namespace Presentation.Helpers
 {
     public class PrintHelpers
     {
+
         public static void UserMenu(int binaryMemory)
         {
             var isUserComplete = false;
@@ -215,6 +215,11 @@ namespace Presentation.Helpers
         }
         public static void PrintLogo(ConsoleColor pc, ConsoleColor build, ConsoleColor app)
         {
+            var origWidth = Console.WindowWidth;
+            var origHeight = Console.WindowHeight;
+            Console.SetWindowSize(origWidth*2, origHeight*2);
+            Console.WriteLine("", origWidth*2, origHeight*2);
+
             ConsoleHelpers.WriteInColor("                                                                                          .,*//((/(//*,.                  ",pc); ConsoleHelpers.WriteInColor("  .//*.                                       .//*.             *//*   \n", build);
             ConsoleHelpers.WriteInColor("                      ,%@@@@@@@@@@@@@@@@@@@@@@@@@&%(*,.                             ,(&@@@@@@@@@@@@@@@@@@@@&/,.  .,,,.    ", pc); ConsoleHelpers.WriteInColor("  %@@&*                              ,@@@&*   %@@&*            ,@@@#.  \n", build);
             ConsoleHelpers.WriteInColor("                        ,&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@/                     .%@@@@@@@@#.       ,&@@@@@@@@@@@@@@%*@@( ", pc); ConsoleHelpers.WriteInColor("  *@@@#                               ,@@&*   *@@@#             &@@&*  \n", build);
@@ -243,6 +248,8 @@ namespace Presentation.Helpers
             Console.WriteLine();
             Console.WriteLine("\tBilo koja tipka za nastavak...");
             Console.ReadKey();
+            Console.SetWindowSize(origWidth, origHeight);
+            Console.WriteLine("", 120, 30);
         }
     }
 }
