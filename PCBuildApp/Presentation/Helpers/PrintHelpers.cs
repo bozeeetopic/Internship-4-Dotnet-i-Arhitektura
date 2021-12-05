@@ -72,10 +72,15 @@ namespace Presentation.Helpers
         public static void ComponentsMenu(int binaryMemory)
         {
             Console.WriteLine("Unesite broj komponente:\n");
-            bool hasAllInputs = false;
+            var hasAllInputs = false;
+            var isComputerEmpty = true;
             if (binaryMemory == 15)
             {
                 hasAllInputs = true;
+            }
+            if (binaryMemory > 0)
+            {
+                isComputerEmpty = false;
             }
 
             if (binaryMemory >= 8)
@@ -126,7 +131,14 @@ namespace Presentation.Helpers
                 ConsoleHelpers.WriteInColor("5 - Nastavak prema odabiru načina preuzeća\n", ConsoleColor.Red);
             }
 
-            Console.Write("6 - Odustani\n");
+            if (isComputerEmpty)
+            {
+                Console.Write("6 - Odustani\n");
+            }
+            else
+            {
+                ConsoleHelpers.WriteInColor("6 - Odustani\n", ConsoleColor.Yellow);
+            }
             Console.WriteLine();
         }
         public static void MainAppMenu(bool ordersExist)
@@ -184,7 +196,7 @@ namespace Presentation.Helpers
             Console.WriteLine("Unesite broj pored načina preuzimanja računala:\n");
             Console.Write("1 - Osobno preuzimanje (besplatno)\n");
             Console.Write("2 - Dostava (dodatna naplata ovisno o težini narudžbe)\n");
-            Console.Write("3 - Odustani od narudžbe\n");
+            ConsoleHelpers.WriteInColor("3 - Odustani od narudžbe\n", ConsoleColor.Yellow);
             Console.WriteLine();
         }
         public static void DiscountMenu((bool vip, bool amount, bool code) discount)
@@ -265,9 +277,8 @@ namespace Presentation.Helpers
             ConsoleHelpers.WriteInColor("                      .#@@(                                       *#//&&@@@@@@@@@@@@@&&/. *&@@(.       ", pc); ConsoleHelpers.WriteInColor("    @@@&*          (@@@@@@@*      *&@@,                       /@@@, \n", app);
             ConsoleHelpers.WriteInColor("    .#@@@@@@@@@@@@@@@@@@@@@&.                                       .#@@(.          .(&@@&*.           ", pc); ConsoleHelpers.WriteInColor("    @#              %@@#.        *@@@(                       (@@@(\n", app);
             ConsoleHelpers.WriteInColor("                                                                         ..,,,,,,,,..                  ", pc); ConsoleHelpers.WriteInColor("                                .(@%,                       .#@#. \n", app);
-            Console.WriteLine();
-            Console.WriteLine("\tBilo koja tipka za nastavak...");
-            Console.ReadKey();
+           
+            System.Threading.Thread.Sleep(2000);
             Console.SetWindowSize(origWidth, origHeight);
         }
     }

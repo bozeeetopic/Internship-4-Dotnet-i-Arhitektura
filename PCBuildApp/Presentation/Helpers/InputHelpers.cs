@@ -31,9 +31,9 @@ namespace Presentation.Helpers
                 }
                 if (repeatedInput && ConsoleHelpers.ForbiddenStringChecker(input.Trim().ToLower(), forbiddenString))
                 {
-                    Console.Write("Unos sadrži znak, moraju biti ");
+                    Console.Write("Unos sadrži broj ili znak, moraju biti ");
                     ConsoleHelpers.WriteInColor("isključivo", ConsoleColor.Red);
-                    Console.WriteLine(" brojevi!");
+                    Console.WriteLine(" slova!");
                     linesToDelete++;
                 }
 
@@ -105,7 +105,7 @@ namespace Presentation.Helpers
                 if (GetFunctions.ContainsCode(userInput))
                 {
                     Console.WriteLine($"Uspješno ste unjeli kod i on iznosi: {GetFunctions.GetBill().PricePercentageDiscount}%");
-                    Console.ReadKey();
+                    System.Threading.Thread.Sleep(2000);
                     return;
                 }
                 Console.WriteLine("\nUneseni kod ne postoji!");

@@ -99,7 +99,7 @@ namespace Presentation
                             if (counterOfInputs < 7)
                             {
                                 Console.WriteLine("Niste još unjeli sve podatke korisnika!");
-                                Console.ReadKey();
+                                System.Threading.Thread.Sleep(1000);
                                 break;
                             }
                             name = ConsoleHelpers.FormatWords(name.ToLower());
@@ -154,7 +154,7 @@ namespace Presentation
                             if (billsAndUser.Item2 == null)
                             {
                                 Console.WriteLine("Niste još uvijek odradili svoj prvi shopping.");
-                                Console.ReadKey();
+                                System.Threading.Thread.Sleep(1000);
                             }
                             else
                             {
@@ -211,7 +211,7 @@ namespace Presentation
                             if (!GetFunctions.OrdersExist())
                             {
                                 Console.WriteLine("Nemoguće upisati račun bez ijednog unesenog PC-a!");
-                                Console.ReadKey();
+                                System.Threading.Thread.Sleep(1000);
                                 break;
                             }
                             Console.WriteLine(GetFunctions.GetBill().ToString(GetFunctions.GetBill().ExtraPartsDiscount));
@@ -299,7 +299,7 @@ namespace Presentation
                             if (numberOfStepsDone != 15)
                             {
                                 Console.WriteLine("Nemoguće završiti kupnju, nisu sve komponente odabrane!");
-                                Console.ReadKey();
+                                System.Threading.Thread.Sleep(1000);
                                 break;
                             }
                             Console.WriteLine($"Vaš PC:\n{GetFunctions.GetPC()}\n");
@@ -355,6 +355,7 @@ namespace Presentation
                 var discounts = GetFunctions.GetDiscounts();
                 PrintHelpers.DiscountMenu(discounts);
                 var choice = (DiscountChoice)InputHelpers.UserNumberInput("odabir popusta", 1, 4);
+                Console.Clear();
                 switch (choice)
                 {
                     case DiscountChoice.VIP:
@@ -362,15 +363,17 @@ namespace Presentation
                             if (discounts.Item1)
                             {
                                 Console.WriteLine("Već ste ostvarili ovaj popust!");
-                                Console.ReadKey();
+                                System.Threading.Thread.Sleep(1000);
                                 break;
                             }
-                            if (!GetFunctions.AmountSpentIsEnough())
+                            if (GetFunctions.AmountSpentIsEnough())
                             {
-                                Console.WriteLine("Niste još ostvarili pravo na ovaj popust!");
-                                Console.ReadKey();
+                                Console.WriteLine("Ostvarili ste VIP popust u iznosu  100kn");
+                                System.Threading.Thread.Sleep(1000);
                                 break;
                             }
+                            Console.WriteLine("Niste još ostavarili pravo na ovaj popust!");
+                            System.Threading.Thread.Sleep(1000);
                             break;
                         }
                     case DiscountChoice.Amount:
@@ -378,15 +381,23 @@ namespace Presentation
                             if (discounts.Item2)
                             {
                                 Console.WriteLine("Već ste ostvarili ovaj popust!");
-                                Console.ReadKey();
+                                System.Threading.Thread.Sleep(1000);
                                 break;
                             }
                             if (!GetFunctions.ThereAreThreeSameComponentsInBill())
                             {
                                 Console.WriteLine("Niste još ostvarili pravo na ovaj popust!");
-                                Console.ReadKey();
+                                System.Threading.Thread.Sleep(1000);
                                 break;
                             }
+                            var bill = GetFunctions.GetBill();
+                            Console.WriteLine("Ostvarili ste pravo na ovaj popust!");
+                            foreach(var component in bill.ExtraComponents())
+                            {
+                                Console.WriteLine($"\t{component}");
+                            }
+                            Console.WriteLine(value: $"\tUkupna cijena besplatnih komponenata: \t\t\t\t{Data.Entities.Bill.TotalPriceOfExtraComponents(bill.ExtraComponents())}kn");
+                            System.Threading.Thread.Sleep(1000);
                             SetFunctions.SetDiscounts(true);
                             break;
                         }
@@ -395,7 +406,7 @@ namespace Presentation
                             if (discounts.Item3)
                             {
                                 Console.WriteLine("Već ste ostvarili ovaj popust!");
-                                Console.ReadKey();
+                                System.Threading.Thread.Sleep(1000);
                                 break;
                             }
                             InputHelpers.UserSuccesfullCodeInput();
