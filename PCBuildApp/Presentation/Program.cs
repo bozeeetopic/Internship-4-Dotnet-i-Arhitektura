@@ -120,6 +120,13 @@ namespace Presentation
                         }
                     case UserChoice.Abort:
                         {
+                            if (counterOfInputs > 0)
+                            {
+                                if(!InputHelpers.UserConfirmation("Jeste li sigurni da želite izaći? Svi uneseni podaci će biti izgubljeni! Potvrdite: "))
+                                {
+                                    break;
+                                }
+                            }
                             Console.Clear();
                             return false;
                         }
@@ -131,7 +138,7 @@ namespace Presentation
         {
             while (true)
             {
-                PrintHelpers.MainAppMenu();
+                PrintHelpers.MainAppMenu(GetFunctions.OrdersExist());
                 var choice = (MainAppChoice)InputHelpers.UserNumberInput("sljedeću akciju", 1, 3);
                 Console.Clear();
                 switch (choice)

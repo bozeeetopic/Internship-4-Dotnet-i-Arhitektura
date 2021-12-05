@@ -9,10 +9,16 @@ namespace Presentation.Helpers
         public static void UserMenu(int binaryMemory)
         {
             var isUserComplete = false;
+            var isUserEmpty = true;
             if (binaryMemory == 7)
             {
                 isUserComplete = true;
             }
+            if (binaryMemory > 0)
+            {
+                isUserEmpty = false;
+            }
+
             Console.WriteLine("Unesite broj uz ono što želite unjeti:\n");
             if (binaryMemory >= 4)
             {
@@ -53,7 +59,14 @@ namespace Presentation.Helpers
                 ConsoleHelpers.WriteInColor("4 - Log in\n", ConsoleColor.Red);
             }
 
-            Console.Write("5 - Odustani\n");
+            if (isUserEmpty)
+            {
+                Console.Write("5 - Odustani\n");
+            }
+            else
+            {
+                ConsoleHelpers.WriteInColor("5 - Odustani\n", ConsoleColor.Yellow);
+            }
             Console.WriteLine();
         }
         public static void ComponentsMenu(int binaryMemory)
@@ -116,12 +129,20 @@ namespace Presentation.Helpers
             Console.Write("6 - Odustani\n");
             Console.WriteLine();
         }
-        public static void MainAppMenu()
+        public static void MainAppMenu(bool ordersExist)
         {
             Console.WriteLine("Unesite broj pored akcije koju želite ispisati:\n");
-            Console.Write("1 - Dodavanje narudžbe\n");
-            Console.Write("2 - Pregled narudžbi\n");
-            Console.Write("3 - Log out\n");
+            Console.Write("1 - Dodavanje računa\n");
+            Console.Write("2 - Pregled računa\n");
+
+            if (ordersExist)
+            {
+                ConsoleHelpers.WriteInColor("3 - Log out\n", ConsoleColor.Yellow);
+            }
+            else
+            {
+                Console.Write("3 - Log out\n");
+            }
             Console.WriteLine();
         }
         public static void OrderMenu(bool hasOrder)
