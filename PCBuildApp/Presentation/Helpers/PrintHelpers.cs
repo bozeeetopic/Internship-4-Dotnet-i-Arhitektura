@@ -21,7 +21,7 @@ namespace Presentation.Helpers
             }
             else
             {
-                Console.Write("1 - Upis Imena\n");
+                Console.Write("1 - Upis imena\n");
             }
 
             if (binaryMemory >= 2)
@@ -217,8 +217,7 @@ namespace Presentation.Helpers
         {
             var origWidth = Console.WindowWidth;
             var origHeight = Console.WindowHeight;
-            Console.SetWindowSize(origWidth*2, origHeight*2);
-            Console.WriteLine("", origWidth*2, origHeight*2);
+            Console.SetWindowSize(origWidth*2, origHeight);
 
             ConsoleHelpers.WriteInColor("                                                                                          .,*//((/(//*,.                  ",pc); ConsoleHelpers.WriteInColor("  .//*.                                       .//*.             *//*   \n", build);
             ConsoleHelpers.WriteInColor("                      ,%@@@@@@@@@@@@@@@@@@@@@@@@@&%(*,.                             ,(&@@@@@@@@@@@@@@@@@@@@&/,.  .,,,.    ", pc); ConsoleHelpers.WriteInColor("  %@@&*                              ,@@@&*   %@@&*            ,@@@#.  \n", build);
@@ -249,7 +248,6 @@ namespace Presentation.Helpers
             Console.WriteLine("\tBilo koja tipka za nastavak...");
             Console.ReadKey();
             Console.SetWindowSize(origWidth, origHeight);
-            Console.WriteLine("", 120, 30);
         }
     }
 }
