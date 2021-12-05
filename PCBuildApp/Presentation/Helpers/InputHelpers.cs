@@ -95,7 +95,7 @@ namespace Presentation.Helpers
             }
             return false;
         }
-        public static bool UserSuccesfullCodeInput()
+        public static void UserSuccesfullCodeInput()
         {
             do
             {
@@ -104,12 +104,14 @@ namespace Presentation.Helpers
                 var userInput = UserStringInput("kod", "", 10);
                 if (GetFunctions.ContainsCode(userInput))
                 {
-                    return true;
+                    Console.WriteLine($"Uspješno ste unjeli kod i on iznosi: {GetFunctions.GetBill().PricePercentageDiscount}%");
+                    Console.ReadKey();
+                    return;
                 }
                 Console.WriteLine("\nUneseni kod ne postoji!");
             }
             while (UserConfirmation("Potvrdite ponovni unos: "));
-            return false;
+            return;
         }
     }
 }

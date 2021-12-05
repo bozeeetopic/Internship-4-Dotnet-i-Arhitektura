@@ -96,7 +96,17 @@ namespace Domain.GetAndSet
         }
         public static (bool, bool, bool) GetDiscounts()
         {
-            return RunningAppStorage.Bill.Discounts;
+            var vipDiscount = false;
+            var codeDiscount = false;
+            if (RunningAppStorage.Bill.VipPriceReduction > 0)
+            {
+                vipDiscount = true;
+            }
+            if (RunningAppStorage.Bill.PricePercentageDiscount > 0)
+            {
+                codeDiscount = true;
+            }
+            return (vipDiscount, RunningAppStorage.Bill.ExtraPartsDiscount, codeDiscount);
         }
         public static bool AmountSpentIsEnough()
         {
@@ -104,7 +114,7 @@ namespace Domain.GetAndSet
             {
                 if (RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount >= 1000)
                 {
-                    RunningAppStorage.Bill.PriceReduction += 100;
+                    RunningAppStorage.Bill.VipPriceReduction += 100;
                     RunningAppStorage.BillsOfUser[RunningAppStorage.CurrentUser].DiscountAmount = 0;
                     return true;
                 }
@@ -115,7 +125,7 @@ namespace Domain.GetAndSet
         {
             if (RunningAppStorage.UnusedDiscountCodes.ContainsKey(codeInputedByUser))
             {
-                RunningAppStorage.Bill.PricePercentage = RunningAppStorage.UnusedDiscountCodes[codeInputedByUser];
+                RunningAppStorage.Bill.PricePercentageDiscount = RunningAppStorage.UnusedDiscountCodes[codeInputedByUser];
                 RunningAppStorage.UnusedDiscountCodes.Remove(codeInputedByUser);
                 return true;
             }
@@ -128,6 +138,10 @@ namespace Domain.GetAndSet
                 return false;
             }
             return true;
+        }
+        public static Data.Entities.Bill GetBill()
+        {
+            return RunningAppStorage.Bill;
         }
     }
 }

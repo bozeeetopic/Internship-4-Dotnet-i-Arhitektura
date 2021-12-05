@@ -9,9 +9,9 @@ namespace Data.Entities
     public class Bill
     {
         public List<Order> Orders { get; set; }
-        public int PriceReduction { get; set; }
-        public int PricePercentage { get; set; }
-        public (bool, bool, bool) Discounts { get; set; }
+        public int VipPriceReduction { get; set; }
+        public int PricePercentageDiscount { get; set; }
+        public bool ExtraPartsDiscount { get; set; }
         public List<Component> ExtraComponents()
         {
             var OrdersCounter = new Dictionary<Component, int>();
@@ -44,7 +44,7 @@ namespace Data.Entities
             }
             return ExtraComponents;
         }
-        public static double AmountFromExtraComponents(List<Component> ExtraComponents)
+        public static double TotalPriceOfExtraComponents(List<Component> ExtraComponents)
         {
             var counter = 0;
             foreach (var component in ExtraComponents)
@@ -55,7 +55,7 @@ namespace Data.Entities
             Console.ReadLine();
             return counter;
         }
-        public double AmountSpent()
+        public double BillAmount()
         {
             var counter = 0.0;
             foreach (var order in Orders)
@@ -66,13 +66,13 @@ namespace Data.Entities
         }
         public double AmountSpentCountingDiscounts()
         {
-            var counter = AmountSpent();
-            counter *= (100 - PricePercentage);
-            if (Discounts.Item2)
+            var counter = BillAmount();
+            counter *= (100 - PricePercentageDiscount);
+            if (ExtraPartsDiscount)
             {
-                counter -= AmountFromExtraComponents(ExtraComponents());
+                counter -= TotalPriceOfExtraComponents(ExtraComponents());
             }
-            counter -= PriceReduction;
+            counter -= VipPriceReduction;
             return counter;
         }
         public string ToString(bool discount)
@@ -87,21 +87,21 @@ namespace Data.Entities
                 stringToReturn += "Extra komponente:\n";
                 foreach (var component in ExtraComponents())
                 {
-                    stringToReturn += component.ToString() + "\n";
+                    stringToReturn +=$"\t\t{component}\n";
                 }
-                stringToReturn += $"Ukupna cijena besplatnih komponenata: \t\t\t\t{AmountFromExtraComponents(ExtraComponents())}kn";
-                stringToReturn += $"\n\nPopust u kunama: \t\t{AmountFromExtraComponents(ExtraComponents()) + PriceReduction}kn";
-                stringToReturn += $"\nPopust u postotku: \t\t{PricePercentage}%";
-                var totalPrice = (int)((AmountSpent() - AmountFromExtraComponents(ExtraComponents())) / 100 * (100 - PricePercentage)) - PriceReduction;
-                stringToReturn += $"\n\nUkupno za platiti: \t\t\t\t\t{totalPrice}kn\n\n";
+                stringToReturn += $"Ukupna cijena besplatnih komponenata: \t\t\t\t\t\t{TotalPriceOfExtraComponents(ExtraComponents())}kn";
+                stringToReturn += $"\n\nPopust u kunama: \t\t\t\t\t\t\t\t{TotalPriceOfExtraComponents(ExtraComponents()) + VipPriceReduction}kn";
+                stringToReturn += $"\nPopust u postotku: \t\t\t\t\t\t\t\t{PricePercentageDiscount}%";
+                var totalPrice = (int)((BillAmount() - TotalPriceOfExtraComponents(ExtraComponents())) / 100 * (100 - PricePercentageDiscount)) - VipPriceReduction;
+                stringToReturn += $"\n\nUkupno za platiti: \t\t\t\t\t\t\t\t{totalPrice}kn\n\n";
                 return stringToReturn;
             }
             else
             {
-                stringToReturn += $"\n\nPopust u kunama: \t\t{PriceReduction}kn";
-                stringToReturn += $"\nPopust u postotku: \t\t{PricePercentage}%";
-                var totalPrice = (int)(AmountSpent() / 100 * (100 - PricePercentage)) - PriceReduction;
-                stringToReturn += $"\n\nUkupno za platiti: \t\t\t\t\t{totalPrice}kn\n\n";
+                stringToReturn += $"\n\nPopust u kunama: \t\t\t\t\t\t\t\t{VipPriceReduction}kn";
+                stringToReturn += $"\nPopust u postotku: \t\t\t\t\t\t\t\t{PricePercentageDiscount}%";
+                var totalPrice = (int)(BillAmount() / 100 * (100 - PricePercentageDiscount)) - VipPriceReduction;
+                stringToReturn += $"\n\nUkupno za platiti: \t\t\t\t\t\t\t\t{totalPrice}kn\n\n";
                 return stringToReturn;
             }
         }

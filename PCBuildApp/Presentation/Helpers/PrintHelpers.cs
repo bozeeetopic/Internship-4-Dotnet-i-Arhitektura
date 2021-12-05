@@ -113,15 +113,38 @@ namespace Presentation.Helpers
             Console.WriteLine("Unesite broj pored načina preuzimanja računala:\n");
             Console.Write("1 - Osobno preuzimanje (besplatno)\n");
             Console.Write("2 - Dostava (dodatna naplata ovisno o težini narudžbe)\n");
-            Console.Write("3 - Odustani or narudžbe\n");
+            Console.Write("3 - Odustani od narudžbe\n");
             Console.WriteLine();
         }
-        public static void DiscountMenu()
+        public static void DiscountMenu((bool vip, bool amount, bool code) discount)
         {
             Console.WriteLine("Unesite vrstu popusta koje želite ostvariti:\n");
-            Console.Write("1 - Popust na vjerno članstvo\n");
-            Console.Write("2 - Popust na količinu\n");
-            Console.Write("3 - Popust zbog promo kodova\n");
+            if (discount.vip)
+            {
+                ConsoleHelpers.WriteInColor("1 - Popust na vjerno članstvo\n", ConsoleColor.Red);
+            }
+            else
+            {
+                Console.Write("1 - Popust na vjerno članstvo\n");
+            }
+
+            if (discount.amount)
+            {
+                ConsoleHelpers.WriteInColor("2 - Popust na količinu\n", ConsoleColor.Red);
+            }
+            else
+            {
+                Console.Write("2 - Popust na količinu\n");
+            }
+
+            if (discount.code)
+            {
+                ConsoleHelpers.WriteInColor("3 - Popust zbog promo kodova\n", ConsoleColor.Red);
+            }
+            else
+            {
+                Console.Write("3 - Popust zbog promo kodova\n");
+            }
             Console.Write("4 - Povratak u prethodni meni\n");
             Console.WriteLine();
         }
@@ -133,7 +156,7 @@ namespace Presentation.Helpers
             Console.WriteLine(billsAndUser.Item1.ToString());
             foreach (var bill in billsAndUser.Item2)
             {
-                Console.Write(bill.ToString(bill.Discounts.Item2));
+                Console.Write(bill.ToString(bill.ExtraPartsDiscount));
                 Console.Write(new string('-', Console.WindowWidth));
             }
             Console.WriteLine();

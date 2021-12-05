@@ -86,9 +86,9 @@ namespace Domain.GetAndSet
             RunningAppStorage.Bill = new();
             RunningAppStorage.Bill.Orders = new();
         }
-        public static void SetDiscounts((bool VIP, bool amount, bool code) discounts)
+        public static void SetDiscounts(bool extraPartsDiscountEnabled)
         {
-            RunningAppStorage.Bill.Discounts = discounts;
+            RunningAppStorage.Bill.ExtraPartsDiscount = extraPartsDiscountEnabled;
         }
         public static void LogOut()
         {

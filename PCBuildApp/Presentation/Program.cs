@@ -86,6 +86,16 @@ namespace Presentation
                         }
                     case MainAppChoice.LogOut:
                         {
+                            if (GetFunctions.OrdersExist())
+                            {
+                                Console.WriteLine("Ako se izlogirate izgubit ćete svoje trenutno nenaplaćene narudžbe. Nastaviti? ");
+                                if (InputHelpers.UserConfirmation(""))
+                                {
+                                    SetFunctions.LogOut();
+                                    return;
+                                }
+                                break;
+                            }
                             SetFunctions.LogOut();
                             return;
                         }
@@ -125,7 +135,11 @@ namespace Presentation
                                 Console.ReadKey();
                                 break;
                             }
-                            SetFunctions.AddBill();
+                            Console.WriteLine(GetFunctions.GetBill().ToString(GetFunctions.GetBill().ExtraPartsDiscount));
+                            if (InputHelpers.UserConfirmation("Jeste li sigururni da želite naplatiti ovaj račun? "))
+                            {
+                                SetFunctions.AddBill();
+                            }
                             break;
                         }
                     case OrderChoice.Exit:
@@ -260,7 +274,7 @@ namespace Presentation
             {
                 Console.Clear();
                 var discounts = GetFunctions.GetDiscounts();
-                PrintHelpers.DiscountMenu();
+                PrintHelpers.DiscountMenu(discounts);
                 var choice = (DiscountChoice)InputHelpers.UserNumberInput("odabir popusta", 1, 4);
                 switch (choice)
                 {
@@ -278,7 +292,6 @@ namespace Presentation
                                 Console.ReadKey();
                                 break;
                             }
-                            SetFunctions.SetDiscounts((true, discounts.Item2, discounts.Item3));
                             break;
                         }
                     case DiscountChoice.Amount:
@@ -295,7 +308,7 @@ namespace Presentation
                                 Console.ReadKey();
                                 break;
                             }
-                            SetFunctions.SetDiscounts((discounts.Item1, true, discounts.Item3));
+                            SetFunctions.SetDiscounts(true);
                             break;
                         }
                     case DiscountChoice.Code:
@@ -306,10 +319,7 @@ namespace Presentation
                                 Console.ReadKey();
                                 break;
                             }
-                            if (InputHelpers.UserSuccesfullCodeInput())
-                            {
-                                SetFunctions.SetDiscounts((discounts.Item1, discounts.Item2, true));
-                            }
+                            InputHelpers.UserSuccesfullCodeInput();
                             break;
                         }
                     case DiscountChoice.Back:
