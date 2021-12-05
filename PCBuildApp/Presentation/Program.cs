@@ -9,6 +9,7 @@ namespace Presentation
     {
         static void Main()
         {
+            PrintHelpers.PrintLogo(ConsoleColor.White,ConsoleColor.Yellow,ConsoleColor.Blue);
             SetFunctions.PullDiscountCodesFromData();
             while (true)
             {
@@ -19,8 +20,10 @@ namespace Presentation
                 {
                     case MainMenuChoice.LogIn:
                         {
-                            UserLogin();
-                            MainApp();
+                            if (UserLogin())
+                            {
+                                MainApp();
+                            }
                             break;
                         }
                     case MainMenuChoice.Exit:
@@ -31,30 +34,97 @@ namespace Presentation
                 }
             }
         }
-        static void UserLogin()
+        static bool UserLogin()
         {
-            do
+            var name = "";
+            var surname = "";
+            var adress = "";
+            var adressNumber = 0;
+            var counterOfInputs = 0;
+            while (true)
             {
+                PrintHelpers.UserMenu(counterOfInputs);
+                var choice = (UserChoice)InputHelpers.UserNumberInput("vaše podatke", 1, 5);
                 Console.Clear();
-                Console.WriteLine("Unosite vaše podatke:\n");
-                var name = InputHelpers.UserStringInput("ime", ConsoleHelpers.symbols + ConsoleHelpers.numbers, 1);
-                var surname = InputHelpers.UserStringInput("prezime", ConsoleHelpers.symbols + ConsoleHelpers.numbers, 1);
-                var adress = InputHelpers.UserStringInput("adresu", ConsoleHelpers.symbols + ConsoleHelpers.numbers, 1);
-                var adressNumber = InputHelpers.UserNumberInput("adresni broj", 1, 999);
+                switch (choice)
+                {
+                    case UserChoice.Name:
+                        {
+                            if(name != "")
+                            {
+                                name = InputHelpers.UserStringInput("ime", ConsoleHelpers.symbols + ConsoleHelpers.numbers, 1);
 
-                name = ConsoleHelpers.FormatWords(name.ToLower());
-                surname = ConsoleHelpers.FormatWords(surname.ToLower());
-                adress = ConsoleHelpers.FormatWords(adress.ToLower());
+                                break;
+                            }
+                            else
+                            {
+                                name = InputHelpers.UserStringInput("ime", ConsoleHelpers.symbols + ConsoleHelpers.numbers, 1);
+                                counterOfInputs += 4;
+                                break;
+                            }
+                        }
+                    case UserChoice.Surname:
+                        {
+                            if (surname != "")
+                            {
+                                surname = InputHelpers.UserStringInput("prezime", ConsoleHelpers.symbols + ConsoleHelpers.numbers, 1);
+                                break;
+                            }
+                            else
+                            {
+                                surname = InputHelpers.UserStringInput("prezime", ConsoleHelpers.symbols + ConsoleHelpers.numbers, 1);
+                                counterOfInputs += 2;
+                                break;
+                            }
+                        }
+                    case UserChoice.Adress:
+                        {
+                            if (adressNumber != 0)
+                            {
+                                adress = InputHelpers.UserStringInput("adresu", ConsoleHelpers.symbols + ConsoleHelpers.numbers, 1);
+                                adressNumber = InputHelpers.UserNumberInput("adresni broj", 1, 999);
+                                break;
+                            }
+                            else
+                            {
+                                adress = InputHelpers.UserStringInput("adresu", ConsoleHelpers.symbols + ConsoleHelpers.numbers, 1);
+                                adressNumber = InputHelpers.UserNumberInput("adresni broj", 1, 999);
+                                counterOfInputs += 1;
+                                break;
+                            }
+                        }
+                    case UserChoice.Continue:
+                        {
+                            if (counterOfInputs < 7)
+                            {
+                                Console.WriteLine("Niste još unjeli sve podatke korisnika!");
+                                Console.ReadKey();
+                                break;
+                            }
+                            name = ConsoleHelpers.FormatWords(name.ToLower());
+                            surname = ConsoleHelpers.FormatWords(surname.ToLower());
+                            adress = ConsoleHelpers.FormatWords(adress.ToLower());
 
+                            Console.Clear();
+                            Console.WriteLine("Kornisnički podaci: ");
+                            Console.WriteLine($"Ime: {name}\nPrezime: {surname}\nAdresa: {adress} {adressNumber}");
+                            Console.WriteLine();
+                            if (InputHelpers.UserConfirmation("Potvrdite unos korisnika: "))
+                            {
+                                Console.Clear();
+                                SetFunctions.AddUser(name, surname, adress + " " + adressNumber, new Random(adressNumber + adress.Length).Next(50, 999));
+                                return true;
+                            }
+                            break;
+                        }
+                    case UserChoice.Abort:
+                        {
+                            Console.Clear();
+                            return false;
+                        }
+                }
                 Console.Clear();
-                Console.WriteLine("Kornisnički podaci: ");
-                Console.WriteLine($"Ime: {name}\nPrezime: {surname}\nAdresa: {adress} {adressNumber}");
-                Console.WriteLine();
-
-                SetFunctions.AddUser(name, surname, adress + " " + adressNumber, new Random(adressNumber + adress.Length).Next(50, 999));
             }
-            while (!InputHelpers.UserConfirmation("Potvrdite unos korisnika: "));
-            Console.Clear();
         }
         static void MainApp()
         {
@@ -88,15 +158,16 @@ namespace Presentation
                         {
                             if (GetFunctions.OrdersExist())
                             {
-                                Console.WriteLine("Ako se izlogirate izgubit ćete svoje trenutno nenaplaćene narudžbe. Nastaviti? ");
-                                if (InputHelpers.UserConfirmation(""))
+                                if (InputHelpers.UserConfirmation("Ako se izlogirate izgubit ćete svoje trenutno nenaplaćene narudžbe. Nastaviti? "))
                                 {
+                                    Console.Clear();
                                     SetFunctions.LogOut();
                                     return;
                                 }
                                 break;
                             }
                             SetFunctions.LogOut();
+                            Console.Clear();
                             return;
                         }
                 }

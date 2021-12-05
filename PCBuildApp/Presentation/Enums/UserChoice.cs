@@ -11,6 +11,7 @@ namespace Presentation.Enums
         Name = 1,
         Surname = 2,
         Adress = 3,
-        Abort = 4
+        Continue = 4,
+        Abort = 5
     }
 }

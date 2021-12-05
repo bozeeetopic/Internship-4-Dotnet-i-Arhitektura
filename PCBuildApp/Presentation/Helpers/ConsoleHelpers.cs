@@ -114,5 +114,10 @@ namespace Presentation.Helpers
             }
             return stringBeingUppercased;
         }
+
+        internal static void WriteInColor(string v1, string v2)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

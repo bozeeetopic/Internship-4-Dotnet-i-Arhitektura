@@ -6,6 +6,56 @@ namespace Presentation.Helpers
 {
     public class PrintHelpers
     {
+        public static void UserMenu(int binaryMemory)
+        {
+            var isUserComplete = false;
+            if (binaryMemory == 7)
+            {
+                isUserComplete = true;
+            }
+            Console.WriteLine("Unesite broj uz ono što želite unjeti:\n");
+            if (binaryMemory >= 4)
+            {
+                ConsoleHelpers.WriteInColor("1 - Mjenjanje imena\n", ConsoleColor.Green);
+                binaryMemory -= 4;
+            }
+            else
+            {
+                Console.Write("1 - Upis Imena\n");
+            }
+
+            if (binaryMemory >= 2)
+            {
+                ConsoleHelpers.WriteInColor("2 - Mjenjanje prezimena\n", ConsoleColor.Green);
+                binaryMemory -= 2;
+            }
+            else
+            {
+                Console.Write("2 - Upis prezimena\n");
+            }
+
+            if (binaryMemory >= 1)
+            {
+                ConsoleHelpers.WriteInColor("3 - Mjenjanje adrese\n", ConsoleColor.Green);
+            }
+            else
+            {
+                Console.Write("3 - Upis adrese\n");
+            }
+
+
+            if (isUserComplete)
+            {
+                Console.Write("4 - Log in\n");
+            }
+            else
+            {
+                ConsoleHelpers.WriteInColor("4 - Log in\n", ConsoleColor.Red);
+            }
+
+            Console.Write("5 - Odustani\n");
+            Console.WriteLine();
+        }
         public static void ComponentsMenu(int binaryMemory)
         {
             Console.WriteLine("Unesite broj komponente:\n");
@@ -162,6 +212,37 @@ namespace Presentation.Helpers
             Console.WriteLine();
             Console.Write(new string('=', Console.WindowWidth));
             Console.ReadLine();
+        }
+        public static void PrintLogo(ConsoleColor pc, ConsoleColor build, ConsoleColor app)
+        {
+            ConsoleHelpers.WriteInColor("                                                                                          .,*//((/(//*,.                  ",pc); ConsoleHelpers.WriteInColor("  .//*.                                       .//*.             *//*   \n", build);
+            ConsoleHelpers.WriteInColor("                      ,%@@@@@@@@@@@@@@@@@@@@@@@@@&%(*,.                             ,(&@@@@@@@@@@@@@@@@@@@@&/,.  .,,,.    ", pc); ConsoleHelpers.WriteInColor("  %@@&*                              ,@@@&*   %@@&*            ,@@@#.  \n", build);
+            ConsoleHelpers.WriteInColor("                        ,&@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@/                     .%@@@@@@@@#.       ,&@@@@@@@@@@@@@@%*@@( ", pc); ConsoleHelpers.WriteInColor("  *@@@#                               ,@@&*   *@@@#             &@@&*  \n", build);
+            ConsoleHelpers.WriteInColor("                         /@@@@@@@@@&.........  .*&@@@@@@@@@@/(@&,            /&@@@@@@@#..#&@&#*,,(@@&#&@@@@@@@@@@(#@@(   ", pc); ConsoleHelpers.WriteInColor(" .&@@&,./%&&(.      #&&#.    *&&%*    #&&(.   %@@&*     .(&&%/./@@@#   \n", build);
+            ConsoleHelpers.WriteInColor("                        /@@@@@@@@@@@@&*      .,/%@@@@@@@@@@@@(@@%.        *&@@@@@@@&//&@&*          .*/&@@@@@@&(%@@*    ", pc); ConsoleHelpers.WriteInColor("  /@@@@@@@@@@@@&*   /@@@#     @@@%,   /@@@(   /@@@#   .%@@@@@@@@@@@&,  \n", build);
+            ConsoleHelpers.WriteInColor("                       *&@@@@@@@@@@@@/            (@@@@@@@@@@(%@%.      /@@@@@@@@@(#@@(                #@@@@&#&@%,     ", pc); ConsoleHelpers.WriteInColor("  .&@@@%,    #@@@(  .&@@&,    (@@@(   .&@@&,  .%@@&,  /@@@&.    /@@@# \n", build);
+            ConsoleHelpers.WriteInColor("                      ,%@@@@@@@@@&@@(            .%@@@@@@@@@@%@@(     (@@@@@@@@@#/@@(.                 #@@@&@@%,      ", pc); ConsoleHelpers.WriteInColor("   /@@@#      &@@&*  /@@@#    ,@@@&,   /@@@#   /@@@#  ,%@@@.    ,&@@@, \n", build);
+            ConsoleHelpers.WriteInColor("                     .#@@@@@@@@@&@@#             (@@@@@@@@@@#@@&    /@@@@@@@@@@,@@&*                   ,,#@@%.       ", pc); ConsoleHelpers.WriteInColor("   .%@@@*    *&@@@/  .%@@@*  .#@@@@(   .&@@&.  .%@@@.  *&@@&    (@@@@#  \n", build);
+            ConsoleHelpers.WriteInColor("                    .(@@@@@@@@@@@@#            ,%@@@@@@@@@&/&@%   .#@@@@@@@@@%/@@&.                      ..         ", pc); ConsoleHelpers.WriteInColor("    /&@@@@@@@@@@@#    .%@@@@@@@@&@@&.   /@@@#   /&@@#    #@@@@@@@&%@@@.\n", build);
+            ConsoleHelpers.WriteInColor("                    /@@@@@@@@@@@@%.          *&@@@@@@@@@&(#@@*   ,&@@@@@@@@@#(@@%                                ", pc); ConsoleHelpers.WriteInColor("       ,**.  ,***,          ,***.  ,**.    ,***    ,***       ,***.  ,**. \n", build);
+            ConsoleHelpers.WriteInColor("                   /@@@@@@@@@@@@%,     .*/%@@@@@@@@@@@(,(@@/    *@@@@@@@@@@#(@@#                               \n", pc);
+            ConsoleHelpers.WriteInColor("            .*#@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@&#*./@@#,     *@@@@@@@@@@%(&@#                               \n", pc); 
+            ConsoleHelpers.WriteInColor("         .%@@@#,.#@@@@@@@@@@@@@@@@@@@&%%#(*.   ./&@@#.        .@@@@@@@@@@&(%@%.      \n", pc);
+            ConsoleHelpers.WriteInColor("         ...*(%&&@@@@@@@@@@@&&&&&&&&&&%%##(*,..               &@@@@@@@@@@##@&,                                   ", pc); ConsoleHelpers.WriteInColor("                  .#@@@@@(,/&&@@@@@@@@@@@@@@@@@&/     .(&@@@@@@@@@@@@@@@@@@%* \n", app);
+            ConsoleHelpers.WriteInColor("          ,.   .&@@@@@@@@@@@@(                               *@@@@@@@@@@&/@@(                        .           ", pc); ConsoleHelpers.WriteInColor("               /&@&/#@@@#&@@@@@@@@@@@@@@@@@@@@@@@&* *&@@@@@@@@@@@@@@@@@@@@@@@&,\n", app);
+            ConsoleHelpers.WriteInColor("              .%@@@@@@@@@@@@#                                %@@@@@@@@@@(#@&*                     ,@@@@(**,      ", pc); ConsoleHelpers.WriteInColor("            /&@%* ,@@@&(@@@&#/*.   ,&@&.      .#@@%%@@@&(/,.   *@@#       ,%@@#.\n", app);
+            ConsoleHelpers.WriteInColor("             .#@@@@@@@@@@@@&                                .&@@@@@@@@@@*%@%,                    (@@@@@@@@,    ", pc); ConsoleHelpers.WriteInColor("           /@@%*  .#@@@(           .%@@*         *@@#.         ,&@@*         /@@(\n", app);
+            ConsoleHelpers.WriteInColor("             (@@@@@@@@@@@@@                                  %@@@@@@@@@@*%@%,                  .&@@@@%&@&.    ", pc); ConsoleHelpers.WriteInColor("    .*,,.,%@@*    *&@@@,          .(@@/          (@@&*        .%@@*          #@@&,\n", app);
+            ConsoleHelpers.WriteInColor("            /@@@@@@@@@@@@@.                                  *@@@@@@@@@@#(@@/                .#@@@@&(@@(    ", pc); ConsoleHelpers.WriteInColor("   /@@@@@@@@@@@@@@@@@@@@@@@(      /%@@&#*,      /&@@@%.      ./&@@&(*.      (@@@@#\n", app);
+            ConsoleHelpers.WriteInColor("           ,@@@@@@@@@@@@@*                                    #@@@@@@@@@@(%@&,             ,&@@@@&*&@%,     ", pc); ConsoleHelpers.WriteInColor("  /&@@@@@@@@@@@@@@@@@@@&&/   .#@@@@@@&%%%%%&@@@@@@@/.    .%@@@@@@&%%%%%&@@@@@@@*\n", app);
+            ConsoleHelpers.WriteInColor("         ,(@@@@@@@@@@@@@*                                      *@@@@@@@@@@%(%@&/.      ./%@@@@@#/&@%,    ", pc); ConsoleHelpers.WriteInColor("       *&@&*       *@@@&*       .(@@@@@@@@@@@@@@@%/,        .#@@@@@@@@@@@@@@@#/.\n", app);
+            ConsoleHelpers.WriteInColor("     ./@@@@@@@@@@@@@@@@@@*                                       *&@@@@@@@@@@@%(//(%@@@@@@@&(*#@@#      ", pc); ConsoleHelpers.WriteInColor("    ,*(@@#         #@@@%, .,      .%@@(                       ,@@@/  \n", app);
+            ConsoleHelpers.WriteInColor("                      .#@@(                                       *#//&&@@@@@@@@@@@@@&&/. *&@@(.       ", pc); ConsoleHelpers.WriteInColor("    @@@&*          (@@@@@@@*      *&@@,                       /@@@, \n", app);
+            ConsoleHelpers.WriteInColor("    .#@@@@@@@@@@@@@@@@@@@@@&.                                       .#@@(.          .(&@@&*.           ", pc); ConsoleHelpers.WriteInColor("    @#              %@@#.        *@@@(                       (@@@(\n", app);
+            ConsoleHelpers.WriteInColor("                                                                         ..,,,,,,,,..                  ", pc); ConsoleHelpers.WriteInColor("                                .(@%,                       .#@#. \n", app);
+            Console.WriteLine();
+            Console.WriteLine("\tBilo koja tipka za nastavak...");
+            Console.ReadKey();
         }
     }
 }
