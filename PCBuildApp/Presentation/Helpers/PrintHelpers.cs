@@ -124,7 +124,7 @@ namespace Presentation.Helpers
 
             if (hasAllInputs)
             {
-                Console.Write("5 - Nastavak prema plačanju\n");
+                Console.Write("5 - Nastavak prema odabiru načina preuzeća\n");
             }
             else
             {

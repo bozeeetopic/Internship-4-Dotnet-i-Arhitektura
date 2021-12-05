@@ -51,8 +51,6 @@ namespace Data.Entities
             {
                 counter += component.Price;
             }
-            Console.WriteLine(counter);
-            Console.ReadLine();
             return counter;
         }
         public double BillAmount()
@@ -67,11 +65,11 @@ namespace Data.Entities
         public double AmountSpentCountingDiscounts()
         {
             var counter = BillAmount();
-            counter *= (100 - PricePercentageDiscount);
             if (ExtraPartsDiscount)
             {
                 counter -= TotalPriceOfExtraComponents(ExtraComponents());
             }
+            counter *= (100 - PricePercentageDiscount);
             counter -= VipPriceReduction;
             return counter;
         }
@@ -91,7 +89,7 @@ namespace Data.Entities
                 {
                     stringToReturn +=$"\t{component}\n";
                 }
-                stringToReturn += $"\tUkupna cijena besplatnih komponenata: \t\t\t\t{TotalPriceOfExtraComponents(ExtraComponents())}kn";
+                stringToReturn += $"\n\tUkupna cijena besplatnih komponenata: \t\t\t\t{TotalPriceOfExtraComponents(ExtraComponents())}kn";
                 stringToReturn += $"\n\nPopust u kunama: \t\t\t\t\t\t\t\t-{TotalPriceOfExtraComponents(ExtraComponents()) + VipPriceReduction}kn";
                 stringToReturn += $"\nPopust u postotku: \t\t\t\t\t\t\t\t-{PricePercentageDiscount}%";
                 var totalPrice = (int)((BillAmount() - TotalPriceOfExtraComponents(ExtraComponents())) / 100 * (100 - PricePercentageDiscount)) - VipPriceReduction;
